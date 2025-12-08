@@ -1,0 +1,1656 @@
+@charset "UTF-8";
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --fundo: #F4F0E7;
+    --fundo-section: #e2d0b8;
+    --detalhes: #A67449;
+    --secundario: #3e3a37;
+    --texto: #4a3622;
+
+    --fonte-titulo: "EB Garamond", serif;
+    --variação: "Playfair Display", serif;
+    --fonte-secundaria: "Montserrat", sans-serif;
+}
+
+body {
+    background-color: var(--fundo);
+    overflow-x: hidden;
+}
+
+/*ANIMAÇÃO AO ROLAR A TELA*/
+
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    filter: blur(6px);
+    transition: all 0.9s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+}
+
+.slide-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: 1s ease;
+}
+
+.slide-right.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.fade-down {
+    opacity: 0;
+    transform: translateY(-40px);
+    transition: 1s ease;
+}
+
+.fade-down.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.slide-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: 1s ease;
+}
+
+.slide-left.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+/*====FIM DAS ANIMAÇÕES*/
+
+.container-box {
+    width: 100%;
+    background-color: var(--fundo-section);
+    height: 27vh;
+    padding: 30px;
+}
+
+.logo {
+    text-align: center;
+    color: var(--texto);
+}
+
+.logo h1 {
+    font-family: var(--fonte-titulo);
+    font-size: 3em;
+    font-weight: 600;
+}
+
+.logo p {
+    font-family: var(--fonte-secundaria);
+    font-size: 1.4em;
+    margin-top: 15px;
+}
+
+.nav {
+    margin-top: 80px;
+}
+
+.nav ul {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav li {
+    list-style: none;
+}
+
+.nav a {
+    position: relative;
+    display: block;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: var(--texto);
+    font-family: var(--fonte-secundaria);
+    font-size: 1.1em;
+    font-weight: 600;
+    transition: 0.5s;
+    z-index: 1;
+    border-bottom: none;
+    padding-bottom: 10px;
+}
+
+.nav a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-top: 2px solid var(--detalhes);
+    border-bottom: 2px solid var(--detalhes);
+    transform: scaleY(2);
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.nav a::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--detalhes);
+    transform: scaleY(0);
+    opacity: 0;
+    transition: 0.3s;
+    z-index: -1;
+}
+
+.nav a:hover {
+    color: white;
+    font-size: 1.1em;
+    transform: none;
+    border-bottom-color: transparent;
+}
+
+.nav a:hover::before {
+    transform: scaleY(1);
+    opacity: 1;
+}
+
+.nav a:hover::after {
+    transform: scaleY(1);
+    opacity: 1;
+}
+
+.dropdown-content a::before,
+.dropdown-content a::after {
+    content: none !important;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none !important;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 220px;
+    box-shadow: 0px 8px 16px 0px rgb(0, 0, 0, 0.2);
+    z-index: 10;
+    list-style: none;
+    border-radius: 4px;
+    top: 100%;
+    left: 0;
+}
+
+.dropdown-content li {
+    padding: 0;
+}
+
+.dropdown-content a {
+    color: #000000;
+    padding: 20px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    padding: 10px 20px;
+    font-family: var(--fonte-secundaria);
+    font-size: 16px;
+}
+
+/* ===== DROPDONW DE PROCEDIMENTOS ===== */
+.procedures-dropdown {
+    display: none !important;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 230px;
+    box-shadow: 0px 8px 16px 0px rgb(0, 0, 0, 0.2);
+    z-index: 10;
+    padding: 10px 20px;
+    list-style: none;
+    border-radius: 4px;
+    top: 100%;
+    left: 0;
+}
+
+.procedures-dropdown a {
+    color: #000000;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    line-height: 1.5;
+    font-family: var(--fonte-secundaria);
+    font-size: 16px;
+}
+
+
+/* ===== DROPDONW DE A CLINICA =====  */
+.dropdown-content a:hover {
+    color: #A67449;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block !important;
+}
+
+.nav ul li {
+    margin: 0 15px;
+    display: inline-block;
+    position: relative;
+}
+
+.hero-section {
+    width: 100%;
+    height: auto;
+    background-color: var(--fundo);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5%;
+    box-sizing: border-box;
+    border-radius: 8px;
+    box-shadow: 0 10px 20px rgb(0, 0, 0, 0.1);
+}
+
+.hero-content {
+    max-width: 500px;
+    padding-right: 30px;
+    color: var(--texto);
+}
+
+.hero-content h1 {
+    font-family: var(--fonte-titulo);
+    font-size: 3.8em;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 10px;
+    color: var(--texto);
+}
+
+.hero-content p {
+    font-family: var(--fonte-secundaria);
+    font-size: 1.7em;
+    line-height: 1.5;
+    margin-bottom: 25px;
+    color: var(--texto);
+}
+
+.linha2 {
+    width: 60%;
+    margin-top: -20px;
+}
+
+.hero-button {
+    display: inline-block;
+    background-color: var(--secundario);
+    color: #ffffff;
+    padding: 15px 30px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-family: var(--fonte-secundaria);
+    font-size: 1.5em;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.hero-button:hover {
+    background-color: var(--detalhes);
+    transform: translateY(-4px);
+}
+
+.hero-image {
+    max-width: 100%;
+}
+
+.hero-image img {
+    width: 100%;
+    max-height: 60vh;
+    object-fit: cover;
+    margin: auto;
+    margin-top: 60px;
+    border-radius: 50% 10% / 10% 50% 10% 50%;
+    box-shadow: 0 10px 25px rgb(0, 0, 0, 0.15);
+    transition: filter 0.3s ease-in-out;
+}
+
+.hero-image img:hover {
+    transition: 0.3s;
+    filter: grayscale(100%)
+}
+
+.bg-tratamentos {
+    width: 110%;
+    padding: 0;
+    margin: 0;
+    border-radius: 25px;
+    background-color: var(--fundo-section);
+}
+
+.treatments-section {
+    padding: 120px 0 0 0;
+    text-align: center;
+    margin: 0;
+    background-color: var(--fundo);
+}
+
+.treatments-section .section-title {
+    font-family: var(--fonte-titulo);
+    font-size: 4.6em;
+    font-weight: 400;
+    color: var(--texto);
+    margin-right: 230px;
+    padding-top: 40px;
+}
+
+.treatment-slider {
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+/* --- CARTÃO INDIVIDUAL --- */
+.treatment-card {
+    width: auto !important;
+    padding: 20px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    min-height: 400px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.treatment-card:hover {
+    transform: translateY(-5px);
+}
+
+.treatment-card h3 {
+    font-family: var(--fonte-secundaria);
+    font-size: 1.5em;
+    color: var(--detalhes);
+    margin: 15px 0 10px;
+    text-align: center;
+}
+
+.treatment-card p {
+    font-family: var(--fonte-secundaria);
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--texto);
+    line-height: 1.4;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.treatment-card .card-image-placeholder img {
+    width: 100%;
+    height: auto;
+}
+
+.treatment-card .details-button {
+    margin-top: auto;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: transparent;
+    color: var(--detalhes);
+    border: 2px solid var(--detalhes);
+    border-radius: 5px;
+    text-decoration: none;
+    font-family: var(--fonte-secundaria);
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.details-button:hover {
+    background-color: var(--detalhes);
+    color: #ffffff;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    background-color: rgba(244, 240, 231, 0.7);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    padding: 20px 0;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+.modal.show {
+    display: flex;
+    opacity: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: var(--fundo);
+    font-family: var(--fonte-secundaria);
+    color: var(--texto);
+    padding: 2.5rem;
+    width: 90%;
+    max-width: 680px;
+    border-radius: 10px;
+    border: 1px solid rgba(166, 116, 73, 0.2);
+    box-shadow: 0 10px 30px rgba(74, 54, 34, 0.1);
+    position: relative;
+    margin: auto;
+    transform: translateY(20px);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.modal.show .modal-content {
+    transform: translateY(0);
+}
+
+.modal-content h2 {
+    font-family: var(--fonte-titulo);
+    color: var(--detalhes);
+    font-size: 3em;
+    font-weight: 500;
+    border-bottom: 2px solid var(--fundo-section);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.modal-content h3 {
+    font-family: var(--variação);
+    color: var(--secundario);
+    font-size: 3em;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.modal-content p,
+.modal-content ul {
+    font-size: 1.2rem;
+    font-weight: 500;
+    line-height: 1.7;
+}
+
+.modal-content ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-top: 1rem;
+}
+
+.modal-content ul li {
+    margin-bottom: 0.8rem;
+}
+
+.close-button {
+    color: var(--secundario);
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 32px;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.2s;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--detalhes);
+}
+
+.whatsapp-button {
+    display: block;
+    width: 50%;
+    text-align: center;
+    margin: auto;
+    background-color: var(--detalhes);
+    color: var(--fundo);
+    padding: 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-top: 2rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(166, 116, 73, 0.4);
+}
+
+.whatsapp-button:hover {
+    background-color: var(--secundario);
+    /* Cor secundária no hover */
+    transform: translateY(-2px);
+}
+
+
+/* ===== CARROSSEL INFINITO ===== */
+
+.treatments-deck-slider {
+    width: 100%;
+    padding: 60px 0;
+}
+
+.treatments-deck-slider .swiper-slide {
+    width: 380px !important;
+    height: auto;
+}
+
+/* Ajuste do card dentro do Swiper */
+.treatment-card {
+    background: var(--fundo);
+    border-radius: 16px;
+    padding: 20px;
+    transform-origin: center;
+}
+
+.treatment-card img {
+    border-radius: 12px;
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.swiper-slide {
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+/* ====== ORGANIZAÇÃO DA SEÇÃO (TEXTO ESQ / SLIDER DIR) ====== */
+
+.treatments-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+}
+
+/* TEXTO À ESQUERDA */
+.treatments-text {
+    width: 40%;
+    text-align: center;
+    margin-left: 25px !important;
+}
+
+.treatments-text .impact-title {
+    font-size: 4.6em;
+    line-height: 1.1em;
+    font-family: var(--fonte-titulo);
+    color: var(--texto);
+    font-style: italic;
+    font-weight: 500;
+
+}
+
+.treatments-text .impact-sub {
+    font-size: 2em;
+    line-height: 1.5em;
+    font-family: var(--fonte-secundaria);
+    color: var(--secundario);
+    margin-top: 15px;
+    text-align: center;
+}
+
+.treatments-text span {
+    color: var(--detalhes);
+}
+
+/* SLIDER À DIREITA */
+.treatments-slider-wrapper {
+    width: 60%;
+}
+
+/* ======== CARDS MAIORES ======== */
+
+.treatment-card {
+    width: 350px !important;
+    /* maior */
+    min-height: 420px !important;
+    /* maior */
+    padding: 30px;
+    border-radius: 20px;
+    margin-right: 70px !important;
+}
+
+.treatment-card .card-image-placeholder img {
+    width: 100%;
+    height: 260px;
+    /* maior */
+    object-fit: cover;
+    border-radius: 18px;
+}
+
+.treatment-card h3 {
+    font-size: 1.6em;
+    margin-top: 20px;
+}
+
+.treatment-card p {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+}
+
+.treatment-card .details-button {
+    margin-top: auto;
+}
+
+.treatments-deck-slider .swiper-slide {
+    display: flex;
+    justify-content: center;
+}
+
+.depoimentos {
+    padding: 60px 20px;
+    text-align: center;
+    background-color: var(--fundo);
+    height: 80vh;
+}
+
+.depoimentos .section-title {
+    font-family: var(--fonte-titulo);
+    font-size: 3.4em;
+    font-weight: 400;
+    color: var(--texto);
+    margin-bottom: 10px;
+}
+
+.depoimentos-slider {
+    width: 100%;
+    padding-bottom: 50px;
+}
+
+/* --- ESTILO DO SLIDE (IMAGEM + TEXTO) --- */
+.depoimentos-slider .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 20px;
+    flex-direction: row;
+    gap: 40px;
+    min-height: 500px;
+}
+
+/* --- ESTILO DO CARD DE TEXTO --- */
+.card-depoimentos {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 10% 40%;
+    margin: 0;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.card-depoimentos:hover {
+    transform: translateY(-7px);
+
+}
+
+.card-depoimentos p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.4em;
+    font-weight: 500;
+    line-height: 1.6;
+    color: #000000;
+    margin-bottom: 0;
+    font-style: italic;
+}
+
+.card-depoimentos p br {
+    display: block;
+    margin: 5px 0;
+}
+
+/* --- SLIDER ANTES E DEPOIS --- */
+
+.image-comparison-container {
+    position: relative;
+    width: 100%;
+    max-width: 750px;
+    height: 450px;
+    overflow: hidden;
+    border-radius: 15px;
+    margin: 0;
+    border: 5px solid var(--detalhes);
+}
+
+.image-comparison-after,
+.image-comparison-before-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* O elemento 'before' é o que faz o recorte (clipping) */
+.image-comparison-before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 50%;
+    overflow: hidden;
+    pointer-events: none;
+    transition: width 0.3s ease-out;
+    /* Transição para o retorno */
+}
+
+/* O slider (input type=range) */
+.image-comparison-slider {
+    position: absolute;
+    appearance: none;
+    -webkit-appearance: none;
+    background: transparent;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    margin: 0;
+    cursor: grab;
+    z-index: 10;
+}
+
+/* Estilo da linha divisória central (thumb do slider) */
+.slider-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background-color: #fff;
+    border: 2px solid var(--cor-primaria);
+    border-radius: 2px;
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 5;
+    transition: left 0.3s ease-out;
+    /* Transição para o retorno */
+}
+
+.linha-navegacao {
+    position: relative;
+    width: 100%;
+    height: 1px;
+    background: #d3c7ad;
+    margin: 50px 0;
+}
+
+.circulo-setas {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #F4F0E7;
+    border: 2px solid #A67449;
+    color: #4a3622;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.circulo-setas:hover {
+    background: #f0e7d1;
+}
+
+.scroll-hint {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 6px 20px;
+    font-size: 14px;
+    background: #F4F0E7;
+    border: 1px solid #A67449;
+    border-radius: 20px;
+    color: #4a3622;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s ease;
+}
+
+.scroll-hint:hover {
+    background: #f0e7d1;
+    border-color: #64564c;
+}
+
+/* Estilo da Alça (Thumb) do Slider no Webkit (Chrome, Safari) */
+.image-comparison-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 40px;
+    height: 100%;
+    cursor: grab;
+    background: transparent;
+}
+
+/* Estilo das Etiquetas ANTES/DEPOIS */
+.label-img {
+    position: absolute;
+    padding: 5px 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 1em;
+    font-family: 'Montserrat', sans-serif;
+    z-index: 20;
+}
+
+.label-antes {
+    top: 10px;
+    left: 10px;
+}
+
+.label-depois {
+    top: 10px;
+    right: 10px;
+}
+
+/* --- NAVEGAÇÃO DO SWIPER --- */
+
+.swiper-button-next,
+.swiper-button-prev {
+    color: var(--detalhes) !important;
+    top: 50%;
+    width: 8%;
+    transform: translateY(-50%) scale(2);
+    transition: color 0.3s;
+    margin: 0 10px;
+}
+
+.swiper-button-prev {
+    width: 10%;
+    ;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    color: var(--secundario) !important;
+}
+
+.swiper-pagination-bullet {
+    background: var(--secundario);
+    opacity: 0.5;
+    transform: translateY(-60%) scale(1.7);
+}
+
+.swiper-pagination-bullet-active {
+    background: var(--detalhes);
+    opacity: 1;
+}
+
+/* ========== PROCEDIMENTOS ========== */
+.procedures-section {
+    background: var(--fundo-section);
+    padding: 140px 6%;
+    text-align: center;
+    position: relative;
+}
+
+/* TITULO PRINCIPAL */
+.procedures-section .section-title {
+    font-family: var(--fonte-titulo);
+    text-transform: uppercase;
+    font-size: 4.4em;
+    color: var(--texto);
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+}
+
+.procedures-section .section-subtitle {
+    font-family: var(--fonte-secundaria);
+    font-size: 1.6em;
+
+    color: var(--secundario);
+    max-width: 900px;
+    margin: 0 auto 70px;
+    line-height: 1.7;
+}
+
+/* SWIPER */
+.procedures-slider {
+    width: 100%;
+    padding-bottom: 90px;
+}
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+}
+
+/* =============================================== */
+/* ⭐ CARD — ESTRUTURA PRINCIPAL                    */
+/* =============================================== */
+
+.procedure-card {
+    width: 100%;
+    max-width: 1000px;
+    background-color: var(--fundo);
+    display: flex;
+    gap: 50px;
+    padding: 50px;
+    border-radius: 20px;
+
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.09);
+    transition: 0.35s ease;
+    border: 1px solid rgba(166, 116, 73, 0.08);
+}
+
+.procedures-section {
+    scroll-margin-top: -117px;
+    /* ajuste esse valor conforme a altura do header */
+}
+
+.procedure-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 55px rgba(0, 0, 0, 0.12);
+}
+
+/* =============================================== */
+/* ⭐ VÍDEO — CAIXA PREMIUM                         */
+/* =============================================== */
+
+.video-box {
+    width: 350px;
+    height: 600px;
+    background-color: #000;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 3px solid rgba(166, 116, 73, 0.35);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    flex-shrink: 0;
+    position: relative;
+}
+
+.video-box video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* =============================================== */
+/* ⭐ TEXTO À DIREITA – EFEITO CLÍNICA DE LUXO     */
+/* =============================================== */
+
+.procedure-card h3 {
+    font-family: var(--variação);
+    font-size: 3.2em;
+    font-weight: 700;
+    color: var(--detalhes);
+    margin-bottom: 18px !important;
+
+    /* leve brilho de elegância */
+    text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.8);
+}
+
+.procedure-card p {
+    font-family: var(--fonte-secundaria);
+    font-size: 2em;
+    color: var(--secundario);
+    line-height: 1.7;
+    max-width: 550px;
+    margin: 0;
+    margin-top: 10% !important;
+    margin-right: 10% !important;
+}
+
+.procedure-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    max-width: 550px;
+}
+
+.procedure-text h3,
+.procedure-card h3 {
+    margin-bottom: 18px !important;
+    display: block;
+}
+
+.procedure-text p,
+.procedure-card p {
+    margin-top: 0 !important;
+    display: block;
+}
+
+/* =============================================== */
+/* ⭐ SETAS DO SWIPER — VISUAL DE LUXO             */
+/* =============================================== */
+
+.swiper-button-next,
+.swiper-button-prev {
+    color: var(--detalhes) !important;
+    transform: scale(1.3);
+    transition: 0.3s;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    color: var(--texto) !important;
+    transform: scale(1.45);
+}
+
+/* PAGINAÇÃO */
+.swiper-pagination-bullet {
+    background: var(--secundario);
+    opacity: .45;
+}
+
+.swiper-pagination-bullet-active {
+    background: var(--detalhes);
+    opacity: 1;
+}
+
+/* =============================
+   SEÇÃO PRINCIPAL
+============================= */
+
+.estrutura-section {
+    background: var(--fundo);
+    padding: 80px 3%;
+    color: var(--texto);
+    font-family: var(--fonte-secundaria);
+}
+
+/* Container mais largo, para colunas grandes */
+.estrutura-container {
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+/* =============================
+   TÍTULO
+============================= */
+
+.title {
+    margin-bottom: 200px;
+}
+
+.title h1 {
+    font-family: var(--fonte-titulo);
+    font-size: 4.6em;
+    font-weight: 400;
+    color: var(--texto);
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.title p {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--texto);
+}
+
+/* ===============================
+   DROPDOWN – VISUAL MELHORADO
+=============================== */
+
+.dropdown-bloco {
+    background: linear-gradient(145deg, #6b4727cc, #5a381fdd);
+    padding: 32px;
+    border-radius: 10px;
+    margin-bottom: 28px;
+    color: #fff;
+
+    /* profundidade mais elegante */
+    box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.22),
+        inset 0 0 25px rgba(255, 255, 255, 0.04);
+
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(4px);
+
+    cursor: pointer;
+    transition: transform .26s ease, box-shadow .35s ease, background .35s ease;
+}
+
+/* Hover mais clean e premium */
+.dropdown-bloco:hover {
+    transform: translateY(-10px);
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.28),
+        inset 0 0 32px rgba(255, 255, 255, 0.06);
+}
+
+/* Título */
+.dropdown-titulo h3 {
+    font-family: var(--fonte-titulo);
+    font-size: 2.35rem;
+    line-height: 1.15;
+}
+
+.dropdown-titulo {
+    display: flex;
+    justify-content: space-between;
+    /* empurra a seta para a direita */
+    align-items: center;
+    width: 100%;
+}
+
+/* Seta mais elegante */
+.dropdown-titulo .seta {
+    margin-left: auto;
+    font-size: 2.2rem;
+    opacity: 0.9;
+    transition: transform .4s ease, opacity .3s ease;
+}
+
+.dropdown-bloco.ativo .seta {
+    transform: rotate(180deg);
+    opacity: 1;
+}
+
+/* Conteúdo */
+.dropdown-conteudo {
+    max-height: 0;
+    overflow: hidden;
+    margin-top: 0;
+    transition: max-height .48s ease;
+}
+
+.dropdown-conteudo ul {
+    margin-top: 16px;
+    padding-left: 28px;
+}
+
+.dropdown-conteudo li {
+    font-size: 1.18rem;
+    line-height: 1.75;
+    margin-bottom: 12px;
+
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity .42s ease, transform .42s ease;
+}
+
+/* Quando abrir */
+.dropdown-bloco.ativo .dropdown-conteudo {
+    max-height: 600px;
+    animation: slideFade .42s ease forwards;
+}
+
+.dropdown-bloco.ativo .dropdown-conteudo li {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.dropdown-conteudo li::before {
+    content: "•";
+    position: absolute;
+    left: -18px;
+    color: var(--detalhes);
+    font-size: 1.45rem;
+}
+
+/* =============================
+   GRID PRINCIPAL (DROPDOWN + GALERIA)
+============================= */
+.estrutura-conteudo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: -55px;
+    /* lado a lado */
+    gap: 60px;
+    align-items: center;
+}
+
+/* =============================
+   COLUNA DIREITA (GALERIA)
+============================= */
+
+/* Wrapper geral */
+.coluna-galeria {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 40px 0;
+    border-radius: 22px;
+}
+
+/* Área principal do slider */
+.gallery-display {
+    width: 100%;
+    max-width: 900px;
+    height: 500px;
+    aspect-ratio: 16/10;
+    border: 3px solid #A67449;
+    border-radius: 22px !important;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Cada slide */
+.gallery-display .swiper-slide {
+    width: 100%;
+    height: 100%;
+}
+
+/* Imagens dentro dos slides */
+.gallery-display .swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Paginação (bolinhas) */
+
+.swiper-pagination-estrutura .swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(3px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    transition: 0.3s;
+}
+
+.swiper-pagination-estrutura .swiper-pagination-bullet-active {
+    background: #ffffff;
+    transform: scale(1.35);
+    border-color: #fff;
+}
+
+/* ==========================================
+   HERO SLIDER — FADE SUAVE
+========================================== */
+
+.hero-slider {
+    position: relative;
+    width: 100%;
+    height: 430px;
+    overflow: hidden;
+    border-radius: 10px;
+
+    margin-top: -35px;
+    margin-left: 60px;
+}
+
+.hero-slider .track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-slider .slide-item {
+    position: absolute;
+    inset: 0;
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    opacity: 0;
+    transition: opacity 1.4s ease-in-out;
+}
+
+.hero-slider .slide-item::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom,
+            rgba(0, 0, 0, 0.25),
+            rgba(0, 0, 0, 0.55));
+    z-index: 2;
+}
+
+.hero-slider .slide-item.active {
+    opacity: 1;
+}
+
+/* Overlay do texto */
+.hero-slider .overlay-content {
+    position: absolute;
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    width: 90%;
+    max-width: 600px;
+}
+
+/* ===== LOCALIZAÇÃO ===== */
+
+.localizacao {
+    padding: 80px 5%;
+    text-align: center;
+    background: var(--fundo-section);
+}
+
+.localizacao h1 {
+    font-family: var(--variação);
+    font-size: 4em;
+    color: var(--texto);
+    line-height: 1.2;
+    font-weight: lighter;
+}
+
+.localizacao h1 .caminho {
+    color: #985a24;
+    border-radius: 23px;
+    padding: 5px 0 5px 0;
+}
+
+.localizacao .sub {
+    font-family: var(--fonte-secundaria);
+    color: var(--texto);
+    margin-top: 10px;
+    font-size: 1.7em;
+}
+
+/* Wrapper */
+.localizacao-wrapper {
+    margin-top: 70px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+/* Bloco de informações */
+.info-local {
+    width: 90%;
+    height: 85%;
+    background: var(--fundo);
+    padding: 30px;
+    border-radius: 18px;
+    color: var(--texto);
+    margin: auto;
+    line-height: 2.3em;
+    font-family: var(--fonte-secundaria);
+    text-align: left;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    animation: subir 0.8s ease forwards;
+    opacity: 0;
+}
+
+.info-local h2,
+.info-local h3 {
+    text-align: center;
+    font-family: var(--fonte-titulo);
+    font-size: 2.5em;
+    color: var(--detalhes);
+    margin-bottom: 10px;
+}
+
+.info-local h3 {
+    margin-top: 60px;
+}
+
+.info-local p {
+    margin-top: 20px;
+    text-align: center;
+
+}
+
+.ender {
+    color: var(--texto);
+    font-size: 1.5em;
+}
+
+.horarios li {
+    list-style: none;
+    text-align: center;
+    font-size: 1.5em;
+    margin-top: -10px;
+    margin-bottom: 6px;
+}
+
+/* Mapa */
+.localizacao iframe {
+    width: 100%;
+    height: 420px;
+    border-radius: 18px;
+    border: none;
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    animation: aparecer 1s ease forwards;
+    opacity: 0;
+}
+
+/* Botão */
+.btn-contato2 {
+    display: inline-flex;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    margin: auto 20px;
+    padding: 12px;
+    background: var(--detalhes);
+    color: #fff;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-contato2:hover {
+    background: #895c33;
+}
+
+
+/* Animações suaves */
+@keyframes subir {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.premium-minimal {
+    padding: 30px 20px;
+    background: var(--fundo);
+    text-align: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.premium-minimal .marca {
+    font-size: 2em;
+    font-weight: 700;
+    color: #A67449;
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+    transition: transform 0.3s ease;
+}
+
+.premium-minimal .marca:hover {
+    transform: translateY(-4px);
+}
+
+.premium-minimal .sub {
+    color: #6f6f6f;
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+}
+
+.premium-minimal .sub:hover {
+    transform: translateY(-4px);
+}
+
+.premium-minimal .copy {
+    font-size: 1.4em;
+    color: #999;
+    transition: transform 0.3s ease;
+}
+
+.premium-minimal .copy:hover {
+    transform: translateY(-4px);
+
+}
+
+.premium-minimal .dev {
+    margin-top: 6px;
+    font-size: 1.2em;
+    opacity: 0.8;
+    transition: transform 0.3s ease;
+}
+
+.premium-minimal .dev:hover {
+    transform: translateY(-4px);
+
+}
+/*=====================
+ PARTE DE QUEM SOU EU
+ =======================
+*/
+.quem-sou-eu {
+    padding: 100px 0;
+    background: #f9f4ee;
+}
+
+.container-quem {
+    display: flex;
+    gap: 60px;
+    align-items: center;
+    justify-content: center;
+    max-width: 1300px;
+    margin: auto;
+    padding: 0 20px;
+}
+.foto-quem {
+    width: 110%;
+    height: 720px;
+    overflow: hidden;
+    border-radius: 18px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+
+}
+.foto-quem img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.quemSouEu-slider .swiper-slide {
+    width: 100%;
+    height: 100%;
+}
+
+.quemSouEu-slider {
+    width: 100%;
+    height: 100%;
+}
+
+.texto-quem h2 {
+    font-size: 4rem;
+    font-family: var(--fonte-titulo);
+    color: var(--detalhes);
+    margin-bottom: 20px;
+}
+
+.texto-quem p {
+    font-family: var(--fonte-secundaria);
+    font-size: 1.6rem;
+    line-height: 1.2em;
+    margin-bottom: 18px;
+    color: var(--texto);
+}
+
+.dados-quem {
+    display: flex;
+    gap: 40px;
+    margin-top: 25px;
+}
+
+.dados-quem div {
+    font-size: 1.3em;
+    text-align: center;
+}
+
+.dados-quem strong {
+    display: block;
+    font-size: 2.5rem;
+    color: var(--detalhes);
+}
+
+.dados-quem span {
+    font-size: 1.5rem;
+    color: var(--texto);
+}
+
+.filosofia {
+    padding: 100px 0;
+    background: #fff;
+}
+
+.container-filosofia {
+    display: flex;
+    gap: 60px;
+    align-items: center;
+    max-width: 1300px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+.filosofia-texto h2 {
+    font-size: 4rem;
+    color: var(--detalhes);
+    font-family: var(--fonte-titulo);
+    margin-bottom: 20px;
+}
+
+.filosofia-texto p {
+    font-size: 1.6rem;
+    color: var(--texto);
+    margin-bottom: 18px;
+    font-family: var(--fonte-secundaria);
+}
+
+.filosofia-img img {
+    width: 520px;
+    height: 620px;
+    object-fit: cover;
+    border-radius: 18px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.17);
+}
+

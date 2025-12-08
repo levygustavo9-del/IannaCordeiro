@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ianna Cordeiro</title>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- CSS Local -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="container-box">
+            <div class="logo">
+                <h1>IANNA CORDEIRO</h1>
+                <p>ESTETICISTA E COSMETÓLOGA</p>
+            </div>
+
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html">HOME</a></li>
+
+                    <li class="dropdown">
+                        <a href="#" class="drop">A CLÍNICA</a>
+                        <ul class="dropdown-content">
+                            <li><a href="quemsoueu.html#nossa-filosofia">Nossa Filosofia</a></li>
+                            <li><a href="#estrutura">Estrutura e Conforto</a></li>
+                            <li><a href="quemsoueu.html">Profissional Responsável</a></li>
+                            <li><a href="#localizacao">Localização e Horários</a></li>
+                        </ul>
+                    </li>
+
+
+                    <li><a href="#DEPOIMENTOS">DEPOIMENTOS</a></li>
+                    <li class="dropdown">
+                        <a href="#">PROCEDIMENTOS</a>
+                        <ul class="dropdown-content procedures-dropdown">
+                            <li><a href="#ultraform" data-slide-index="0">UltraForm MPT</a></li>
+                            <li><a href="#botox" data-slide-index="1">Botox</a></li>
+                            <li><a href="#hof" data-slide-index="2">HOF</a></li>
+                            <li><a href="#bioestimulador" data-slide-index="3">Bioestimulador</a></li>
+                            <li><a href="#peim" data-slide-index="4">PEIM</a></li>
+                            <li><a href="#lavieen" data-slide-index="5">Lavieen</a></li>
+                            <li><a href="#pdrn" data-slide-index="6">PDRN</a></li>
+                            <li><a href="#skinbooster" data-slide-index="7">SkinBooster</a></li>
+                            <li><a href="#mesclas" data-slide-index="8">Mesclas</a></li>
+                            <li><a href="#labios" data-slide-index="9">Lábios</a></li>
+                            <li><a href="#fios" data-slide-index="10">Fios</a></li>
+                            <li><a href="#preenchimento" data-slide-index="11">Preenchimento</a></li>
+                            <li><a href="#preenchimento" data-slide-index="11">Profhilo</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="quemsoueu.html">QUEM SOU EU?</a></li>
+                    <li><a href="">CONTATO</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-section">
+
+            <div class="hero-content">
+                <h1 class="reveal">Dra. Ianna Cordeiro</h1>
+                <p class="reveal">CLÍNICA ESPECIALIZADA EM SAÚDE ESTÉTICA.</p>
+                <p class="reveal">Cuide da sua beleza, cuide de você!</p>
+                <br>
+                <hr class="linha2">
+                <br>
+                <a href="#" class="hero-button">Agendar agora</a>
+            </div>
+
+            <div class="hero-image">
+                <img src="imgs/ianna.jpg" alt="Ianna Cordeiro, Estética Avançada">
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- TRATAMENTOS -->
+    <section class="treatments-section">
+        <div class="bg-tratamentos">
+
+            <h2 class="section-title"></h2>
+
+            <div class="treatments-grid">
+
+
+                <!-- TEXTO À ESQUERDA -->
+                <div class="treatments-text">
+                    <h2 class="impact-title reveal">
+                        Transforme <span class="beleza">sua beleza</span><br>
+                        com segurança, com os nossos tratamentos mais requisitados.
+                    </h2>
+                    <p class="impact-sub reveal">
+                        Escolha procedimentos que valorizam sua melhor versão todos os dias.
+                    </p>
+                </div>
+
+                <!-- SLIDER À DIREITA -->
+                <div class="treatments-slider-wrapper">
+
+
+
+                    <div class="swiper treatments-deck-slider">
+                        <div class="swiper-wrapper">
+
+                            <!-- slide 1 -->
+                            <div class="swiper-slide treatment-card">
+                                <div class="card-image-placeholder">
+                                    <img src="imgs/preenchimento.jpg" alt="Preenchimento Facial" class="reveal">
+                                </div>
+                                <h3>Preenchimento Facial</h3>
+                                <p>Restaure o volume perdido e suavize linhas de expressão com naturalidade.</p>
+                                <a href="#" class="details-button" data-modal-target="modal-preenchimento">Ver
+                                    Detalhes</a>
+                            </div>
+
+                            <!-- slide 2 -->
+                            <div class="swiper-slide treatment-card">
+                                <div class="card-image-placeholder">
+                                    <img src="imgs/toxina.jpg" alt="Toxina Botulínica" class="reveal ">
+                                </div>
+                                <h3>Toxina Botulínica</h3>
+                                <p>Previna e trate rugas dinâmicas, mantendo um visual fresco e relaxado.</p>
+                                <a href="#" class="details-button" data-modal-target="modal-toxina">Ver Detalhes</a>
+                            </div>
+
+                            <!-- slide 3 -->
+                            <div class="swiper-slide treatment-card">
+                                <div class="card-image-placeholder">
+                                    <img src="imgs/bioesti.jpg" alt="Bioestimuladores" class="reveal ">
+                                </div>
+                                <h3>Bioestimuladores</h3>
+                                <p>Estimule a produção de colágeno para uma pele mais firme.</p>
+                                <a href="#" class="details-button" data-modal-target="modal-bioesti">Ver Detalhes</a>
+                            </div>
+
+                            <!-- slide 4 -->
+                            <div class="swiper-slide treatment-card">
+                                <div class="card-image-placeholder">
+                                    <img src="imgs/microagulhamento.jpg" alt="Microagulhamento" class="reveal">
+                                </div>
+                                <h3>Microagulhamento</h3>
+                                <p>Melhore cicatrizes de acne e a textura geral da pele.</p>
+                                <a href="#" class="details-button" data-modal-target="modal-microagulhamento">Ver
+                                    Detalhes</a>
+                            </div>
+
+                            <!-- slide 5 -->
+                            <div class="swiper-slide treatment-card">
+                                <div class="card-image-placeholder">
+                                    <img src="imgs/peeling.jpg" alt="Peeling Químico" class="reveal">
+                                </div>
+                                <h3>Peeling Químico</h3>
+                                <p>Renovação celular profunda para mais luminosidade.</p>
+                                <a href="#" class="details-button" data-modal-target="modal-peeling">Ver Detalhes</a>
+                            </div>
+
+                            <!-- slide 6 -->
+                            <div class="swiper-slide treatment-card">
+                                <div class="card-image-placeholder">
+                                    <img src="imgs/limpeza.jpg" alt="Limpeza de Pele" class="reveal ">
+                                </div>
+                                <h3>Limpeza de Pele</h3>
+                                <p>Remoção de impurezas para uma pele mais saudável.</p>
+                                <a href="#" class="details-button" data-modal-target="modal-limpeza">Ver Detalhes</a>
+                            </div>
+
+                        </div>
+
+                        <div class="swiper-pagination"></div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!--=================================DETALHES PREENCHIMENTO=======================-->
+
+    <!--DETALHE PREECNHIMENTO-->
+    <div id="modal-preenchimento" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Detalhes: Preenchimento Facial</h2>
+            <p>O preenchimento facial é um procedimento estético minimamente invasivo que usa
+                substâncias biocompatíveis, como o ácido hialurônico, para repor o volume perdido em
+                áreas específicas do rosto, como lábios, sulcos nasogenianos (bigode chinês) e maçãs do
+                rosto.</p>
+            <h3>Benefícios Principais:</h3>
+            <ul>
+                <li>Suavização de rugas e linhas profundas.</li>
+                <li>Melhora do contorno facial.</li>
+                <li>Hidratação profunda da pele.</li>
+                <li>Resultados imediatos e de aspecto natural.</li>
+            </ul>
+            <a href="URL_DO_SEU_WHATSAPP_AQUI" class="whatsapp-button">Agende sua avaliação</a>
+        </div>
+    </div>
+
+    <!--DETALHE TOXINA BOTULÍNICA-->
+    <div id="modal-toxina" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Detalhes: Toxina Botulínica</h2>
+            <p>A Toxina Botulínica (popularmente conhecida como Botox) atua relaxando temporariamente os músculos,
+                prevenindo a formação de rugas dinâmicas (aquelas que aparecem ao sorrir ou franzir a testa) e
+                suavizando as linhas de expressão já existentes.</p>
+            <h3>Benefícios Principais:</h3>
+            <ul>
+                <li>Prevenção eficaz de novas rugas.</li>
+                <li>Tratamento de linhas na testa, glabela e pés de galinha.</li>
+                <li>Aparência mais jovem e descansada.</li>
+                <li>Procedimento rápido e seguro.</li>
+            </ul>
+            <a href="URL_DO_SEU_WHATSAPP_AQUI" class="whatsapp-button">Agende sua avaliação</a>
+        </div>
+    </div>
+
+    <!--DETALHE BIOESTIMULADORES-->
+    <div id="modal-bioesti" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Detalhes: Bioestimuladores de Colágeno</h2>
+            <p>São substâncias injetáveis que estimulam o corpo a produzir seu próprio colágeno. Eles restauram a
+                firmeza e a elasticidade da pele gradualmente, tratando a flacidez facial e corporal de forma natural e
+                duradoura.</p>
+            <h3>Benefícios Principais:</h3>
+            <ul>
+                <li>Combate à flacidez de pele.</li>
+                <li>Aumento da firmeza e elasticidade.</li>
+                <li>Melhora da qualidade e espessura da pele.</li>
+                <li>Resultados progressivos e naturais.</li>
+            </ul>
+            <a href="URL_DO_SEU_WHATSAPP_AQUI" class="whatsapp-button">Agende sua avaliação</a>
+        </div>
+    </div>
+
+    <!--DETALHE MICROAGULHAMENTO-->
+    <div id="modal-microagulhamento" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Detalhes: Microagulhamento</h2>
+            <p>Este tratamento utiliza microagulhas para provocar pequenas perfurações na pele, estimulando a produção
+                intensa de colágeno e permitindo a melhor absorção de ativos (drug delivery). É ideal para renovação da
+                pele e tratamento de cicatrizes.</p>
+            <h3>Benefícios Principais:</h3>
+            <ul>
+                <li>Redução de cicatrizes de acne e estrias.</li>
+                <li>Melhora de manchas e poros dilatados.</li>
+                <li>Aumento da firmeza e textura da pele.</li>
+                <li>Potencialização de tratamentos com ativos.</li>
+            </ul>
+            <a href="URL_DO_SEU_WHATSAPP_AQUI" class="whatsapp-button">Agende sua avaliação</a>
+        </div>
+    </div>
+
+    <!--DETALHE PEELING QUÍMICO-->
+    <div id="modal-peeling" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Detalhes: Peeling Químico</h2>
+            <p>O Peeling Químico é a aplicação de substâncias ácidas sobre a pele para remover as camadas superficiais
+                danificadas. O objetivo é promover a renovação celular, resultando em uma pele mais lisa, uniforme e
+                luminosa.</p>
+            <h3>Benefícios Principais:</h3>
+            <ul>
+                <li>Tratamento de manchas (melasma, sardas).</li>
+                <li>Melhora da textura e rugas finas.</li>
+                <li>Controle de oleosidade e acne.</li>
+                <li>Pele mais clara e radiante.</li>
+            </ul>
+            <a href="URL_DO_SEU_WHATSAPP_AQUI" class="whatsapp-button">Agende sua avaliação</a>
+        </div>
+    </div>
+
+    <!--DETALHE LIMPEZA DE PELE-->
+    <div id="modal-limpeza" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Detalhes: Limpeza de Pele Profunda</h2>
+            <p>A Limpeza de Pele é essencial para remover cravos, espinhas, impurezas e células mortas. O procedimento
+                desobstrui os poros, deixando a pele mais receptiva a tratamentos e com uma aparência saudável e fresca.
+            </p>
+            <h3>Benefícios Principais:</h3>
+            <ul>
+                <li>Remoção de cravos (comedões) e miliuns.</li>
+                <li>Desintoxicação e oxigenação da pele.</li>
+                <li>Prevenção da acne.</li>
+                <li>Equilíbrio da oleosidade.</li>
+            </ul>
+            <a href="URL_DO_SEU_WHATSAPP_AQUI" class="whatsapp-button">Agende sua avaliação</a>
+        </div>
+    </div>
+
+    <section id="DEPOIMENTOS" class="depoimentos">
+        <div class="container">
+
+            <h2 class="section-title reveal slide-right">EXPERIÊNCIA DO PACIENTE</h2>
+
+            <div class="swiper depoimentos-slider">
+                <div class="swiper-wrapper">
+
+                    <div class="swiper-slide">
+
+                        <div class="image-comparison-container reveal slide-right" id="slider1">
+                            <img src="imgs/toxina-depois.png" alt="Foto Depois do Tratamento"
+                                class="image-comparison-after">
+
+                            <div class="image-comparison-before reveal slide-right" style="width: 50%;">
+                                <img src="imgs/toxina-antes.png" alt="Foto Antes do Tratamento"
+                                    class="image-comparison-before-img">
+                            </div>
+
+                            <input type="range" min="0" max="100" value="50" aria-label="Controle de Antes e Depois"
+                                class="image-comparison-slider">
+
+
+                            <div class="slider-line">
+                                <div class="linha-navegacao" reveal slide-right></div>
+                                <div class="circulo-setas" reveal slide-right>↔</div>
+
+                            </div>
+
+                            <span class="label-img label-antes reveal slide-right">ANTES</span>
+                            <span class="label-img label-depois reveal slide-right">DEPOIS</span>
+
+
+                        </div>
+
+                        <div class="card-depoimentos reveal slide-right">
+                            <p>"Hoje eu me sinto outra mulher. Completamente renovada e mudada, e tudo isso graças a
+                                Dr.
+                                Ianna Cordeiro."
+                                <br>-Renata Kaylane, 37 anos
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="swiper-slide">
+
+                        <div class="image-comparison-container reveal slide-right" id="slider2">
+                            <img src="imgs/agulha-depois.png" alt="Foto Depois do Tratamento 2"
+                                class="image-comparison-after">
+
+                            <div class="image-comparison-before reveal slide-right" style="width: 50%;">
+                                <img src="imgs/agulha-antes.png" alt="Foto Antes do Tratamento 2"
+                                    class="image-comparison-before-img">
+                            </div>
+
+                            <input type="range" min="0" max="100" value="50" aria-label="Controle de Antes e Depois"
+                                class="image-comparison-slider">
+
+                            <div class="slider-line reveal slide-right">
+                                <div class="linha-navegacao reveal slide-right"></div>
+                                <div class="circulo-setas reveal slide-right">↔</div>
+                            </div>
+                            <span class="label-img label-antes reveal slide-right">ANTES</span>
+                            <span class="label-img label-depois reveal slide-right">DEPOIS</span>
+                        </div>
+
+                        <div class="card-depoimentos reveal slide-right">
+                            <p>"Os resultados foram muito além das minhas expectativas! Recomendo a Ianna de olhos
+                                fechados. Profissional incrível."
+                                <br>-Hellen Veríssimo, 35 anos
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="swiper-slide ">
+
+                        <div class="image-comparison-container reveal slide-right" id="slider3">
+                            <img src="imgs/botox-depois.png" alt="Foto Depois do Tratamento 3"
+                                class="image-comparison-after">
+
+                            <div class="image-comparison-before reveal slide-right" style="width: 50%;">
+                                <img src="imgs/botox-antes.png" alt="Foto Antes do Tratamento 3"
+                                    class="image-comparison-before-img">
+                            </div>
+
+                            <input type="range" min="0" max="100" value="50" aria-label="Controle de Antes e Depois"
+                                class="image-comparison-slider">
+
+                            <div class="slider-line reveal slide-right">
+                                <div class="linha-navegacao reveal slide-right"></div>
+                                <div class="circulo-setas reveal slide-right">↔</div>
+                            </div>
+                            <span class="label-img label-antes reveal slide-right">ANTES</span>
+                            <span class="label-img label-depois reveal slide-right">DEPOIS</span>
+                        </div>
+
+                        <div class="card-depoimentos reveal slide-right">
+                            <p>"Minha autoestima foi renovada! A Ianna é muito atenciosa e faz um trabalho super
+                                natural
+                                e delicado."
+                                <br>-Claúdia Neide, 40 anos
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="procedures-section">
+        <h2 class="section-title reveal">Procedimentos</h2>
+        <p class="section-subtitle reveal">
+            Conheça todos os nossos procedimentos explicados de forma objetiva e clara.
+            Cada vídeo apresenta benefícios, indicações e resultados esperados.
+        </p>
+
+        <div class="swiper procedures-slider">
+            <div class="swiper-wrapper">
+
+                <!-- 1. UltraForm MPT -->
+                <div class="swiper-slide reveal slide-right">
+                    <div class="procedure-card">
+                        <div class="video-box">
+                            <video controls>
+                                <source src="">
+                            </video>
+                        </div>
+                        <div class="procedure-text reveal slide-right">
+                            <h3>UltraForm MPT</h3>
+                            <p>Lifting não cirúrgico e tratamento da flacidez através de ultrassom focado que estimula o
+                                colágeno.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Botox -->
+                <div class="swiper-slide reveal slide-right">
+                    <div class="procedure-card">
+                        <div class="video-box">
+                            <video controls>
+                                <source src="">
+                            </video>
+                        </div>
+                        <div class="procedure-text reveal slide-right">
+                            <h3>Botox</h3>
+                            <p>uaviza e previne rugas e linhas de expressão (testa, pés de galinha) relaxando
+                                temporariamente os músculos.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. HOF -->
+                <div class="swiper-slide reveal slide-right">
+                    <div class="procedure-card">
+                        <div class="video-box">
+                            <video controls>
+                                <source src="">
+                            </video>
+                        </div>
+                        <div class="procedure-text reveal slide-right">
+                            <h3>HOF</h3>
+                            <p>Equilibra a proporção e simetria do rosto com um conjunto personalizado de técnicas
+                                estéticas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Bioestimulador -->
+                <div class="swiper-slide reveal slide-right">
+                    <div class="procedure-card">
+                        <div class="video-box">
+                            <video controls>
+                                <source src="">
+                            </video>
+                        </div>
+                        <div class="procedure-text reveal slide-right">
+                            <h3>Bioestimulador</h3>
+                            <p>njetável que estimula a produção natural de colágeno, tratando a flacidez e melhorando a
+                                qualidade da pele a longo prazo.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. PEIM -->
+                <div class="swiper-slide reveal slide-right">
+                    <div class="procedure-card">
+                        <div class="video-box">
+                            <video controls>
+                                <source src="">
+                            </video>
+                        </div>
+                        <div class="procedure-text reveal slide-right">
+                            <h3>PEIM</h3>
+                            <p>Tratamento injetável para eliminar e secar pequenos vasinhos e microvasos nas pernas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Lavieen -->
+                <div class="swiper-slide reveal slide-right">
+                    <div class="procedure-card">
+                        <div class="video-box">
+                            <video controls>
+                                <source src="">
+                            </video>
+                        </div>
+                        <div class="procedure-text reveal slide-right">
+                            <h3>Lavieen</h3>
+                            <p>Laser de Thulium que clareia manchas, melasma e melhora a textura geral da pele
+                                (rejuvenescimento).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. PDRN -->
+                <div class="swiper-slide reveal slide-right">
+                    <div class="procedure-card">
+                        <div class="video-box">
+                            <video controls>
+                                <source src="videos/teste.mp4">
+                            </video>
+                        </div>
+                        <div class="procedure-text reveal slide-right">
+                            <h3>PDRN</h3>
+                            <p>RInjetável que promove regeneração celular e hidratação profunda, melhorando o viço e a
+                                elasticidade da pele.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 8. SkinBooster -->
+                <div class="swiper-slide reveal slide-right">
+                    <div class="procedure-card">
+                        <div class="video-box">
+                            <video controls>
+                                <source src="">
+                            </video>
+                        </div>
+                        <div class="procedure-text reveal slide-right">
+                            <h3>SkinBooster</h3>
+                            <p>Injeções de Ácido Hialurônico para uma hidratação intensa da derme, dando brilho e
+                                suavizando rugas finas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 9. Mesclas -->
+                <div class="swiper-slide reveal slide-right">
+                    <div class="procedure-card">
+                        <div class="video-box">
+                            <video controls>
+                                <source src="">
+                            </video>
+                        </div>
+                        <div class="procedure-text reveal slide-right">
+                            <h3>Mesclas</h3>
+                            <p>Coquetéis personalizados de ativos injetáveis (enzimas/vitaminas) para tratar gordura
+                                localizada, celulite ou queda de cabelo.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 10. Lábios -->
+                <div class="swiper-slide reveal slide-right">
+                    <div class="procedure-card">
+                        <div class="video-box">
+                            <video controls>
+                                <source src="">
+                            </video>
+                        </div>
+                        <div class="procedure-text reveal slide-right">
+                            <h3>Preenchimento Labial</h3>
+                            <p>Aumenta o volume, define o contorno e hidrata os lábios usando preenchimento com Ácido
+                                Hialurônico.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 11. Fios -->
+                <div class="swiper-slide reveal slide-right">
+                    <div class="procedure-card">
+                        <div class="video-box">
+                            <video controls>
+                                <source src="">
+                            </video>
+                        </div>
+                        <div class="procedure-text reveal slide-right">
+                            <h3>Fios</h3>
+                            <p>Promove um efeito lifting e estimula o colágeno, combatendo a flacidez facial e corporal.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 12. Preenchimento -->
+                <div class="swiper-slide reveal slide-right">
+                    <div class="procedure-card">
+                        <div class="video-box">
+                            <video controls>
+                                <source src="">
+                            </video>
+                        </div>
+                        <div class="procedure-text reveal slide-right">
+                            <h3>Preenchimento</h3>
+                            <p>Restaura e adiciona volume (em sulcos, maçãs, mandíbula) para redefinir o contorno
+                                facial.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 12. PROFHILO -->
+                <div class="swiper-slide reveal slide-right">
+                    <div class="procedure-card">
+                        <div class="video-box">
+                            <video controls>
+                                <source src="">
+                            </video>
+                        </div>
+                        <div class="procedure-text reveal slide-right">
+                            <h3>PROFHILO</h3>
+                            <p>Injetável para bioremodelamento e hidratação profunda, estimulando elastina e combatendo
+                                a flacidez da pele.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+
+    </section>
+
+
+
+    <!--ESTRUTURA E CONFORTO-->
+
+
+    <section id="estrutura" class="estrutura-section">
+
+        <div class="estrutura-container">
+
+            <!-- Título da seção -->
+            <div class="title">
+                <h1 class="reveal">Estrutura e Conforto</h1>
+                <p class="reveal">Seu bem-estar em primeiro lugar!</p>
+            </div>
+
+            <div class="estrutura-conteudo">
+
+                <!-- COLUNA ESQUERDA -->
+                <div class="coluna-esquerda">
+                    <div class="dropdown-bloco reveal">
+                        <div class="dropdown-titulo reveal">
+                            <h3>Ambiente Aconchegante</h3>
+                            <span class="seta">⌄</span>
+                        </div>
+                        <div class="dropdown-conteudo">
+                            <ul>
+                                <li>Poltronas ergonômicas e ambiente climatizado.</li>
+                                <li>Wi-Fi de alta velocidade.</li>
+                                <li>Atendimento individualizado.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="dropdown-bloco reveal">
+                        <div class="dropdown-titulo reveal">
+                            <h3>Excelência Estrutural</h3>
+                            <span class="seta">⌄</span>
+                        </div>
+                        <div class="dropdown-conteudo">
+                            <ul>
+                                <li>Salas de procedimentos modernas e equipadas.</li>
+                                <li>Biossegurança certificada pela ANVISA.</li>
+                                <li>Suite de repouso exclusiva.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="dropdown-bloco reveal">
+                        <div class="dropdown-titulo reveal">
+                            <h3>Profissional Qualificado</h3>
+                            <span class="seta">⌄</span>
+                        </div>
+                        <div class="dropdown-conteudo">
+                            <ul>
+                                <li>Formação e Titulação Acadêmica Superior</li>
+                                <li>Expertise em Procedimentos de Alto Nível e Segurança</li>
+                                <li>Abordagem humanizada com foco no bem-estar do paciente</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- COLUNA DIREITA — GALERIA REAL DE IMAGENS -->
+                <section class="hero-slider">
+                    <div class="slide track">
+                        <div class="slide-item" style="background-image: url('imgs/conforto.jpg');"></div>
+                        <div class="slide-item" style="background-image: url('imgs/doutora.jpg');"></div>
+                        <div class="slide-item" style="background-image: url('imgs/estrutura.jpg');"></div>
+                        <div class="slide-item" style="background-image: url('imgs/limpeza.jpg');"></div>
+                    </div>
+
+                    <div class="overlay-content">
+                        <h1>Experiência Premium em Estética</h1>
+                        <p>Tratamentos de alto padrão para realçar sua beleza natural.</p>
+                    </div>
+                </section>
+
+
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section id="localizacao" class="localizacao">
+        <h1 class="reveal fade-down">Encontre o <span class="caminho reveal fade-down">caminho</span> para a sua melhor
+            versão.</h1>
+        <p class="sub reveal fade-down">O cuidado que você merece está mais perto do que imagina!</p>
+
+        <div class="localizacao-wrapper ">
+
+            <div class="info-local reveal slide-left">
+                <h2 class="reveal slide-left">Localização:</h2>
+                <p class="ender reveal slide-left"><strong>Endereço:</strong><br>
+                    Rua Eng. Mário de Gusmão, 988 – Ponta Verde, Maceió – AL
+                </p>
+
+                <h3 class="reveal slide-left">Horários de Atendimento</h3>
+                <ul class="horarios reveal slide-left">
+                    <li><strong>Segunda a Sexta:</strong> 9h às 18h</li>
+                    <li><strong>Sábado:</strong>Fechado</li>
+                    <li><strong>Domingos e feriados:</strong> Fechado</li>
+                </ul>
+
+            </div>
+
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15732.862240335238!2d-35.69960726728664!3d-9.662614503266168!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x70145aaf8598347%3A0x4cd72b3fd717d780!2sR.%20Eng.%20M%C3%A1rio%20de%20Gusm%C3%A3o%2C%20988%20-%20Ponta%20Verde%2C%20Macei%C3%B3%20-%20AL%2C%2057035-000!5e0!3m2!1spt-BR!2sbr!4v1764959336858!5m2!1spt-BR!2sbr"
+                loading="lazy" allowfullscreen="" referrerpolicy="no-referrer-when-downgrade"
+                class="reveal slide-right">
+            </iframe>
+
+        </div>
+    </section>
+
+    <footer class="rodape premium-minimal">
+        <div class="container-footer">
+            <p class="marca">ICLINIC</p>
+            <p class="sub">Clínica Especializada em Saúde Estética</p>
+            <p class="copy">© 2026 ICLINIC. Todos os direitos reservados.</p>
+
+            <p class="dev">Desenvolvido por <strong>Lêvy Gustavo</strong></p>
+        </div>
+    </footer>
+
+
+
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>
