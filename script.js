@@ -1,3 +1,39 @@
+
+const btn = document.getElementById("hamburguer");
+const menu = document.getElementById("menuMobile");
+
+btn.addEventListener("click", () => {
+    btn.classList.toggle("ativo");
+    menu.classList.toggle("ativo");
+});
+
+// Lógica do dropdown mobile
+const mobileButtons = document.querySelectorAll(".mobile-btn");
+
+mobileButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+
+        // Fecha todos os outros dropdowns abertos
+        mobileButtons.forEach((otherBtn) => {
+            if (otherBtn !== button) {
+                otherBtn.classList.remove("active");
+                otherBtn.nextElementSibling.style.display = "none";
+            }
+        });
+
+        // Alterna o atual
+        const submenu = button.nextElementSibling;
+        const isOpen = submenu.style.display === "block";
+
+        submenu.style.display = isOpen ? "none" : "block";
+        button.classList.toggle("active", !isOpen);
+    });
+});
+
+
+
+
+
 document.addEventListener('DOMContentLoaded', function () {
 
     // ==========================================================
@@ -41,9 +77,12 @@ document.addEventListener('DOMContentLoaded', function () {
         slidesPerView: 1,
         spaceBetween: 30,
         loop: true,
+        autoHeight: true,
         pagination: { el: '.swiper-pagination', clickable: true },
         navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
     });
+
+    
 
     // --- SWIPER DECK ---
     const treatmentsDeck = new Swiper('.treatments-deck-slider', {
@@ -309,3 +348,4 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.18 });
 
 reveals.forEach(el => observer.observe(el));
+

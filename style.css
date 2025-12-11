@@ -5,6 +5,7 @@
     padding: 0;
 }
 
+
 :root {
     --fundo: #F4F0E7;
     --fundo-section: #e2d0b8;
@@ -21,6 +22,39 @@ body {
     background-color: var(--fundo);
     overflow-x: hidden;
 }
+
+header {
+    position: relative;
+}
+
+.whatsapp-float {
+    position: fixed;
+    width: 55px;
+    height: 55px;
+    bottom: 60px;
+    right: 30px;
+    background-color: #25D366;
+    color: #fff;
+    border-radius: 50%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.25);
+    z-index: 999;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.whatsapp-float img {
+    width: 34px;
+    filter: brightness(0) invert(1);
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.12);
+    box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.35);
+}
+
 
 /*ANIMAÇÃO AO ROLAR A TELA*/
 
@@ -69,29 +103,37 @@ body {
     opacity: 1;
     transform: translateX(0);
 }
+
 /*====FIM DAS ANIMAÇÕES*/
 
 .container-box {
+    display: flex;
+    flex-direction: column;
     width: 100%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     background-color: var(--fundo-section);
     height: 27vh;
     padding: 30px;
+
 }
 
 .logo {
+    margin-right: 20px;
     text-align: center;
     color: var(--texto);
 }
 
 .logo h1 {
     font-family: var(--fonte-titulo);
-    font-size: 3em;
+    font-size: 2.5em;
     font-weight: 600;
 }
 
 .logo p {
     font-family: var(--fonte-secundaria);
-    font-size: 1.4em;
+    font-size: 1.1em;
     margin-top: 15px;
 }
 
@@ -120,7 +162,7 @@ body {
     text-decoration: none;
     color: var(--texto);
     font-family: var(--fonte-secundaria);
-    font-size: 1.1em;
+    font-size: 1em;
     font-weight: 600;
     transition: 0.5s;
     z-index: 1;
@@ -158,7 +200,7 @@ body {
 
 .nav a:hover {
     color: white;
-    font-size: 1.1em;
+    font-size: 1em;
     transform: none;
     border-bottom-color: transparent;
 }
@@ -172,6 +214,7 @@ body {
     transform: scaleY(1);
     opacity: 1;
 }
+
 
 .dropdown-content a::before,
 .dropdown-content a::after {
@@ -205,10 +248,10 @@ body {
     padding: 20px;
     text-decoration: none;
     display: block;
-    text-align: left;
-    padding: 10px 20px;
+    text-align: center;
+    padding: 10px 15px;
     font-family: var(--fonte-secundaria);
-    font-size: 16px;
+    font-size: 14px;
 }
 
 /* ===== DROPDONW DE PROCEDIMENTOS ===== */
@@ -228,13 +271,13 @@ body {
 
 .procedures-dropdown a {
     color: #000000;
-    padding: 10px 20px;
+    padding: 10px 25px;
     text-decoration: none;
     display: block;
     text-align: left;
-    line-height: 1.5;
+    line-height: 1em;
     font-family: var(--fonte-secundaria);
-    font-size: 16px;
+    font-size: 14px;
 }
 
 
@@ -253,9 +296,214 @@ body {
     position: relative;
 }
 
+/* ================================
+   MENU HAMBURGUER - MOBILE
+================================ */
+
+/* Oculta o menu hambúrguer no desktop */
+.hamburguer {
+    display: none !important;
+    position: absolute;
+    margin-right: 0;
+    margin-top: 20px;
+
+}
+
+.menu-mobile {
+    display: none !important;
+}
+
+.menu-mobile ul::-webkit-scrollbar {
+    width: 8px;
+}
+
+.menu-mobile ul::-webkit-scrollbar-track {
+    background: #e8e0d4;
+    /* cor do trilho */
+    border-radius: 10px;
+}
+
+.menu-mobile ul::-webkit-scrollbar-thumb {
+    background: var(--detalhes);
+    /* cor da barrinha */
+    border-radius: 10px;
+}
+
+.menu-mobile ul::-webkit-scrollbar-thumb:hover {
+    background: #8d5a38;
+    /* cor ao passar o mouse */
+}
+
+/* Estilos do ícone */
+.hamburguer {
+    width: 32px;
+    height: 24px;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    cursor: pointer;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.hamburguer span {
+    width: 100%;
+    height: 4px;
+    background-color: var(--texto);
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+/* Animação quando ativo */
+.hamburguer.ativo span:nth-child(1) {
+    transform: translateY(10px) rotate(45deg);
+}
+
+.hamburguer.ativo span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburguer.ativo span:nth-child(3) {
+    transform: translateY(-10px) rotate(-45deg);
+}
+
+
+/* =======================
+   MENU LATERAL MOBILE
+======================= */
+@media (max-width: 900px) {
+
+    .container-box {
+        align-items: center;
+        text-align: center;
+    }
+
+    .logo {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        /* CENTRALIZA DE VEZ */
+    }
+
+
+    .hamburguer.ativo {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 3000;
+    }
+
+    .menu-mobile {
+        display: flex !important;
+    }
+
+    .hamburguer {
+        display: flex !important;
+    }
+
+    /* Esconder o menu desktop no mobile */
+    .nav ul {
+        display: none !important;
+    }
+
+    .nav ul {
+        display: none;
+        /* esconde o menu desktop */
+    }
+
+    /* Sidebar */
+    .menu-mobile {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background-color: var(--fundo);
+        box-shadow: -4px 0 12px rgba(0, 0, 0, 0.2);
+        padding: 40px 20px;
+        transition: 0.3s ease;
+        z-index: 1500;
+    }
+
+    .menu-mobile.ativo {
+        right: 0;
+    }
+
+    .menu-mobile ul {
+        list-style: none;
+        margin-top: 50px;
+    }
+
+    .menu-mobile li {
+        margin-bottom: 25px;
+    }
+
+    .menu-mobile a {
+        font-family: var(--fonte-secundaria);
+        color: var(--texto);
+        font-size: 1.4em;
+        text-decoration: none;
+        padding: 10px 0;
+        display: block;
+    }
+
+    /* Submenus (dropdowns) no mobile ficam em lista simples */
+    .menu-mobile .dropdown-content,
+    .menu-mobile .procedures-dropdown {
+        display: none !important;
+        position: relative;
+        box-shadow: none;
+        background: transparent;
+    }
+}
+
+/* Submenu fechado por padrão */
+.mobile-submenu {
+    display: none;
+    padding-left: 15px;
+    flex-direction: column;
+    max-height: 260px;
+    /* impede de passar da tela */
+    overflow-y: auto;
+    /* ativa scroll se necessário */
+}
+
+.mobile-submenu li {
+    margin-bottom: 12px;
+}
+
+/* Botão principal do submenu */
+.mobile-btn {
+    width: 100%;
+    background: none;
+    border: none;
+    font-family: var(--fonte-secundaria);
+    color: var(--texto);
+    font-size: 1.4em;
+    text-align: left;
+    padding: 10px 0;
+    cursor: pointer;
+}
+
+/* Setinha */
+.mobile-btn::after {
+    content: "▾";
+    float: right;
+    transition: 0.3s;
+}
+
+/* Quando abrir o submenu */
+.mobile-btn.active::after {
+    transform: rotate(180deg);
+}
+
 .hero-section {
     width: 100%;
-    height: auto;
+    height: 68vh;
     background-color: var(--fundo);
 
     display: flex;
@@ -275,7 +523,7 @@ body {
 
 .hero-content h1 {
     font-family: var(--fonte-titulo);
-    font-size: 3.8em;
+    font-size: 3.7em;
     font-weight: 600;
     line-height: 1.2;
     margin-bottom: 10px;
@@ -284,7 +532,7 @@ body {
 
 .hero-content p {
     font-family: var(--fonte-secundaria);
-    font-size: 1.7em;
+    font-size: 1.5em;
     line-height: 1.5;
     margin-bottom: 25px;
     color: var(--texto);
@@ -303,7 +551,7 @@ body {
     border-radius: 10px;
     text-decoration: none;
     font-family: var(--fonte-secundaria);
-    font-size: 1.5em;
+    font-size: 1.3em;
     font-weight: 500;
     transition: background-color 0.3s ease, transform 0.3s ease;
     border: none;
@@ -320,11 +568,11 @@ body {
 }
 
 .hero-image img {
-    width: 100%;
-    max-height: 60vh;
+    width: 80%;
+    max-height: auto;
     object-fit: cover;
-    margin: auto;
-    margin-top: 60px;
+    margin: auto 50px;
+    margin-top: 58px;
     border-radius: 50% 10% / 10% 50% 10% 50%;
     box-shadow: 0 10px 25px rgb(0, 0, 0, 0.15);
     transition: filter 0.3s ease-in-out;
@@ -336,7 +584,7 @@ body {
 }
 
 .bg-tratamentos {
-    width: 110%;
+    width: 100%;
     padding: 0;
     margin: 0;
     border-radius: 25px;
@@ -352,10 +600,10 @@ body {
 
 .treatments-section .section-title {
     font-family: var(--fonte-titulo);
-    font-size: 4.6em;
+    font-size: 2em;
     font-weight: 400;
     color: var(--texto);
-    margin-right: 230px;
+    margin-right: 20px;
     padding-top: 40px;
 }
 
@@ -367,15 +615,23 @@ body {
 /* --- CARTÃO INDIVIDUAL --- */
 .treatment-card {
     width: auto !important;
-    padding: 20px;
+    padding: 15px;
     margin: auto;
     display: flex;
     flex-direction: column;
     text-align: center;
     align-items: center;
-    min-height: 400px;
+    min-height: 300px !important;
     text-align: center;
+    position: relative !important;
+    pointer-events: auto !important;
+    z-index: 1 !important;
     transition: transform 0.3s ease;
+}
+
+.treatments-deck-slider .swiper-wrapper,
+.treatments-deck-slider .swiper-slide {
+    pointer-events: none !important;
 }
 
 .treatment-card:hover {
@@ -392,7 +648,7 @@ body {
 
 .treatment-card p {
     font-family: var(--fonte-secundaria);
-    font-size: 1.2em;
+    font-size: 1em !important;
     font-weight: 700;
     color: var(--texto);
     line-height: 1.4;
@@ -407,7 +663,7 @@ body {
 
 .treatment-card .details-button {
     margin-top: auto;
-    display: inline-block;
+    display: block !important;
     padding: 10px 20px;
     background-color: transparent;
     color: var(--detalhes);
@@ -417,11 +673,23 @@ body {
     font-family: var(--fonte-secundaria);
     font-weight: 600;
     transition: background-color 0.3s;
+    position: relative !important;
+    z-index: 9999 !important;
 }
 
 .details-button:hover {
     background-color: var(--detalhes);
     color: #ffffff;
+}
+
+.treatment-card .card-image-placeholder,
+.treatment-card .card-image-placeholder img {
+    pointer-events: none;
+}
+
+/* IMPORTANTE: Camadas internas não devem capturar o toque */
+.treatment-card * {
+    pointer-events: auto;
 }
 
 .modal {
@@ -553,7 +821,7 @@ body {
 }
 
 .treatments-deck-slider .swiper-slide {
-    width: 380px !important;
+    width: 380px;
     height: auto;
 }
 
@@ -582,7 +850,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 50px;
+    gap: 30px;
 }
 
 /* TEXTO À ESQUERDA */
@@ -593,7 +861,7 @@ body {
 }
 
 .treatments-text .impact-title {
-    font-size: 4.6em;
+    font-size: 3.5em;
     line-height: 1.1em;
     font-family: var(--fonte-titulo);
     color: var(--texto);
@@ -603,7 +871,7 @@ body {
 }
 
 .treatments-text .impact-sub {
-    font-size: 2em;
+    font-size: 1.5em;
     line-height: 1.5em;
     font-family: var(--fonte-secundaria);
     color: var(--secundario);
@@ -623,13 +891,12 @@ body {
 /* ======== CARDS MAIORES ======== */
 
 .treatment-card {
-    width: 350px !important;
-    /* maior */
+    max-width: 350px;
+    width: 100%;
     min-height: 420px !important;
     /* maior */
     padding: 30px;
     border-radius: 20px;
-    margin-right: 70px !important;
 }
 
 .treatment-card .card-image-placeholder img {
@@ -663,12 +930,14 @@ body {
     padding: 60px 20px;
     text-align: center;
     background-color: var(--fundo);
-    height: 80vh;
+    min-height: 80vh;
+    /* mantém proporção, mas permite crescer */
+    height: auto;
 }
 
 .depoimentos .section-title {
     font-family: var(--fonte-titulo);
-    font-size: 3.4em;
+    font-size: 3em;
     font-weight: 400;
     color: var(--texto);
     margin-bottom: 10px;
@@ -692,7 +961,7 @@ body {
 
 /* --- ESTILO DO CARD DE TEXTO --- */
 .card-depoimentos {
-    width: 100%;
+    width: 90%;
     max-width: 500px;
     border-radius: 10% 40%;
     margin: 0;
@@ -781,6 +1050,7 @@ body {
     top: 0;
     bottom: 0;
     width: 4px;
+    transform: translateX(-50%);
     background-color: #fff;
     border: 2px solid var(--cor-primaria);
     border-radius: 2px;
@@ -801,9 +1071,9 @@ body {
 
 .circulo-setas {
     position: absolute;
-    left: 50%;
+    left: 50% !important;
     top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) !important;
     width: 38px;
     height: 38px;
     border-radius: 50%;
@@ -881,15 +1151,15 @@ body {
 .swiper-button-next,
 .swiper-button-prev {
     color: var(--detalhes) !important;
-    top: 50%;
-    width: 8%;
-    transform: translateY(-50%) scale(2);
+    top: 60%;
+    width: 2%;
+    transform: translateY(-50%) scale(1) !important;
     transition: color 0.3s;
     margin: 0 10px;
 }
 
 .swiper-button-prev {
-    width: 10%;
+    width: 8%;
     ;
 }
 
@@ -921,7 +1191,7 @@ body {
 .procedures-section .section-title {
     font-family: var(--fonte-titulo);
     text-transform: uppercase;
-    font-size: 4.4em;
+    font-size: 4em;
     color: var(--texto);
     font-weight: 400;
     letter-spacing: 1px;
@@ -930,7 +1200,7 @@ body {
 
 .procedures-section .section-subtitle {
     font-family: var(--fonte-secundaria);
-    font-size: 1.6em;
+    font-size: 1.4em;
 
     color: var(--secundario);
     max-width: 900px;
@@ -955,11 +1225,11 @@ body {
 
 .procedure-card {
     width: 100%;
-    max-width: 1000px;
+    max-width: 800px;
     background-color: var(--fundo);
     display: flex;
     gap: 50px;
-    padding: 50px;
+    padding: 48px;
     border-radius: 20px;
 
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.09);
@@ -982,8 +1252,10 @@ body {
 /* =============================================== */
 
 .video-box {
-    width: 350px;
-    height: 600px;
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    aspect-ratio: 9/16;
     background-color: #000;
     border-radius: 18px;
     overflow: hidden;
@@ -1067,11 +1339,16 @@ body {
 .swiper-pagination-bullet {
     background: var(--secundario);
     opacity: .45;
+
 }
 
 .swiper-pagination-bullet-active {
     background: var(--detalhes);
     opacity: 1;
+}
+
+.swiper-pagination {
+    padding-bottom: -100px;
 }
 
 /* =============================
@@ -1096,12 +1373,13 @@ body {
 ============================= */
 
 .title {
-    margin-bottom: 200px;
+    padding-top: -50px;
+    margin-bottom: 100px;
 }
 
 .title h1 {
     font-family: var(--fonte-titulo);
-    font-size: 4.6em;
+    font-size: 4.2em;
     font-weight: 400;
     color: var(--texto);
     margin-bottom: 10px;
@@ -1110,7 +1388,7 @@ body {
 
 .title p {
     text-align: center;
-    font-size: 2rem;
+    font-size: 1.6rem;
     color: var(--texto);
 }
 
@@ -1120,7 +1398,7 @@ body {
 
 .dropdown-bloco {
     background: linear-gradient(145deg, #6b4727cc, #5a381fdd);
-    padding: 32px;
+    padding: 23px;
     border-radius: 10px;
     margin-bottom: 28px;
     color: #fff;
@@ -1221,9 +1499,9 @@ body {
 .estrutura-conteudo {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    margin-top: -55px;
-    /* lado a lado */
-    gap: 60px;
+    gap: 40px;
+    width: 100%;
+    max-width: 100%;
     align-items: center;
 }
 
@@ -1243,8 +1521,8 @@ body {
 /* Área principal do slider */
 .gallery-display {
     width: 100%;
-    max-width: 900px;
-    height: 500px;
+    max-width: 100%;
+    height: auto;
     aspect-ratio: 16/10;
     border: 3px solid #A67449;
     border-radius: 22px !important;
@@ -1295,7 +1573,7 @@ body {
     border-radius: 10px;
 
     margin-top: -35px;
-    margin-left: 60px;
+    margin: 0 auto;
 }
 
 .hero-slider .track {
@@ -1353,7 +1631,7 @@ body {
 
 .localizacao h1 {
     font-family: var(--variação);
-    font-size: 4em;
+    font-size: 3.4em;
     color: var(--texto);
     line-height: 1.2;
     font-weight: lighter;
@@ -1402,13 +1680,14 @@ body {
 .info-local h3 {
     text-align: center;
     font-family: var(--fonte-titulo);
-    font-size: 2.5em;
+    font-size: 2em;
     color: var(--detalhes);
     margin-bottom: 10px;
 }
 
 .info-local h3 {
-    margin-top: 60px;
+    margin-top: 30px;
+    margin-bottom: 25px;
 }
 
 .info-local p {
@@ -1419,13 +1698,13 @@ body {
 
 .ender {
     color: var(--texto);
-    font-size: 1.5em;
+    font-size: 1.4em;
 }
 
 .horarios li {
     list-style: none;
     text-align: center;
-    font-size: 1.5em;
+    font-size: 1.4em;
     margin-top: -10px;
     margin-bottom: 6px;
 }
@@ -1493,7 +1772,7 @@ body {
 }
 
 .premium-minimal .marca {
-    font-size: 2em;
+    font-size: 1.9em;
     font-weight: 700;
     color: #A67449;
     margin-bottom: 4px;
@@ -1517,7 +1796,7 @@ body {
 }
 
 .premium-minimal .copy {
-    font-size: 1.4em;
+    font-size: 1.3em;
     color: #999;
     transition: transform 0.3s ease;
 }
@@ -1529,7 +1808,7 @@ body {
 
 .premium-minimal .dev {
     margin-top: 6px;
-    font-size: 1.2em;
+    font-size: 1em;
     opacity: 0.8;
     transition: transform 0.3s ease;
 }
@@ -1538,6 +1817,7 @@ body {
     transform: translateY(-4px);
 
 }
+
 /*=====================
  PARTE DE QUEM SOU EU
  =======================
@@ -1556,14 +1836,16 @@ body {
     margin: auto;
     padding: 0 20px;
 }
+
 .foto-quem {
-    width: 110%;
-    height: 720px;
+    width: 100%;
+    height: 620px;
     overflow: hidden;
     border-radius: 18px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 
 }
+
 .foto-quem img {
     width: 100%;
     height: 100%;
@@ -1582,7 +1864,7 @@ body {
 }
 
 .texto-quem h2 {
-    font-size: 4rem;
+    font-size: 3em;
     font-family: var(--fonte-titulo);
     color: var(--detalhes);
     margin-bottom: 20px;
@@ -1590,7 +1872,7 @@ body {
 
 .texto-quem p {
     font-family: var(--fonte-secundaria);
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     line-height: 1.2em;
     margin-bottom: 18px;
     color: var(--texto);
@@ -1620,7 +1902,7 @@ body {
 
 .filosofia {
     padding: 100px 0;
-    background: #fff;
+    background: var(--fundo-section);
 }
 
 .container-filosofia {
@@ -1633,14 +1915,14 @@ body {
 }
 
 .filosofia-texto h2 {
-    font-size: 4rem;
-    color: var(--detalhes);
+    font-size: 3.5rem;
+    color: var(--texto);
     font-family: var(--fonte-titulo);
     margin-bottom: 20px;
 }
 
 .filosofia-texto p {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     color: var(--texto);
     margin-bottom: 18px;
     font-family: var(--fonte-secundaria);
@@ -1651,6 +1933,698 @@ body {
     height: 620px;
     object-fit: cover;
     border-radius: 18px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.17);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.17);
 }
 
+
+/*===== RESPONSIVIDADE DO SITE: */
+
+/* ================================
+   RESPONSIVIDADE DO HEADER
+================================ */
+
+
+
+
+/* Tablets e telas médias */
+@media (max-width: 1200px) {
+    .logo h1 {
+        font-size: 2.6em;
+    }
+
+    .logo p {
+        font-size: 1.2em;
+    }
+
+    .container-box {
+        height: auto;
+        padding: 40px 20px;
+    }
+
+    .nav {
+        font-size: 0.9em;
+        margin-top: 60px;
+    }
+}
+
+/* Celulares grandes */
+@media (max-width: 992px) {
+    .container-box {
+        margin: auto;
+        height: auto;
+        padding: 30px 20px 20px 20px;
+    }
+    .logo {
+        margin: 30px 0 -30px;
+    } 
+
+    .logo h1 {
+        text-align: center;
+        font-size: 2.2em;
+    }
+
+    .logo p {
+        text-align: center;
+        font-size: 1.1em;
+    }
+
+    .hamburguer {
+        top: 25px;
+        right: 60px;
+        width: 30px;
+        height: 22px;
+    }
+
+    .hamburguer span {
+        height: 3px;
+    }
+}
+
+/* Celulares médios */
+@media (max-width: 768px) {
+    .container-box {
+        margin: auto;
+        height: auto;
+        padding: 30px 20px 60px 20px;
+    }
+
+    .hamburguer {
+        top: 25px;
+        right: 30px;
+        width: 30px;
+        height: 22px;
+    }
+
+    .logo h1 {
+        text-align: center;
+        font-size: 1.9em;
+    }
+
+    .logo p {
+        text-align: center;
+        font-size: 1em;
+    }
+
+    .container-box {
+        padding: 25px 20px 60px 20px;
+    }
+
+    .menu-mobile a,
+    .mobile-btn {
+        font-size: 1.2em;
+    }
+
+    .mobile-submenu li a {
+        font-size: 1.1em;
+    }
+}
+
+/* Celulares pequenos */
+@media (max-width: 430px) {
+    .container-box {
+        margin: auto;
+        height: auto;
+        padding: 30px 20px 60px 20px;
+    }
+
+    .logo h1 {
+        margin: auto;
+        font-size: 1.6em;
+    }
+
+    .logo p {
+        margin: auto;
+        font-size: .9em;
+    }
+
+    .hamburguer {
+        width: 28px;
+        margin-right: -20px;
+        right: 20px;
+    }
+
+    .menu-mobile {
+        width: 80%;
+    }
+}
+
+/* Telas muito pequenas (tipo iPhone SE) */
+@media (max-width: 360px) {
+    .container-box {
+        margin: auto;
+        height: auto;
+        padding: 30px 20px 60px 20px;
+    }
+
+    .logo h1 {
+        margin: auto;
+        text-align: center;
+        font-size: 1.4em;
+    }
+
+    .logo p {
+        margin: auto;
+        text-align: center;
+        font-size: 0.85em;
+    }
+
+    .menu-mobile a,
+    .mobile-btn {
+        font-size: 1.05em;
+    }
+}
+
+/* ======================================================
+      HERO – RESPONSIVIDADE TOTAL  
+====================================================== */
+
+
+/* =============== 1200px =============== */
+@media (max-width: 1200px) {
+
+    .hero-section {
+        height: auto;
+        padding: 60px 5%;
+    }
+
+    .hero-content h1 {
+        font-size: 3.2em;
+    }
+
+    .hero-content p {
+        font-size: 1.4em;
+    }
+
+    .hero-image img {
+        width: 75%;
+        margin-top: 40px;
+    }
+}
+
+
+
+/* =============== 900px =============== */
+@media (max-width: 900px) {
+
+    .hero-section {
+        flex-direction: column;
+        text-align: center;
+        padding: 70px 6% 90px;
+        height: auto;
+    }
+
+    .hero-content {
+        padding-right: 0;
+        margin-bottom: 30px;
+    }
+
+    .hero-image {
+        margin-top: -30px;
+        margin-bottom: 30px;
+        order: 1;
+        /* A FOTO FICA PRIMEIRO */
+    }
+
+    .hero-content {
+        order: 2;
+        /* O TEXTO + BOTÃO FICA DEPOIS */
+    }
+
+    .hero-content h1 {
+        font-size: 3em;
+    }
+
+    .hero-content p {
+        font-size: 1.3em;
+    }
+
+    .linha2 {
+        width: 45%;
+        margin: 10px auto 0;
+    }
+
+    .hero-image img {
+        width: 70%;
+        margin: 30px auto 0;
+    }
+}
+
+
+
+/* =============== 768px =============== */
+@media (max-width: 768px) {
+
+    .hero-content h1 {
+        font-size: 2.7em;
+    }
+
+    .hero-content p {
+        font-size: 1.2em;
+    }
+
+    .linha2 {
+        width: 40%;
+    }
+
+    .hero-image img {
+        width: 85%;
+        margin-top: 20px;
+    }
+}
+
+
+
+/* =============== 430px =============== */
+@media (max-width: 430px) {
+
+    .hero-section {
+        padding: 60px 5% 70px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.2em;
+        line-height: 1.15;
+    }
+
+    .hero-content p {
+        font-size: 1.1em;
+    }
+
+    .hero-button {
+        font-size: 1.15em;
+        padding: 12px 24px;
+        border-radius: 8px;
+    }
+
+    .linha2 {
+        width: 50%;
+        margin: 10px auto;
+    }
+
+    .hero-image img {
+        width: 90%;
+        margin-top: 30px;
+        border-radius: 40% 10% / 10% 40% 10% 40%;
+    }
+}
+
+
+
+/* =============== 360px =============== */
+@media (max-width: 360px) {
+
+    .hero-section {
+        padding: 55px 5% 70px;
+    }
+
+    .hero-content h1 {
+        font-size: 2em;
+    }
+
+    .hero-content p {
+        font-size: 1em;
+    }
+
+    .hero-button {
+        font-size: 1.1em;
+        padding: 10px 22px;
+    }
+
+    .linha2 {
+        width: 55%;
+    }
+
+    .hero-image img {
+        width: 95%;
+        margin-top: 25px;
+    }
+}
+
+
+/* =================================================== */
+/* RESPONSIVIDADE - SEÇÃO TRATAMENTOS E MODAL          */
+/* =================================================== */
+/* ================================================
+
+
+/* 1. Telas Médias-Grandes (Abaixo de 1200px) */
+@media (max-width: 1200px) {
+
+    /* Ajusta o espaçamento do grid e o tamanho do texto */
+    .treatments-grid {
+        gap: 30px;
+        padding: 0 4%;
+        /* Adiciona padding lateral para não colar nas bordas */
+    }
+
+    .treatments-text {
+        width: 35%;
+        margin-left: 0 !important;
+    }
+
+    .treatments-slider-wrapper {
+        width: 65%;
+    }
+
+    .treatments-text .impact-title {
+        font-size: 3.8em;
+    }
+
+    .treatments-text .impact-sub {
+        font-size: 1.8em;
+    }
+
+    /* Reduz o tamanho do card */
+    .treatment-card {
+        width: 320px !important;
+        min-height: 400px !important;
+        margin-right: 50px !important;
+    }
+}
+
+/* 2. Tablets (Abaixo de 900px) */
+@media (max-width: 992px) {
+
+    .modal-content {
+        max-width: 420px !important;
+        padding: 1.8rem !important;
+    }
+
+    .modal-content h2 {
+        font-size: 1.9em !important;
+    }
+
+    .modal-content p,
+    .modal-content ul {
+        font-size: 1.05rem !important;
+    }
+
+    /* Transição para o layout empilhado (Coluna) */
+    .treatments-grid {
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+    }
+
+    /* O bloco de fundo agora envolve tudo e precisa de padding horizontal */
+    .bg-tratamentos {
+        width: 100%;
+        padding: 40px 0;
+    }
+
+    /* TEXTO (agora em cima) */
+    .treatments-text {
+        width: 90%;
+        max-width: 600px;
+        margin: 0 auto 40px auto !important;
+        text-align: center;
+    }
+
+    .treatments-text .impact-title {
+        font-size: 3em;
+    }
+
+    .treatments-text .impact-sub {
+        font-size: 1.5em;
+    }
+
+    /* SLIDER (agora embaixo) */
+    .treatments-slider-wrapper {
+        width: 100%;
+    }
+
+    .treatments-deck-slider {
+        padding: 30px 9%;
+    }
+
+    /* Redução e centralização do card no carrossel */
+    .treatment-card {
+        width: 100% !important;
+        min-height: 290px !important;
+        margin: 0 5px;
+        /* Reduz margem entre cards */
+    }
+
+    .treatment-card .card-image-placeholder img {
+        height: 200px;
+        /* Reduz a altura da imagem no card */
+    }
+}
+
+/* 3. Smartphones Largos ou Tablets Retrato (Abaixo de 768px/600px) */
+/* Usaremos 768px como referência principal para otimizar o empilhamento */
+@media (max-width: 768px) {
+
+    .treatment-card {
+        width: 60% !important;
+        min-height: 360px !important;
+    }
+
+    .treatment-card .card-image-placeholder img {
+        height: 140px;
+    }
+
+    .treatments-text .impact-title {
+        font-size: 2.8em;
+    }
+
+    .treatment-card .details-button {
+        /* Garante que o link esteja no topo da camada */
+        position: relative;
+        z-index: 99;
+    }
+
+
+    .modal-content {
+        max-width: 380px !important;
+        padding: 2rem;
+    }
+
+    .modal-content h2 {
+        font-size: 2.4em !important;
+    }
+
+    .modal-content p,
+    .modal-content ul {
+        font-size: 1.1rem !important;
+    }
+}
+
+
+/* 4. Smartphones Padrão (Abaixo de 430px) */
+@media (max-width: 430px) {
+    .treatments-section {
+        padding: 60px 0 0 0;
+    }
+
+    .treatments-text .impact-title {
+        font-size: 2.2em;
+    }
+
+    .treatments-text .impact-sub {
+        font-size: 1.2em;
+    }
+
+    .treatments-text {
+        width: 95%;
+    }
+
+    /* Redução e centralização do card no carrossel */
+    .treatment-card {
+        width: 170px !important;
+        min-height: 360px !important;
+        margin-right: 18px !important;
+    }
+
+    .treatment-card .card-image-placeholder img {
+        height: 140px;
+    }
+
+    .treatment-card h3 {
+        font-size: 1.3em;
+    }
+
+    .treatment-card p {
+        font-size: 1em;
+    }
+
+    /* Aumenta o padding para o botão ser fácil de tocar */
+    .treatment-card .details-button {
+        padding: 12px 25px;
+        font-size: 1.05em;
+        /* Garante que o link esteja no topo da camada */
+        position: relative;
+        z-index: 99;
+    }
+
+    /* Otimização do Modal para Telas Estreitas */
+    .modal-content {
+        width: 84% !important;
+        max-width: 330px !important;
+        padding: 1.3rem !important;
+    }
+
+    .modal-content h2 {
+        font-size: 1.6em !important;
+    }
+
+    .modal-content p,
+    .modal-content ul {
+        font-size: 1rem !important;
+    }
+
+    .whatsapp-button {
+        width: 90%;
+        font-size: 1rem !important;
+    }
+
+}
+
+/* 5. Smartphones Pequenos (Abaixo de 360px) */
+@media (max-width: 360px) {
+    .treatments-text .impact-title {
+        font-size: 1.9em;
+    }
+
+    .treatments-text .impact-sub {
+        font-size: 1.1em;
+    }
+
+    .treatment-card {
+        width: 160px !important;
+        min-height: 370px !important;
+    }
+
+    .treatment-card .card-image-placeholder img {
+        height: 130px;
+    }
+
+    .modal-content {
+        max-width: 300px !important;
+        padding: 1.1rem !important;
+    }
+
+    .modal-content h2 {
+        font-size: 1.45em !important;
+    }
+
+    .modal-content p,
+    .modal-content ul {
+        font-size: 0.9rem !important;
+    }
+}
+
+/* ========================================================== */
+/* RESPONSIVIDADE COMPLETA */
+/* ========================================================== */
+
+
+/* --- Telas Grandes e Médias (Até 1200px) --- */
+@media (max-width: 1200px) {
+
+    /* Diminui o espaçamento dos slides em telas grandes/médias */
+    .depoimentos-slider .swiper-slide {
+        gap: 30px;
+        min-height: 450px;
+    }
+
+    /* Reduz o tamanho da fonte do depoimento */
+    .card-depoimentos p {
+        font-size: 2em;
+        /* De 2.4em para 2em */
+    }
+}
+
+
+/* --- Telas de Tablet (Até 992px) --- */
+@media (max-width: 992px) {
+
+    /* Reduz o título da seção */
+    .depoimentos .section-title {
+        font-size: 2.8em;
+        /* De 3.4em para 2.8em */
+    }
+
+    /* Reduz a altura da imagem para não ser muito grande em tablets */
+    .image-comparison-container {
+        max-width: 600px;
+        height: 400px;
+        /* De 450px para 400px */
+    }
+
+    /* Mais uma redução na fonte do depoimento */
+    .card-depoimentos p {
+        font-size: 1.8em;
+    }
+}
+
+
+/* --- Telas de Celular (Até 768px) --- */
+@media (max-width: 768px) {
+    .depoimentos {
+        padding: 40px 15px;
+        /* Remove a altura fixa para evitar cortes de conteúdo no celular */
+        height: auto;
+    }
+
+    .depoimentos .section-title {
+        font-size: 2.2em;
+        /* Título menor */
+        margin-bottom: 30px;
+    }
+
+    /* 🚩 Ponto chave: Muda o layout de linha para coluna */
+    .depoimentos-slider .swiper-slide {
+        flex-direction: column;
+        padding: 20px 0;
+        min-height: auto;
+        /* Deixa a altura ser definida pelo conteúdo */
+    }
+
+    /* Aumenta a margem superior dos cards de depoimento (agora abaixo da imagem) */
+    .card-depoimentos {
+        margin-top: 30px;
+        padding: 0 10px;
+        /* Adiciona padding lateral para respiro */
+        max-width: 100%;
+        /* Ocupa a largura total */
+        border-radius: 15px;
+        /* Forma mais simples para mobile */
+    }
+
+    .card-depoimentos p {
+        font-size: 1.5em;
+        /* Fonte de depoimento ainda menor */
+    }
+
+    /* Reduz a imagem de Antes e Depois para caber melhor na tela */
+    .image-comparison-container {
+        max-width: 97%;
+        /* Ocupa a largura total do container */
+        height: 350px;
+        /* Altura reduzida */
+    }
+
+    /* Esconde as setas de navegação do Swiper para celular (opcional, mas comum) */
+    .swiper-button-next,
+    .swiper-button-prev {
+        display: none;
+    }
+
+    /* Aumenta a paginação para toque */
+    .swiper-pagination-bullet {
+        transform: translateY(0%) scale(1.3);
+    }
+}
+
+/* --- Telas de Celular Muito Pequenas (Até 480px) --- */
+@media (max-width: 480px) {
+    .image-comparison-container {
+        height: 250px;
+        /* Altura mínima para telas pequenas */
+    }
+
+    .card-depoimentos p {
+        font-size: 1.3em;
+    }
+}

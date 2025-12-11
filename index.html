@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
         rel="stylesheet">
     <!-- Swiper CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
     <!-- CSS Local -->
     <link rel="stylesheet" href="style.css">
@@ -29,6 +29,14 @@
                 <h1>IANNA CORDEIRO</h1>
                 <p>ESTETICISTA E COSMETÓLOGA</p>
             </div>
+
+            <!-- Botão Hamburguer (visível apenas no mobile) -->
+            <div class="hamburguer" id="hamburguer">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
 
             <nav class="nav">
                 <ul>
@@ -69,7 +77,51 @@
                     <li><a href="">CONTATO</a></li>
                 </ul>
             </nav>
+
+            <!-- MENU MOBILE (será aberto pelo hamburguer) -->
+            <nav class="menu-mobile" id="menuMobile">
+                <ul>
+
+                    <li class="mobile-item">
+                        <button class="mobile-btn">A CLÍNICA</button>
+                        <ul class="mobile-submenu">
+                            <li><a href="quemsoueu.html">Nossa Filosofia</a></li>
+                            <li><a href="#estrutura">Estrutura e Conforto</a></li>
+                            <li><a href="quemsoueu.html">Profissional Responsável</a></li>
+                            <li><a href="#localizacao">Localização e Horários</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="#DEPOIMENTOS">DEPOIMENTOS</a></li>
+
+                    <li class="mobile-item">
+                        <button class="mobile-btn">PROCEDIMENTOS</button>
+                        <ul class="mobile-submenu">
+                            <li><a href="#ultraform">UltraForm MPT</a></li>
+                            <li><a href="#botox">Botox</a></li>
+                            <li><a href="#hof">HOF</a></li>
+                            <li><a href="#bioestimulador">Bioestimulador</a></li>
+                            <li><a href="#peim">PEIM</a></li>
+                            <li><a href="#lavieen">Lavieen</a></li>
+                            <li><a href="#pdrn">PDRN</a></li>
+                            <li><a href="#skinbooster">SkinBooster</a></li>
+                            <li><a href="#mesclas">Mesclas</a></li>
+                            <li><a href="#labios">Lábios</a></li>
+                            <li><a href="#fios">Fios</a></li>
+                            <li><a href="#preenchimento">Preenchimento</a></li>
+                            <li><a href="#preenchimento">Profhilo</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="quemsoueu.html">QUEM SOU EU?</a></li>
+                    <li><a href="">CONTATO</a></li>
+                </ul>
+            </nav>
+
+
         </div>
+
+
     </header>
 
     <main>
@@ -126,9 +178,9 @@
                                 <div class="card-image-placeholder">
                                     <img src="imgs/preenchimento.jpg" alt="Preenchimento Facial" class="reveal">
                                 </div>
-                                <h3>Preenchimento Facial</h3>
+                                <h3>HOF(Harmonização Facial)</h3>
                                 <p>Restaure o volume perdido e suavize linhas de expressão com naturalidade.</p>
-                                <a href="#" class="details-button" data-modal-target="modal-preenchimento">Ver
+                                <a href="#" class="details-button swiper-no-swiping" data-modal-target="modal-HOF">Ver
                                     Detalhes</a>
                             </div>
 
@@ -137,9 +189,10 @@
                                 <div class="card-image-placeholder">
                                     <img src="imgs/toxina.jpg" alt="Toxina Botulínica" class="reveal ">
                                 </div>
-                                <h3>Toxina Botulínica</h3>
+                                <h3>Toxina Botulínica(Botox)</h3>
                                 <p>Previna e trate rugas dinâmicas, mantendo um visual fresco e relaxado.</p>
-                                <a href="#" class="details-button" data-modal-target="modal-toxina">Ver Detalhes</a>
+                                <a href="#" class="details-button swiper-no-swiping"
+                                    data-modal-target="modal-toxina">Ver Detalhes</a>
                             </div>
 
                             <!-- slide 3 -->
@@ -147,31 +200,23 @@
                                 <div class="card-image-placeholder">
                                     <img src="imgs/bioesti.jpg" alt="Bioestimuladores" class="reveal ">
                                 </div>
-                                <h3>Bioestimuladores</h3>
-                                <p>Estimule a produção de colágeno para uma pele mais firme.</p>
-                                <a href="#" class="details-button" data-modal-target="modal-bioesti">Ver Detalhes</a>
+                                <h3>Preenchimento</h3>
+                                <p>Realce seus traços com naturalidade e devolva o volume perdido.</p>
+                                <a href="#" class="details-button swiper-no-swiping"
+                                    data-modal-target="modal-preenchimento">Ver Detalhes</a>
                             </div>
 
-                            <!-- slide 4 -->
+                            <!-- slide - Ultraform MPT -->
                             <div class="swiper-slide treatment-card">
                                 <div class="card-image-placeholder">
-                                    <img src="imgs/microagulhamento.jpg" alt="Microagulhamento" class="reveal">
+                                    <img src="imgs/microagulhamento.jpg" alt="Ultraform MPT" class="reveal">
                                 </div>
-                                <h3>Microagulhamento</h3>
-                                <p>Melhore cicatrizes de acne e a textura geral da pele.</p>
-                                <a href="#" class="details-button" data-modal-target="modal-microagulhamento">Ver
-                                    Detalhes</a>
+                                <h3>Ultraform MPT</h3>
+                                <p>Firmeza e lifting sem cortes com tecnologia avançada MPT.</p>
+                                <a href="#" class="details-button swiper-no-swiping"
+                                    data-modal-target="modal-ultraform">Ver Detalhes</a>
                             </div>
 
-                            <!-- slide 5 -->
-                            <div class="swiper-slide treatment-card">
-                                <div class="card-image-placeholder">
-                                    <img src="imgs/peeling.jpg" alt="Peeling Químico" class="reveal">
-                                </div>
-                                <h3>Peeling Químico</h3>
-                                <p>Renovação celular profunda para mais luminosidade.</p>
-                                <a href="#" class="details-button" data-modal-target="modal-peeling">Ver Detalhes</a>
-                            </div>
 
                             <!-- slide 6 -->
                             <div class="swiper-slide treatment-card">
@@ -180,12 +225,25 @@
                                 </div>
                                 <h3>Limpeza de Pele</h3>
                                 <p>Remoção de impurezas para uma pele mais saudável.</p>
-                                <a href="#" class="details-button" data-modal-target="modal-limpeza">Ver Detalhes</a>
+                                <a href="#" class="details-button swiper-no-swiping"
+                                    data-modal-target="modal-limpeza">Ver Detalhes</a>
+                            </div>
+
+                            <!-- slide 7 -->
+                            <div class="swiper-slide treatment-card">
+                                <div class="card-image-placeholder">
+                                    <img src="imgs/skinbooster.jpg" alt="SkinBooster" class="reveal ">
+                                </div>
+                                <h3>SkinBooster</h3>
+                                <p>Hidratação profunda que melhora linhas finas e devolve o viço da pele.
+                                </p>
+                                <a href="#" class="details-button swiper-no-swiping" data-modal-target="modal-skin">Ver
+                                    Detalhes</a>
                             </div>
 
                         </div>
 
-                        <div class="swiper-pagination"></div>
+
                     </div>
 
                 </div>
@@ -198,17 +256,17 @@
     <!--=================================DETALHES PREENCHIMENTO=======================-->
 
     <!--DETALHE PREECNHIMENTO-->
-    <div id="modal-preenchimento" class="modal">
+
+    <div id="modal-HOF" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
-            <h2>Detalhes: Preenchimento Facial</h2>
+            <h2>Detalhes: HOF (Harmonização Facial)</h2>
             <p>O preenchimento facial é um procedimento estético minimamente invasivo que usa
                 substâncias biocompatíveis, como o ácido hialurônico, para repor o volume perdido em
                 áreas específicas do rosto, como lábios, sulcos nasogenianos (bigode chinês) e maçãs do
                 rosto.</p>
             <h3>Benefícios Principais:</h3>
             <ul>
-                <li>Suavização de rugas e linhas profundas.</li>
                 <li>Melhora do contorno facial.</li>
                 <li>Hidratação profunda da pele.</li>
                 <li>Resultados imediatos e de aspecto natural.</li>
@@ -216,7 +274,6 @@
             <a href="URL_DO_SEU_WHATSAPP_AQUI" class="whatsapp-button">Agende sua avaliação</a>
         </div>
     </div>
-
     <!--DETALHE TOXINA BOTULÍNICA-->
     <div id="modal-toxina" class="modal">
         <div class="modal-content">
@@ -235,41 +292,53 @@
             <a href="URL_DO_SEU_WHATSAPP_AQUI" class="whatsapp-button">Agende sua avaliação</a>
         </div>
     </div>
-
-    <!--DETALHE BIOESTIMULADORES-->
-    <div id="modal-bioesti" class="modal">
+    <!-- DETALHE PREENCHIMENTO -->
+    <div id="modal-preenchimento" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
-            <h2>Detalhes: Bioestimuladores de Colágeno</h2>
-            <p>São substâncias injetáveis que estimulam o corpo a produzir seu próprio colágeno. Eles restauram a
-                firmeza e a elasticidade da pele gradualmente, tratando a flacidez facial e corporal de forma natural e
-                duradoura.</p>
+            <h2>Detalhes: Preenchimento com Ácido Hialurônico</h2>
+
+            <p>
+                O Preenchimento com ácido hialurônico é um tratamento estético que restitui volume, melhora contornos e
+                suaviza rugas e sulcos. Ele proporciona resultados naturais e imediatos, realçando os traços e
+                equilibrando a harmonia facial.
+            </p>
+
             <h3>Benefícios Principais:</h3>
             <ul>
-                <li>Combate à flacidez de pele.</li>
-                <li>Aumento da firmeza e elasticidade.</li>
-                <li>Melhora da qualidade e espessura da pele.</li>
-                <li>Resultados progressivos e naturais.</li>
+                <li>Reposição de volume perdido.</li>
+                <li>Suavização de rugas e linhas de expressão.</li>
+                <li>Melhora do contorno facial e definição.</li>
+                <li>Resultados imediatos e seguros.</li>
             </ul>
+
             <a href="URL_DO_SEU_WHATSAPP_AQUI" class="whatsapp-button">Agende sua avaliação</a>
         </div>
     </div>
 
-    <!--DETALHE MICROAGULHAMENTO-->
-    <div id="modal-microagulhamento" class="modal">
+    <!-- DETALHE ULTRAFORM MPT -->
+    <div id="modal-ultraform" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
-            <h2>Detalhes: Microagulhamento</h2>
-            <p>Este tratamento utiliza microagulhas para provocar pequenas perfurações na pele, estimulando a produção
-                intensa de colágeno e permitindo a melhor absorção de ativos (drug delivery). É ideal para renovação da
-                pele e tratamento de cicatrizes.</p>
+            <h2>Detalhes: Ultraform MPT</h2>
+
+            <p>
+                O Ultraform MPT é a tecnologia mais avançada de ultrassom microfocado, desenvolvida para tratar
+                flacidez,
+                melhorar a firmeza da pele e redefinir contornos faciais com precisão e conforto. Sua tecnologia MPT
+                (Micro Pulsed Technology) proporciona energia mais estável e eficaz, garantindo resultados rápidos,
+                naturais
+                e com menor desconforto durante o procedimento.
+            </p>
+
             <h3>Benefícios Principais:</h3>
             <ul>
-                <li>Redução de cicatrizes de acne e estrias.</li>
-                <li>Melhora de manchas e poros dilatados.</li>
-                <li>Aumento da firmeza e textura da pele.</li>
-                <li>Potencialização de tratamentos com ativos.</li>
+                <li>Melhora intensa da firmeza e elasticidade da pele.</li>
+                <li>Redução da flacidez facial e corporal.</li>
+                <li>Estímulo avançado de colágeno com tecnologia MPT.</li>
+                <li>Procedimento não invasivo e com mínimo desconforto.</li>
             </ul>
+
             <a href="URL_DO_SEU_WHATSAPP_AQUI" class="whatsapp-button">Agende sua avaliação</a>
         </div>
     </div>
@@ -292,7 +361,6 @@
             <a href="URL_DO_SEU_WHATSAPP_AQUI" class="whatsapp-button">Agende sua avaliação</a>
         </div>
     </div>
-
     <!--DETALHE LIMPEZA DE PELE-->
     <div id="modal-limpeza" class="modal">
         <div class="modal-content">
@@ -311,6 +379,26 @@
             <a href="URL_DO_SEU_WHATSAPP_AQUI" class="whatsapp-button">Agende sua avaliação</a>
         </div>
     </div>
+
+    <div id="modal-skin" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Detalhes: SkinBooster</h2>
+            <p>Além da hidratação, ele estimula a produção de colágeno e elastina , o que melhora firmeza, elasticidade
+                e suaviza linhas finas e rugas superficiais.
+            </p>
+            <h3>Benefícios Principais:</h3>
+            <ul>
+                <li>Hidratação profunda.</li>
+                <li>Melhora da textura de pele.</li>
+                <li>Clareamento ou uniformização de do tom de pele.</li>
+                <li>Redução de poros aparentes e irregularidade de superficíe.</li>
+            </ul>
+            <a href="URL_DO_SEU_WHATSAPP_AQUI" class="whatsapp-button">Agende sua avaliação</a>
+        </div>
+    </div>
+
+
 
     <section id="DEPOIMENTOS" class="depoimentos">
         <div class="container">
@@ -336,9 +424,7 @@
 
 
                             <div class="slider-line">
-                                <div class="linha-navegacao" reveal slide-right></div>
-                                <div class="circulo-setas" reveal slide-right>↔</div>
-
+                                <div class="circulo-setas reveal slide-right">↔</div>
                             </div>
 
                             <span class="label-img label-antes reveal slide-right">ANTES</span>
@@ -464,7 +550,7 @@
                         </div>
                         <div class="procedure-text reveal slide-right">
                             <h3>Botox</h3>
-                            <p>uaviza e previne rugas e linhas de expressão (testa, pés de galinha) relaxando
+                            <p>Suaviza e previne rugas e linhas de expressão (testa, pés de galinha) relaxando
                                 temporariamente os músculos.</p>
                         </div>
                     </div>
@@ -496,7 +582,7 @@
                         </div>
                         <div class="procedure-text reveal slide-right">
                             <h3>Bioestimulador</h3>
-                            <p>njetável que estimula a produção natural de colágeno, tratando a flacidez e melhorando a
+                            <p>Injetável que estimula a produção natural de colágeno, tratando a flacidez e melhorando a
                                 qualidade da pele a longo prazo.</p>
                         </div>
                     </div>
@@ -543,7 +629,7 @@
                         </div>
                         <div class="procedure-text reveal slide-right">
                             <h3>PDRN</h3>
-                            <p>RInjetável que promove regeneração celular e hidratação profunda, melhorando o viço e a
+                            <p>Injetável que promove regeneração celular e hidratação profunda, melhorando o viço e a
                                 elasticidade da pele.</p>
                         </div>
                     </div>
@@ -748,12 +834,12 @@
         <div class="localizacao-wrapper ">
 
             <div class="info-local reveal slide-left">
-                <h2 class="reveal slide-left">Localização:</h2>
+                <h2 class="reveal slide-left">Localização</h2>
                 <p class="ender reveal slide-left"><strong>Endereço:</strong><br>
                     Rua Eng. Mário de Gusmão, 988 – Ponta Verde, Maceió – AL
                 </p>
 
-                <h3 class="reveal slide-left">Horários de Atendimento</h3>
+                <h3 class="reveal slide-left">Horários de Atendimento:</h3>
                 <ul class="horarios reveal slide-left">
                     <li><strong>Segunda a Sexta:</strong> 9h às 18h</li>
                     <li><strong>Sábado:</strong>Fechado</li>
@@ -783,6 +869,9 @@
 
 
 
+    <a href="https://wa.me/5582987499282" class="whatsapp-float" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp">
+    </a>
 
     <!-- SCRIPTS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
