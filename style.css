@@ -18,14 +18,16 @@
     --fonte-secundaria: "Montserrat", sans-serif;
 }
 
-html, body {
+html,
+body {
     overflow-x: hidden;
 }
 
 body {
     background-color: var(--fundo);
 
-}   
+}
+
 header {
     position: relative;
 }
@@ -1185,7 +1187,7 @@ header {
 /* ========== PROCEDIMENTOS ========== */
 .procedures-section {
     background: var(--fundo-section);
-    padding: 140px 6%;
+    padding: 60px 6%;
     text-align: center;
     position: relative;
 }
@@ -1832,7 +1834,7 @@ header {
 
 .container-quem {
     display: flex;
-    height:90vh;
+    height: 90vh;
     gap: 60px;
     align-items: center;
     justify-content: center;
@@ -1989,7 +1991,7 @@ header {
 @media (max-width: 992px) {
     .container-box {
         margin: auto;
-        height: auto;
+        height: 9vh;
         padding: 30px 20px 20px 20px;
     }
 
@@ -2021,13 +2023,20 @@ header {
     .hamburguer span {
         height: 3px;
     }
+
+    .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        bottom: 20px;
+        right: 20px;
+    }
 }
 
 /* Celulares médios */
 @media (max-width: 768px) {
     .container-box {
         margin: auto;
-        height: auto;
+        height: 8vh;
         padding: 30px 20px 60px 20px;
     }
 
@@ -2040,6 +2049,10 @@ header {
         top: 35px;
         /* posição linda e alinhada */
         z-index: 1000;
+    }
+
+    .logo {
+        margin-right: 13%;
     }
 
     .logo h1 {
@@ -2064,13 +2077,21 @@ header {
     .mobile-submenu li a {
         font-size: 1.1em;
     }
+
+    .whatsapp-float {
+        width: 45px;
+        height: 45px;
+        bottom: 18px;
+        right: 18px;
+    }
+
 }
 
 /* Celulares pequenos */
 @media (max-width: 430px) {
     .container-box {
         margin: auto;
-        height: auto;
+        height: 6vh;
         padding: 30px 20px 60px 20px;
     }
 
@@ -2098,13 +2119,21 @@ header {
     .menu-mobile {
         width: 80%;
     }
+
+    .whatsapp-float {
+        width: 40px;
+        height: 40px;
+        bottom: 15px;
+        right: 15px;
+    }
+
 }
 
 /* Telas muito pequenas (tipo iPhone SE) */
 @media (max-width: 360px) {
     .container-box {
         margin: auto;
-        height: auto;
+        height: 9vh;
         padding: 30px 20px 60px 20px;
     }
 
@@ -2134,6 +2163,13 @@ header {
         top: 35px;
         /* posição linda e alinhada */
         z-index: 1000;
+    }
+
+    .whatsapp-float {
+        width: 35px;
+        height: 35px;
+        bottom: 12px;
+        right: 12px;
     }
 }
 
@@ -2574,6 +2610,12 @@ header {
 /* --- Telas Grandes e Médias (Até 1200px) --- */
 @media (max-width: 1200px) {
 
+    .depoimentos {
+        padding: 0px 15px !important;
+        /* Remove a altura fixa para evitar cortes de conteúdo no celular */
+        height: auto;
+    }
+
     /* Diminui o espaçamento dos slides em telas grandes/médias */
     .depoimentos-slider .swiper-slide {
         gap: 30px;
@@ -2590,6 +2632,12 @@ header {
 
 /* --- Telas de Tablet (Até 992px) --- */
 @media (max-width: 992px) {
+
+    .depoimentos {
+        padding: 0px 15px !important;
+        /* Remove a altura fixa para evitar cortes de conteúdo no celular */
+        height: auto;
+    }
 
     /* Reduz o título da seção */
     .depoimentos .section-title {
@@ -2614,7 +2662,7 @@ header {
 /* --- Telas de Celular (Até 768px) --- */
 @media (max-width: 768px) {
     .depoimentos {
-        padding: 40px 15px;
+        padding: 0px 15px !important;
         /* Remove a altura fixa para evitar cortes de conteúdo no celular */
         height: auto;
     }
@@ -2671,6 +2719,13 @@ header {
 
 /* --- Telas de Celular Muito Pequenas (Até 480px) --- */
 @media (max-width: 480px) {
+    .depoimentos {
+        padding-top: 40px !important;
+        padding-bottom: 10px !important;
+        /* Remove a altura fixa para evitar cortes de conteúdo no celular */
+        height: auto;
+    }
+
     .image-comparison-container {
         height: 250px;
         /* Altura mínima para telas pequenas */
@@ -2678,5 +2733,223 @@ header {
 
     .card-depoimentos p {
         font-size: 1.3em;
+    }
+}
+
+/* ============================================================
+   🟦 TELAS GRANDES E MÉDIAS (≤ 1200px)
+============================================================ */
+@media (max-width: 1200px) {
+
+    .procedures-section {
+        padding: 60px 5%;
+    }
+
+    .procedures-section .section-title {
+        font-size: 3.3em;
+    }
+
+    .procedures-section .section-subtitle {
+        font-size: 1.25em;
+        margin-bottom: 60px;
+    }
+
+    .procedure-card {
+        max-width: 750px;
+        gap: 35px;
+        padding: 40px;
+    }
+
+    .video-box {
+        max-width: 280px;
+        border-width: 2px;
+    }
+
+    .procedure-text h3 {
+        font-size: 2.8em;
+    }
+
+    .procedure-text p {
+        font-size: 1.7em;
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+        transform: scale(1.15);
+    }
+}
+
+/* ============================================================
+   🟦 CELULARES GRANDES / TABLETS (≤ 992px)
+============================================================ */
+@media (max-width: 992px) {
+
+    .procedures-section {
+        padding: 60px 5%;
+    }
+
+    .procedure-card {
+        flex-direction: column;
+        max-width: 520px;
+        padding: 32px 30px;
+        align-items: center;
+        gap: 25px;
+    }
+
+    .video-box {
+        max-width: 60%;
+        /* antes 70% — agora menor */
+        border-radius: 16px;
+    }
+
+    .procedure-text h3 {
+        text-align: center;
+        font-size: 2.3em;
+    }
+
+    .procedure-text p {
+        text-align: center;
+        font-size: 1.45em;
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+        transform: scale(1.1);
+    }
+}
+
+/* ============================================================
+   🟦 CELULARES MÉDIOS (≤ 768px)
+============================================================ */
+@media (max-width: 768px) {
+
+    .procedures-section {
+        padding: 60px 5%;
+    }
+
+    .procedures-section .section-title {
+        font-size: 2.8em;
+    }
+
+    .procedures-section .section-subtitle {
+        font-size: 1.15em;
+        margin-bottom: 50px;
+    }
+
+    .procedure-card {
+        max-width: 440px;
+        padding: 28px;
+        gap: 20px;
+    }
+
+    .video-box {
+        max-width: 75%;
+        /* vídeo reduzido */
+        border-radius: 14px;
+    }
+
+    .procedure-text h3 {
+        font-size: 2em;
+    }
+
+    .procedure-text p {
+        font-size: 1.3em;
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+        transform: scale(1);
+    }
+}
+
+/* ============================================================
+   🟦 CELULARES PEQUENOS (≤ 430px)
+============================================================ */
+@media (max-width: 430px) {
+
+    .procedures-section {
+        padding: 60px 5%;
+    }
+
+    .procedures-section .section-title {
+        font-size: 2.4em;
+    }
+
+    .procedures-section .section-subtitle {
+        font-size: 1.05em;
+        margin-bottom: 40px;
+    }
+
+    .procedure-card {
+        max-width: 330px;
+        padding: 24px;
+        gap: 18px;
+        border-radius: 14px;
+    }
+
+    .video-box {
+        max-width: 85%;
+        /* reduzido */
+        border-radius: 12px;
+    }
+
+    .procedure-text h3 {
+        font-size: 1.65em;
+    }
+
+    .procedure-text p {
+        font-size: 1.15em;
+        line-height: 1.55;
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+        display: none;
+    }
+
+    .swiper-pagination {
+        bottom: 0;
+    }
+}
+
+/* ============================================================
+   🟦 TELAS MUITO PEQUENAS (≤ 360px)
+============================================================ */
+@media (max-width: 360px) {
+
+    .procedures-section {
+        padding: 60px 4%;
+    }
+
+    .procedures-section .section-title {
+        font-size: 2em;
+    }
+
+    .procedures-section .section-subtitle {
+        font-size: .95em;
+    }
+
+    .procedure-card {
+        max-width: 300px;
+        padding: 20px;
+        gap: 16px;
+    }
+
+    .video-box {
+        max-width: 90%;
+        /* ajuste final */
+    }
+
+    .procedure-text h3 {
+        font-size: 1.45em;
+    }
+
+    .procedure-text p {
+        font-size: 1.05em;
+    }
+
+    .swiper-pagination-bullet {
+        width: 7px;
+        height: 7px;
     }
 }
