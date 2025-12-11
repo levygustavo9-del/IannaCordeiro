@@ -18,11 +18,14 @@
     --fonte-secundaria: "Montserrat", sans-serif;
 }
 
-body {
-    background-color: var(--fundo);
+html, body {
     overflow-x: hidden;
 }
 
+body {
+    background-color: var(--fundo);
+
+}   
 header {
     position: relative;
 }
@@ -1829,6 +1832,7 @@ header {
 
 .container-quem {
     display: flex;
+    height:90vh;
     gap: 60px;
     align-items: center;
     justify-content: center;
@@ -1838,7 +1842,7 @@ header {
 }
 
 .foto-quem {
-    width: 100%;
+    width: 130%;
     height: 620px;
     overflow: hidden;
     border-radius: 18px;
@@ -1864,6 +1868,7 @@ header {
 }
 
 .texto-quem h2 {
+    margin-left: 70px;
     font-size: 3em;
     font-family: var(--fonte-titulo);
     color: var(--detalhes);
@@ -1872,9 +1877,10 @@ header {
 
 .texto-quem p {
     font-family: var(--fonte-secundaria);
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     line-height: 1.2em;
     margin-bottom: 18px;
+    margin-left: 70px;
     color: var(--texto);
 }
 
@@ -1882,6 +1888,7 @@ header {
     display: flex;
     gap: 40px;
     margin-top: 25px;
+    margin-left: 70px;
 }
 
 .dados-quem div {
@@ -1965,6 +1972,17 @@ header {
         font-size: 0.9em;
         margin-top: 60px;
     }
+
+    .hamburguer {
+        margin: 0;
+        /* Reset total */
+        position: absolute;
+        right: 25px;
+        /* distância controlada */
+        top: 35px;
+        /* posição linda e alinhada */
+        z-index: 1000;
+    }
 }
 
 /* Celulares grandes */
@@ -1990,10 +2008,14 @@ header {
     }
 
     .hamburguer {
-        top: 25px;
-        right: 60px;
-        width: 30px;
-        height: 22px;
+        margin: 0;
+        /* Reset total */
+        position: absolute;
+        right: 25px;
+        /* distância controlada */
+        top: 35px;
+        /* posição linda e alinhada */
+        z-index: 1000;
     }
 
     .hamburguer span {
@@ -2010,10 +2032,14 @@ header {
     }
 
     .hamburguer {
-        top: 25px;
-        right: 30px;
-        width: 30px;
-        height: 22px;
+        margin: 0;
+        /* Reset total */
+        position: absolute;
+        right: 25px;
+        /* distância controlada */
+        top: 35px;
+        /* posição linda e alinhada */
+        z-index: 1000;
     }
 
     .logo h1 {
@@ -2059,9 +2085,14 @@ header {
     }
 
     .hamburguer {
-        width: 28px;
-        margin-right: -20px;
-        right: 20px;
+        margin: 0;
+        /* Reset total */
+        position: absolute;
+        right: 25px;
+        /* distância controlada */
+        top: 35px;
+        /* posição linda e alinhada */
+        z-index: 1000;
     }
 
     .menu-mobile {
@@ -2092,6 +2123,17 @@ header {
     .menu-mobile a,
     .mobile-btn {
         font-size: 1.05em;
+    }
+
+    .hamburguer {
+        margin: 0;
+        /* Reset total */
+        position: absolute;
+        right: 25px;
+        /* distância controlada */
+        top: 35px;
+        /* posição linda e alinhada */
+        z-index: 1000;
     }
 }
 
@@ -2177,6 +2219,7 @@ header {
 /* =============== 768px =============== */
 @media (max-width: 768px) {
 
+
     .hero-section {
         height: auto !important;
     }
@@ -2204,8 +2247,9 @@ header {
 /* =============== 430px =============== */
 @media (max-width: 430px) {
 
+
     .hero-section {
-        padding: 60px 5% 70px;
+        height: auto !important;
     }
 
     .hero-content h1 {
@@ -2240,8 +2284,9 @@ header {
 /* =============== 360px =============== */
 @media (max-width: 360px) {
 
+
     .hero-section {
-        padding: 55px 5% 70px;
+        height: auto !important;
     }
 
     .hero-content h1 {
