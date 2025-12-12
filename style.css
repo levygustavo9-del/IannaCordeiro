@@ -984,12 +984,19 @@ header {
 
 .card-depoimentos p {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 2.4em;
+    font-size: 2.5em;
     font-weight: 500;
     line-height: 1.6;
     color: #000000;
     margin-bottom: 0;
     font-style: italic;
+}
+
+.card-depoimentos .procedure-type {
+    font-family: var(--fonte-secundaria);
+    color: var(--detalhes);
+    font-size: 1.5em;
+    font-style: normal;
 }
 
 .card-depoimentos p br {
@@ -2177,7 +2184,6 @@ header {
       HERO – RESPONSIVIDADE TOTAL  
 ====================================================== */
 
-
 /* =============== 1200px =============== */
 @media (max-width: 1200px) {
 
@@ -2202,33 +2208,47 @@ header {
 
 
 
-/* =============== 900px =============== */
-@media (max-width: 900px) {
+/* =============================================================
+   =============== 992px — ATIVA O PARALLAX =====================
+   ============================================================= */
+@media (max-width: 992px) {
 
     .hero-section {
+        position: relative;
+        height: 100vh !important;
+        padding: 0 !important;
+        margin: 0;
+        display: flex;
         flex-direction: column;
+        overflow: hidden;
         text-align: center;
-        height: auto !important;
-        padding-bottom: 80px;
-        padding: 70px 6% 0;
-        height: auto !important;
     }
 
-    .hero-content {
-        padding-right: 0;
-        margin-bottom: 30px;
-    }
-
+    /* Oculta a imagem padrão */
     .hero-image {
-        margin-top: -30px;
-        margin-bottom: 30px;
-        order: 1;
-        /* A FOTO FICA PRIMEIRO */
+        display: none !important;
     }
 
+    /* Bloco da imagem com PARALLAX */
+    .hero-parallax {
+        height: 80vh;
+        width: 100%;
+        background-image: url("imgs/ianna-parallax.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        border-radius: 0 0 48% 48%;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Bloco do texto */
     .hero-content {
-        order: 2;
-        /* O TEXTO + BOTÃO FICA DEPOIS */
+        height: 50vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 6%;
+        text-align: center;
     }
 
     .hero-content h1 {
@@ -2244,9 +2264,31 @@ header {
         margin: 10px auto 0;
     }
 
-    .hero-image img {
-        width: 70%;
-        margin: 30px auto 0;
+    .hero-button {
+        font-size: 1.2em;
+        padding: 14px 26px;
+        border-radius: 8px;
+    }
+}
+
+
+
+/* =============== 900px =============== */
+/* (Essa parte só será usada se a tela estiver entre 992px e 900px e SEM parallax.
+   Mas como agora o parallax cobre tudo abaixo de 992px, esta área funciona apenas como reforço de fonte.) */
+
+@media (max-width: 900px) {
+
+    .hero-content h1 {
+        font-size: 3em;
+    }
+
+    .hero-content p {
+        font-size: 1.3em;
+    }
+
+    .linha2 {
+        width: 45%;
     }
 }
 
@@ -2254,11 +2296,6 @@ header {
 
 /* =============== 768px =============== */
 @media (max-width: 768px) {
-
-
-    .hero-section {
-        height: auto !important;
-    }
 
     .hero-content h1 {
         font-size: 2.7em;
@@ -2271,22 +2308,12 @@ header {
     .linha2 {
         width: 40%;
     }
-
-    .hero-image img {
-        width: 85%;
-        margin-top: 20px;
-    }
 }
 
 
 
 /* =============== 430px =============== */
 @media (max-width: 430px) {
-
-
-    .hero-section {
-        height: auto !important;
-    }
 
     .hero-content h1 {
         font-size: 2.2em;
@@ -2308,10 +2335,9 @@ header {
         margin: 10px auto;
     }
 
-    .hero-image img {
-        width: 90%;
-        margin-top: 30px;
-        border-radius: 40% 10% / 10% 40% 10% 40%;
+    /* Deixa o parallax mais curvado, fica mais premium */
+    .hero-parallax {
+        border-radius: 0 0 45% 45%;
     }
 }
 
@@ -2319,11 +2345,6 @@ header {
 
 /* =============== 360px =============== */
 @media (max-width: 360px) {
-
-
-    .hero-section {
-        height: auto !important;
-    }
 
     .hero-content h1 {
         font-size: 2em;
@@ -2342,9 +2363,8 @@ header {
         width: 55%;
     }
 
-    .hero-image img {
-        width: 95%;
-        margin-top: 25px;
+    .hero-parallax {
+        border-radius: 0 0 48% 48%;
     }
 }
 
@@ -2361,7 +2381,7 @@ header {
     /* Ajusta o espaçamento do grid e o tamanho do texto */
     .treatments-grid {
         gap: 30px;
-        padding: 0 4%;
+        padding: 0;
         /* Adiciona padding lateral para não colar nas bordas */
     }
 
@@ -2411,7 +2431,8 @@ header {
     .treatments-grid {
         flex-direction: column;
         align-items: center;
-        gap: 0;
+        padding: 0;
+        gap: 30px;
     }
 
     /* O bloco de fundo agora envolve tudo e precisa de padding horizontal */
@@ -2449,13 +2470,17 @@ header {
     .treatment-card {
         width: 100% !important;
         min-height: 290px !important;
-        margin: 0 5px;
+        margin: 0;
         /* Reduz margem entre cards */
     }
 
     .treatment-card .card-image-placeholder img {
         height: 200px;
         /* Reduz a altura da imagem no card */
+    }
+
+    .swiper-pagination-bullet {
+        transform: translateY(0%) scale(1.3);
     }
 }
 
@@ -2496,6 +2521,11 @@ header {
     .modal-content ul {
         font-size: 1.1rem !important;
     }
+
+    .swiper-pagination-bullet {
+        transform: translateY(0%) scale(1.3);
+    }
+    
 }
 
 
@@ -2507,6 +2537,10 @@ header {
 
     .treatments-text .impact-title {
         font-size: 2.2em;
+    }
+
+    .treatments-grid {
+        padding: 0 10px 0 50px;
     }
 
     .treatments-text .impact-sub {
@@ -2600,6 +2634,10 @@ header {
     .modal-content ul {
         font-size: 0.9rem !important;
     }
+
+    .swiper-pagination-bullet {
+        transform: translateY(0%) scale(1);
+    }
 }
 
 /* ========================================================== */
@@ -2670,6 +2708,7 @@ header {
     .depoimentos .section-title {
         font-size: 2.2em;
         /* Título menor */
+        margin-top: 30px;
         margin-bottom: 30px;
     }
 
@@ -2731,6 +2770,16 @@ header {
         /* Altura mínima para telas pequenas */
     }
 
+    .procedures-section .section-title {
+        margin-top: 30px;
+        font-size: 3.3em;
+    }
+
+    .procedures-section .section-subtitle {
+        font-size: 1.25em;
+        margin-bottom: 60px;
+    }
+
     .card-depoimentos p {
         font-size: 1.3em;
     }
@@ -2746,6 +2795,7 @@ header {
     }
 
     .procedures-section .section-title {
+        margin-top: 30px;
         font-size: 3.3em;
     }
 

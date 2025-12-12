@@ -82,7 +82,21 @@ document.addEventListener('DOMContentLoaded', function () {
         navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
     });
 
-    
+    // Seleciona o slider de comparação
+    const comparisonContainer = document.querySelector('.image-comparison-container');
+
+    // Quando o usuário começa a tocar no slider ➜ desativa o arrastar do Swiper
+    comparisonContainer.addEventListener('touchstart', () => {
+        depoimentosSwiper.allowTouchMove = false;
+    });
+
+    // Quando o usuário termina o toque ➜ reativa o Swiper normalmente
+    comparisonContainer.addEventListener('touchend', () => {
+        depoimentosSwiper.allowTouchMove = true;
+    });
+
+
+
 
     // --- SWIPER DECK ---
     const treatmentsDeck = new Swiper('.treatments-deck-slider', {
