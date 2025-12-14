@@ -25,12 +25,42 @@ body {
 
 body {
     background-color: var(--fundo);
-
+    padding-top: 120px;
+    /* altura REAL do header */
 }
 
+/* BASE */
 header {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+
+    background: var(--fundo);
+    transition: transform 0.45s ease, box-shadow 0.3s ease;
 }
+
+/* ESCONDIDO */
+header.hidden {
+    transform: translateY(-110%);
+    box-shadow: none;
+}
+
+/* APARECE TEMPORARIAMENTE */
+header.ghost {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* FIXO REAL (SÓ NO TOPO) */
+header.at-top {
+    transform: translateY(0);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+
+
 
 .whatsapp-float {
     position: fixed;
@@ -119,7 +149,7 @@ header {
     justify-content: center;
     text-align: center;
     background-color: var(--fundo-section);
-    height: 27vh;
+    height: auto;
     padding: 30px;
 
 }
@@ -142,8 +172,12 @@ header {
     margin-top: 15px;
 }
 
+.link-logo {
+    text-decoration: none;
+}
+
 .nav {
-    margin-top: 80px;
+    margin-top: 35px;
 }
 
 .nav ul {
@@ -172,7 +206,7 @@ header {
     transition: 0.5s;
     z-index: 1;
     border-bottom: none;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
 }
 
 .nav a::before {
@@ -508,11 +542,12 @@ header {
 
 .hero-section {
     width: 100%;
-    height: 68vh;
+    height: 58vh;
     background-color: var(--fundo);
 
     display: flex;
     align-items: center;
+    margin-top: 17vh;
     justify-content: center;
     padding: 0 5%;
     box-sizing: border-box;
@@ -522,7 +557,7 @@ header {
 
 .hero-content {
     max-width: 500px;
-    padding-right: 30px;
+    padding: 60px 60px;
     color: var(--texto);
 }
 
@@ -577,7 +612,7 @@ header {
     max-height: auto;
     object-fit: cover;
     margin: auto 50px;
-    margin-top: 58px;
+    margin-top: 20px;
     border-radius: 50% 10% / 10% 50% 10% 50%;
     box-shadow: 0 10px 25px rgb(0, 0, 0, 0.15);
     transition: filter 0.3s ease-in-out;
@@ -1360,7 +1395,7 @@ header {
 }
 
 .swiper-pagination {
-    padding-bottom: -100px;
+    padding-bottom: 50px;
 }
 
 /* =============================
@@ -2215,7 +2250,7 @@ header {
 
     .hero-section {
         position: relative;
-        height: 100vh !important;
+        height: 83vh !important;
         padding: 0 !important;
         margin: 0;
         display: flex;
@@ -2224,21 +2259,8 @@ header {
         text-align: center;
     }
 
-    /* Oculta a imagem padrão */
     .hero-image {
-        display: none !important;
-    }
-
-    /* Bloco da imagem com PARALLAX */
-    .hero-parallax {
-        height: 80vh;
-        width: 100%;
-        background-image: url("imgs/ianna-parallax.jpg");
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        border-radius: 0 0 48% 48%;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        order: 1;
     }
 
     /* Bloco do texto */
@@ -2249,6 +2271,7 @@ header {
         justify-content: center;
         padding: 0 6%;
         text-align: center;
+        order: 2;
     }
 
     .hero-content h1 {
@@ -2298,6 +2321,7 @@ header {
 @media (max-width: 768px) {
 
     .hero-content h1 {
+        align-items: center;
         font-size: 2.7em;
     }
 
@@ -2335,10 +2359,6 @@ header {
         margin: 10px auto;
     }
 
-    /* Deixa o parallax mais curvado, fica mais premium */
-    .hero-parallax {
-        border-radius: 0 0 45% 45%;
-    }
 }
 
 
@@ -2363,9 +2383,6 @@ header {
         width: 55%;
     }
 
-    .hero-parallax {
-        border-radius: 0 0 48% 48%;
-    }
 }
 
 
@@ -2488,6 +2505,11 @@ header {
 /* Usaremos 768px como referência principal para otimizar o empilhamento */
 @media (max-width: 768px) {
 
+    .treatments-section {
+        padding: 0px;
+    }
+
+
     .treatment-card {
         width: 60% !important;
         min-height: 360px !important;
@@ -2508,6 +2530,8 @@ header {
     }
 
 
+
+
     .modal-content {
         max-width: 380px !important;
         padding: 2rem;
@@ -2525,14 +2549,14 @@ header {
     .swiper-pagination-bullet {
         transform: translateY(0%) scale(1.3);
     }
-    
+
 }
 
 
 /* 4. Smartphones Padrão (Abaixo de 430px) */
 @media (max-width: 430px) {
     .treatments-section {
-        padding: 60px 0 0 0;
+        padding: 0px;
     }
 
     .treatments-text .impact-title {
@@ -2540,7 +2564,7 @@ header {
     }
 
     .treatments-grid {
-        padding: 0 10px 0 50px;
+        padding: 0;
     }
 
     .treatments-text .impact-sub {
@@ -2751,7 +2775,8 @@ header {
     }
 
     /* Aumenta a paginação para toque */
-    .swiper-pagination-bullet {
+    .swiper-pagination {
+        margin: -50px auto;
         transform: translateY(0%) scale(1.3);
     }
 }
@@ -3001,5 +3026,446 @@ header {
     .swiper-pagination-bullet {
         width: 7px;
         height: 7px;
+    }
+}
+
+/* ==========================================
+   RESPONSIVIDADE DE ESTRUTURA DO SLIDER
+========================================== */
+
+@media (max-width: 1200px) {
+
+    .estrutura-section {
+        padding: 70px 4%;
+    }
+
+    .title h1 {
+        font-size: 3.4em;
+    }
+
+    .title p {
+        font-size: 1.3rem;
+    }
+
+    .estrutura-conteudo {
+        gap: 35px;
+    }
+
+    .dropdown-titulo h3 {
+        font-size: 2rem;
+    }
+
+    .hero-slider {
+        height: 380px;
+        margin-top: -20px;
+    }
+
+    .hero-slider .overlay-content h1 {
+        font-size: 1.9rem;
+    }
+
+    .hero-slider .overlay-content p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 992px) {
+
+    .estrutura-section {
+        padding: 60px 4%;
+    }
+
+    .title {
+        margin-bottom: 70px;
+    }
+
+    .title h1 {
+        font-size: 3em;
+    }
+
+    .title p {
+        font-size: 1.15rem;
+    }
+
+    .estrutura-conteudo {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+
+    .coluna-esquerda {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .hero-slider {
+        height: 360px;
+        margin-top: 0;
+    }
+
+    .dropdown-bloco {
+        margin-bottom: 22px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .estrutura-section {
+        padding: 55px 5%;
+    }
+
+    .title {
+        margin-bottom: 50px;
+    }
+
+    .title h1 {
+        font-size: 2.4em;
+    }
+
+    .title p {
+        font-size: 1.05rem;
+    }
+
+    .estrutura-conteudo {
+        grid-template-columns: 1fr;
+        gap: 45px;
+    }
+
+    .dropdown-bloco {
+        padding: 20px;
+    }
+
+    .dropdown-titulo h3 {
+        font-size: 1.6rem;
+    }
+
+    .dropdown-conteudo li {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .hero-slider {
+        height: 300px;
+        border-radius: 14px;
+    }
+
+    .hero-slider .overlay-content {
+        width: 95%;
+    }
+
+    .hero-slider .overlay-content h1 {
+        font-size: 1.5rem;
+    }
+
+    .hero-slider .overlay-content p {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 430px) {
+
+    .estrutura-section {
+        padding: 50px 5%;
+    }
+
+    .title h1 {
+        font-size: 2.5rem;
+    }
+
+    .title p {
+        font-size: 0.95rem;
+    }
+
+    .dropdown-bloco {
+        padding: 18px;
+        border-radius: 12px;
+    }
+
+    .dropdown-titulo h3 {
+        font-size: 1.3rem;
+    }
+
+    .dropdown-conteudo li {
+        font-size: 0.95rem;
+    }
+
+    .hero-slider {
+        height: 240px;
+        border-radius: 12px;
+    }
+
+    .hero-slider .overlay-content h1 {
+        font-size: 1.25rem;
+    }
+
+    .hero-slider .overlay-content p {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 360px) {
+
+    .estrutura-section {
+        padding: 45px 4%;
+    }
+
+    .title h1 {
+        font-size: 1.75rem;
+    }
+
+    .title p {
+        font-size: 0.85rem;
+    }
+
+    .dropdown-bloco {
+        padding: 16px;
+    }
+
+    .dropdown-titulo h3 {
+        font-size: 1.15rem;
+    }
+
+    .dropdown-conteudo li {
+        font-size: 0.85rem;
+    }
+
+    .hero-slider {
+        height: 210px;
+    }
+
+    .hero-slider .overlay-content h1 {
+        font-size: 1.1rem;
+    }
+
+    .hero-slider .overlay-content p {
+        font-size: 0.8rem;
+    }
+}
+
+/* ==============================
+   LOCALIZAÇÃO E RODAPÉ RESPONSIVOS
+============================== */
+
+@media (max-width: 1200px) {
+
+    .localizacao {
+        padding: 70px 5%;
+    }
+
+    .localizacao h1 {
+        font-size: 3em;
+    }
+
+    .localizacao .sub {
+        font-size: 1.4em;
+    }
+
+    .localizacao-wrapper {
+        gap: 35px;
+    }
+
+    .info-local {
+        width: 95%;
+        padding: 28px;
+    }
+
+    .info-local h2,
+    .info-local h3 {
+        font-size: 1.8em;
+    }
+
+    .ender,
+    .horarios li {
+        font-size: 1.25em;
+    }
+
+    .localizacao iframe {
+        height: 380px;
+    }
+}
+
+@media (max-width: 992px) {
+
+    .localizacao {
+        padding: 60px 5%;
+    }
+
+    .localizacao h1 {
+        font-size: 2.6em;
+    }
+
+    .localizacao .sub {
+        font-size: 1.25em;
+    }
+
+    .localizacao-wrapper {
+        grid-template-columns: 1fr;
+        gap: 45px;
+    }
+
+    .info-local {
+        width: 100%;
+        max-width: 800px;
+    }
+
+    .localizacao iframe {
+        height: 360px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .localizacao {
+        padding: 55px 6%;
+    }
+
+    .localizacao h1 {
+        font-size: 2.2em;
+        line-height: 1.25;
+    }
+
+    .localizacao .sub {
+        font-size: 1.1em;
+    }
+
+    .info-local {
+        padding: 0;
+        height: auto;
+        line-height: 2em;
+    }
+
+    .info-local h2,
+    .info-local h3 {
+        font-size: 1.6em;
+    }
+
+    .ender,
+    .horarios li {
+        font-size: 1.1em;
+    }
+
+    .localizacao iframe {
+        height: 320px;
+        border-radius: 16px;
+    }
+
+    /* FOOTER */
+    .premium-minimal {
+        padding: 28px 18px;
+    }
+
+    .premium-minimal .marca {
+        font-size: 1.6em;
+    }
+
+    .premium-minimal .sub {
+        font-size: 1.05em;
+    }
+
+    .premium-minimal .copy {
+        font-size: 1.1em;
+    }
+}
+
+@media (max-width: 430px) {
+
+    .localizacao {
+        padding: 50px 6%;
+    }
+
+    .localizacao h1 {
+        font-size: 1.9em;
+    }
+
+    .localizacao .sub {
+        font-size: 1em;
+    }
+
+    .info-local {
+        padding: 0;
+        height: auto;
+        border-radius: 14px;
+    }
+
+    .info-local h2,
+    .info-local h3 {
+        font-size: 1.4em;
+    }
+
+    .ender,
+    .horarios li {
+        font-size: 1em;
+    }
+
+    .localizacao iframe {
+        height: 260px;
+        border-radius: 14px;
+    }
+
+    /* FOOTER */
+    .premium-minimal .marca {
+        font-size: 1.45em;
+    }
+
+    .premium-minimal .sub {
+        font-size: 0.95em;
+    }
+
+    .premium-minimal .copy {
+        font-size: 1em;
+    }
+
+    .premium-minimal .dev {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 360px) {
+
+    .localizacao {
+        padding: 45px 5%;
+    }
+
+    .localizacao h1 {
+        font-size: 1.65em;
+    }
+
+    .localizacao .sub {
+        font-size: 0.95em;
+    }
+
+    .info-local {
+        padding: 0px;
+        line-height: 1.9em;
+    }
+
+    .info-local h2,
+    .info-local h3 {
+        font-size: 1.3em;
+    }
+
+    .ender,
+    .horarios li {
+        font-size: 0.95em;
+    }
+
+    .localizacao iframe {
+        height: 230px;
+    }
+
+    /* FOOTER */
+    .premium-minimal .marca {
+        font-size: 1.3em;
+    }
+
+    .premium-minimal .sub {
+        font-size: 0.9em;
+    }
+
+    .premium-minimal .copy {
+        font-size: 0.95em;
+    }
+
+    .premium-minimal .dev {
+        font-size: 0.85em;
     }
 }

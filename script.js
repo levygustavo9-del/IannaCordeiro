@@ -363,3 +363,72 @@ const observer = new IntersectionObserver((entries) => {
 
 reveals.forEach(el => observer.observe(el));
 
+// ===== Cabeçalho que desaparece ao rolar para baixo =====
+let lastScroll = 0;
+const header = document.querySelector("header");
+
+const SHOW_GHOST_AFTER = 180;
+const LOCK_AT_TOP = 20;
+const THRESHOLD = 6;
+const GHOST_DURATION = 900;
+
+let isInteracting = false;
+let hideTimeout = null;
+
+// Interações
+header.addEventListener("mouseenter", () => {
+    isInteracting = true;
+    header.classList.remove("hidden");
+    header.classList.add("floating");
+});
+
+header.addEventListener("mouseleave", () => {
+    isInteracting = false;
+});
+
+header.addEventListener("touchstart", () => {
+    isInteracting = true;
+    header.classList.remove("hidden");
+    header.classList.add("floating");
+});
+
+header.addEventListener("touchend", () => {
+    isInteracting = false;
+});
+
+window.addEventListener("scroll", () => {
+    const currentScroll = window.pageYOffset;
+
+    // 🔝 Topo real
+    if (currentScroll <= LOCK_AT_TOP) {
+        header.className = "fixed-top";
+        lastScroll = currentScroll;
+        return;
+    }
+
+    header.classList.remove("fixed-top");
+
+    if (Math.abs(currentScroll - lastScroll) < THRESHOLD) return;
+
+    // ⬇️ Descendo → some (se não estiver interagindo)
+    if (currentScroll > lastScroll && currentScroll > SHOW_GHOST_AFTER) {
+        if (!isInteracting) {
+            header.className = "hidden";
+        }
+    }
+
+    // ⬆️ Subindo → aparece temporariamente
+    else if (currentScroll < lastScroll) {
+        header.className = "floating";
+
+        clearTimeout(hideTimeout);
+
+        hideTimeout = setTimeout(() => {
+            if (!isInteracting && window.pageYOffset > LOCK_AT_TOP + 40) {
+                header.className = "hidden";
+            }
+        }, GHOST_DURATION);
+    }
+
+    lastScroll = currentScroll;
+});
