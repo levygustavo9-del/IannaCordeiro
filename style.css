@@ -149,8 +149,8 @@ header.at-top {
     justify-content: center;
     text-align: center;
     background-color: var(--fundo-section);
-    height: auto;
-    padding: 30px;
+    height: 200px;
+    padding: 0;
 
 }
 
@@ -375,11 +375,11 @@ header.at-top {
 
 /* Estilos do ícone */
 .hamburguer {
-    width: 32px;
-    height: 24px;
+    width: 25px;
+    height: 19px;
     position: absolute;
     top: 30px;
-    right: 30px;
+    left: 30px;
     cursor: pointer;
     z-index: 2000;
     display: flex;
@@ -412,11 +412,14 @@ header.at-top {
 /* =======================
    MENU LATERAL MOBILE
 ======================= */
-@media (max-width: 900px) {
+@media (max-width: 992px) {
 
     .container-box {
         align-items: center;
+        display: flex;
         text-align: center;
+        position: relative;
+        justify-content: center;
     }
 
     .logo {
@@ -425,7 +428,16 @@ header.at-top {
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        z-index: 1;
         /* CENTRALIZA DE VEZ */
+    }
+
+     .hamburguer {
+        position: absolute;
+        top: 30px;
+        left: 20px;
+        z-index: 3000;
+        display: flex !important;
     }
 
 
@@ -434,6 +446,10 @@ header.at-top {
         top: 20px;
         right: 20px;
         z-index: 3000;
+    }
+
+    .hamburguer.ativo span {
+        background-color: var(--fundo);
     }
 
     .menu-mobile {
@@ -458,18 +474,23 @@ header.at-top {
     .menu-mobile {
         position: fixed;
         top: 0;
-        right: -100%;
-        width: 70%;
+        left: -100%;
+        width: 75%;
+        max-width: 320px;
         height: 100vh;
-        background-color: var(--fundo);
+        color: var(--fundo);
+        background-color: var(--secundario);
         box-shadow: -4px 0 12px rgba(0, 0, 0, 0.2);
         padding: 40px 20px;
-        transition: 0.3s ease;
-        z-index: 1500;
+        transition: left 0.35s ease;
+        z-index: 2000;
+        display: flex !important;
+        flex-direction: column;
+        text-align: left;
     }
 
     .menu-mobile.ativo {
-        right: 0;
+        left: 0;
     }
 
     .menu-mobile ul {
@@ -477,13 +498,16 @@ header.at-top {
         margin-top: 50px;
     }
 
+    .hamburguer.ativo span {
+        background-color: var(--fundo);
+    }
     .menu-mobile li {
         margin-bottom: 25px;
     }
 
     .menu-mobile a {
         font-family: var(--fonte-secundaria);
-        color: var(--texto);
+        color: var(--fundo);
         font-size: 1.4em;
         text-decoration: none;
         padding: 10px 0;
@@ -521,7 +545,7 @@ header.at-top {
     background: none;
     border: none;
     font-family: var(--fonte-secundaria);
-    color: var(--texto);
+    color: var(--fundo);
     font-size: 1.4em;
     text-align: left;
     padding: 10px 0;
@@ -537,7 +561,7 @@ header.at-top {
 
 /* Quando abrir o submenu */
 .mobile-btn.active::after {
-    transform: rotate(180deg);
+    transform: rotate(200deg);
 }
 
 .hero-section {
@@ -547,12 +571,12 @@ header.at-top {
 
     display: flex;
     align-items: center;
-    margin-top: 17vh;
+    margin-top: 20vh;
     justify-content: center;
-    padding: 0 5%;
+    padding: 0;
     box-sizing: border-box;
     border-radius: 8px;
-    box-shadow: 0 10px 20px rgb(0, 0, 0, 0.1);
+   
 }
 
 .hero-content {
@@ -1999,6 +2023,7 @@ header.at-top {
 
 /* Tablets e telas médias */
 @media (max-width: 1200px) {
+    
     .logo h1 {
         font-size: 2.6em;
     }
@@ -2033,8 +2058,8 @@ header.at-top {
 @media (max-width: 992px) {
     .container-box {
         margin: auto;
-        height: 9vh;
-        padding: 30px 20px 20px 20px;
+        padding: 0px;
+        height: 100px;
     }
 
     .logo {
@@ -2078,8 +2103,8 @@ header.at-top {
 @media (max-width: 768px) {
     .container-box {
         margin: auto;
-        height: 8vh;
-        padding: 30px 20px 60px 20px;
+        padding: 0px;
+        height: 100px;
     }
 
     .hamburguer {
@@ -2107,10 +2132,6 @@ header.at-top {
         font-size: 1em;
     }
 
-    .container-box {
-        padding: 25px 20px 60px 20px;
-    }
-
     .menu-mobile a,
     .mobile-btn {
         font-size: 1.2em;
@@ -2133,8 +2154,8 @@ header.at-top {
 @media (max-width: 430px) {
     .container-box {
         margin: auto;
-        height: 6vh;
-        padding: 30px 20px 60px 20px;
+        padding: 0px;
+        height: 100px;
     }
 
     .logo h1 {
@@ -2175,8 +2196,8 @@ header.at-top {
 @media (max-width: 360px) {
     .container-box {
         margin: auto;
-        height: 9vh;
-        padding: 30px 20px 60px 20px;
+        padding: 0px;
+        height: 100px;
     }
 
     .logo h1 {
@@ -3281,6 +3302,10 @@ header.at-top {
     .localizacao iframe {
         height: 380px;
     }
+
+    .dropdown-conteudo li::before {
+        font-size: 0em;
+    }
 }
 
 @media (max-width: 992px) {
@@ -3309,6 +3334,10 @@ header.at-top {
 
     .localizacao iframe {
         height: 360px;
+    }
+
+    .dropdown-conteudo li::before {
+        font-size: 0em;
     }
 }
 
@@ -3354,7 +3383,7 @@ header.at-top {
     }
 
     .premium-minimal .marca {
-        font-size: 1.6em;
+        font-size: 1.5em;
     }
 
     .premium-minimal .sub {
@@ -3362,7 +3391,11 @@ header.at-top {
     }
 
     .premium-minimal .copy {
-        font-size: 1.1em;
+        font-size: 0.90em;
+    }
+
+    .dropdown-conteudo li::before {
+        font-size: 0em;
     }
 }
 
@@ -3403,19 +3436,23 @@ header.at-top {
 
     /* FOOTER */
     .premium-minimal .marca {
-        font-size: 1.45em;
+        font-size: 1.30em;
     }
 
     .premium-minimal .sub {
-        font-size: 0.95em;
-    }
-
-    .premium-minimal .copy {
         font-size: 1em;
     }
 
+    .premium-minimal .copy {
+        font-size: 0.90em;
+    }
+
     .premium-minimal .dev {
-        font-size: 0.9em;
+        font-size: 0.7em;
+    }
+
+    .dropdown-conteudo li::before {
+        font-size: 0em;
     }
 }
 
@@ -3448,24 +3485,235 @@ header.at-top {
         font-size: 0.95em;
     }
 
+    .dropdown-conteudo li::before {
+        font-size: 0em;
+    }
+
     .localizacao iframe {
         height: 230px;
     }
 
     /* FOOTER */
     .premium-minimal .marca {
-        font-size: 1.3em;
+        font-size: 1em;
     }
 
     .premium-minimal .sub {
-        font-size: 0.9em;
+        font-size: 1em;
     }
 
     .premium-minimal .copy {
-        font-size: 0.95em;
+        font-size: 0.80em;
     }
 
     .premium-minimal .dev {
-        font-size: 0.85em;
+        font-size: 0.60em;
+    }
+}
+
+/* ==========================================
+   RESPONSIVIDADE QUEM SOU EU
+   ========================================= */
+
+@media (max-width: 1220px) {
+
+    .container-quem,
+    .container-filosofia {
+        max-width: 1100px;
+        gap: 40px;
+    }
+
+    .foto-quem {
+        width: 115%;
+        height: 560px;
+    }
+
+    .texto-quem h2 {
+        font-size: 2.6em;
+        margin-left: 40px;
+    }
+
+    .texto-quem p {
+        font-size: 1.1rem;
+        margin-left: 40px;
+    }
+
+    .dados-quem {
+        margin-left: 40px;
+        gap: 30px;
+    }
+
+    .dados-quem strong {
+        font-size: 2.2rem;
+    }
+
+    .dados-quem span {
+        font-size: 1.2rem;
+    }
+
+    .filosofia-img img {
+        width: 460px;
+        height: 560px;
+    }
+}
+
+@media (max-width: 992px) {
+
+    .container-quem,
+    .container-filosofia {
+        flex-direction: column;
+        height: auto;
+        text-align: center;
+    }
+
+    .foto-quem {
+        width: 100%;
+        height: 520px;
+    }
+
+    .texto-quem h2,
+    .texto-quem p,
+    .dados-quem {
+        margin-left: 0;
+    }
+
+    .texto-quem h2 {
+        font-size: 2.5em;
+    }
+
+    .texto-quem p {
+        font-size: 1.1rem;
+        line-height: 1.4em;
+    }
+
+    .dados-quem {
+        justify-content: center;
+        gap: 35px;
+    }
+
+    .filosofia-img img {
+        width: 100%;
+        max-width: 480px;
+        height: auto;
+    }
+
+    .filosofia-texto h2 {
+        font-size: 3rem;
+    }
+
+    .filosofia-texto p {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .quem-sou-eu,
+    .filosofia {
+        padding: 80px 0;
+    }
+
+    .foto-quem {
+        height: auto;
+        border-radius: 16px;
+    }
+
+    .texto-quem h2 {
+        font-size: 2.2em;
+    }
+
+    .texto-quem p {
+        font-size: 1.05rem;
+    }
+
+    .dados-quem {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .dados-quem strong {
+        font-size: 2rem;
+    }
+
+    .dados-quem span {
+        font-size: 1.1rem;
+    }
+
+    .filosofia-texto h2 {
+        font-size: 2.6rem;
+    }
+
+    .filosofia-texto p {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 430px) {
+
+    .foto-quem {
+        height: auto!important;
+        border-radius: 14px;
+    }
+
+    .texto-quem h2 {
+        font-size: 1.9em;
+    }
+
+    .texto-quem p {
+        font-size: 0.95rem;
+        line-height: 1.35em;
+    }
+
+    .dados-quem strong {
+        font-size: 1.8rem;
+    }
+
+    .dados-quem span {
+        font-size: 1rem;
+    }
+
+    .filosofia-texto h2 {
+        font-size: 2.2rem;
+    }
+
+    .filosofia-texto p {
+        font-size: 1.05rem;
+    }
+
+    .filosofia-img img {
+        height: 478px;
+        border-radius: 14px;
+    }
+}
+
+@media (max-width: 360px) {
+
+    .foto-quem {
+        height: auto;
+    }
+
+    .texto-quem h2 {
+        font-size: 1.7em;
+    }
+
+    .texto-quem p {
+        font-size: 0.9rem;
+    }
+    
+
+    .dados-quem strong {
+        font-size: 1.6rem;
+    }
+
+    .dados-quem span {
+        font-size: 0.95rem;
+    }
+
+    .filosofia-texto h2 {
+        font-size: 2rem;
+    }
+
+    .filosofia-texto p {
+        font-size: 1rem;
     }
 }

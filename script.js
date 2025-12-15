@@ -30,6 +30,15 @@ mobileButtons.forEach((button) => {
     });
 });
 
+// 🔒 FECHA O MENU MOBILE AO CLICAR EM QUALQUER LINK
+document.querySelectorAll("#menuMobile a").forEach(link => {
+    link.addEventListener("click", () => {
+        menu.classList.remove("ativo");
+        btn.classList.remove("ativo");
+    });
+});
+
+
 
 
 
