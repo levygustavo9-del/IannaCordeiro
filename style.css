@@ -50,13 +50,12 @@ header.hidden {
 /* APARECE TEMPORARIAMENTE */
 header.ghost {
     transform: translateY(0);
-    box-shadow: none;
 }
 
 /* FIXO REAL (SÓ NO TOPO) */
 header.at-top {
     transform: translateY(0);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+   
 }
 
 
@@ -1262,20 +1261,20 @@ header.at-top {
 .procedures-section .section-title {
     font-family: var(--fonte-titulo);
     text-transform: uppercase;
-    font-size: 4em;
+    font-size: 3.1em;
     color: var(--texto);
     font-weight: 400;
     letter-spacing: 1px;
-    margin-bottom: 15px;
+    margin-bottom: 8px;
 }
 
 .procedures-section .section-subtitle {
     font-family: var(--fonte-secundaria);
-    font-size: 1.4em;
+    font-size: 1.1em;
 
     color: var(--secundario);
     max-width: 900px;
-    margin: 0 auto 70px;
+    margin: 0 auto 40px;
     line-height: 1.7;
 }
 
@@ -1300,10 +1299,8 @@ header.at-top {
     background-color: var(--fundo);
     display: flex;
     gap: 50px;
-    padding: 48px;
+    padding: 0px 17px 0px 0px;
     border-radius: 20px;
-
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.09);
     transition: 0.35s ease;
     border: 1px solid rgba(166, 116, 73, 0.08);
 }
@@ -1315,7 +1312,6 @@ header.at-top {
 
 .procedure-card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 20px 55px rgba(0, 0, 0, 0.12);
 }
 
 /* =============================================== */
@@ -1324,7 +1320,7 @@ header.at-top {
 
 .video-box {
     width: 100%;
-    max-width: 320px;
+    max-width: 270px;
     height: auto;
     aspect-ratio: 9/16;
     background-color: #000;
@@ -1348,7 +1344,7 @@ header.at-top {
 
 .procedure-card h3 {
     font-family: var(--variação);
-    font-size: 3.2em;
+    font-size: 2.7em;
     font-weight: 700;
     color: var(--detalhes);
     margin-bottom: 18px !important;
@@ -1359,7 +1355,7 @@ header.at-top {
 
 .procedure-card p {
     font-family: var(--fonte-secundaria);
-    font-size: 2em;
+    font-size: 1.6em;
     color: var(--secundario);
     line-height: 1.7;
     max-width: 550px;
@@ -1392,16 +1388,17 @@ header.at-top {
 /* ⭐ SETAS DO SWIPER — VISUAL DE LUXO             */
 /* =============================================== */
 
-.swiper-button-next,
-.swiper-button-prev {
+.button-swiper-next,
+.button-swiper-prev {
     color: var(--detalhes) !important;
-    transform: scale(1.3);
+    width: 15%;
+    transform: scale(1.5) !important;
     transition: 0.3s;
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-.swiper-button-next:hover,
-.swiper-button-prev:hover {
+.button-swiper-next:hover,
+.button-swiper-prev:hover {
     color: var(--texto) !important;
     transform: scale(1.45);
 }

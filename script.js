@@ -150,7 +150,9 @@ document.addEventListener('DOMContentLoaded', function () {
         // ==========================================================
         // PARTE 3: NAVEGAÇÃO DO DROPDOWN → SLIDE DOS PROCEDIMENTOS
         // ==========================================================
-        const procedureLinks = document.querySelectorAll('.procedures-dropdown a');
+        const procedureLinks = document.querySelectorAll(
+            '.procedures-dropdown a, .menu-mobile a[data-slide-index]'
+        );
 
         procedureLinks.forEach(link => {
             link.addEventListener('click', function (event) {
