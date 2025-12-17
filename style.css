@@ -55,7 +55,7 @@ header.ghost {
 /* FIXO REAL (SÓ NO TOPO) */
 header.at-top {
     transform: translateY(0);
-   
+
 }
 
 
@@ -63,8 +63,8 @@ header.at-top {
 
 .whatsapp-float {
     position: fixed;
-    width: 55px;
-    height: 55px;
+    width: 45px;
+    height: 45px;
     bottom: 60px;
     right: 30px;
     background-color: #25D366;
@@ -88,6 +88,8 @@ header.at-top {
     transform: scale(1.12);
     box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.35);
 }
+
+
 
 
 /*ANIMAÇÃO AO ROLAR A TELA*/
@@ -431,7 +433,7 @@ header.at-top {
         /* CENTRALIZA DE VEZ */
     }
 
-     .hamburguer {
+    .hamburguer {
         position: absolute;
         top: 30px;
         left: 20px;
@@ -500,6 +502,7 @@ header.at-top {
     .hamburguer.ativo span {
         background-color: var(--fundo);
     }
+
     .menu-mobile li {
         margin-bottom: 25px;
     }
@@ -575,7 +578,7 @@ header.at-top {
     padding: 0;
     box-sizing: border-box;
     border-radius: 8px;
-   
+
 }
 
 .hero-content {
@@ -1310,9 +1313,6 @@ header.at-top {
     /* ajuste esse valor conforme a altura do header */
 }
 
-.procedure-card:hover {
-    transform: translateY(-6px);
-}
 
 /* =============================================== */
 /* ⭐ VÍDEO — CAIXA PREMIUM                         */
@@ -1361,7 +1361,6 @@ header.at-top {
     max-width: 550px;
     margin: 0;
     margin-top: 10% !important;
-    margin-right: 10% !important;
 }
 
 .procedure-text {
@@ -2020,7 +2019,7 @@ header.at-top {
 
 /* Tablets e telas médias */
 @media (max-width: 1200px) {
-    
+
     .logo h1 {
         font-size: 2.6em;
     }
@@ -2116,7 +2115,7 @@ header.at-top {
     }
 
     .logo {
-        margin-right: 13%;
+        margin-left: 6px;
     }
 
     .logo h1 {
@@ -2153,6 +2152,10 @@ header.at-top {
         margin: auto;
         padding: 0px;
         height: 100px;
+    }
+
+     .logo {
+        margin-left: 6px;
     }
 
     .logo h1 {
@@ -2195,6 +2198,9 @@ header.at-top {
         margin: auto;
         padding: 0px;
         height: 100px;
+    }
+    .logo {
+        margin-left: 6px;
     }
 
     .logo h1 {
@@ -2498,7 +2504,7 @@ header.at-top {
     }
 
     .treatments-deck-slider {
-        padding: 30px 9%;
+        padding: 43px 5%;
     }
 
     /* Redução e centralização do card no carrossel */
@@ -2537,6 +2543,10 @@ header.at-top {
         height: 140px;
     }
 
+    .treatments-deck-slider {
+        padding: 43px 5%;
+    }
+
     .treatments-text .impact-title {
         font-size: 2.8em;
     }
@@ -2546,9 +2556,6 @@ header.at-top {
         position: relative;
         z-index: 99;
     }
-
-
-
 
     .modal-content {
         max-width: 380px !important;
@@ -2621,6 +2628,10 @@ header.at-top {
         z-index: 99;
     }
 
+    .treatments-deck-slider {
+        padding: 43px 5%;
+    }
+
     /* Otimização do Modal para Telas Estreitas */
     .modal-content {
         width: 84% !important;
@@ -2661,6 +2672,10 @@ header.at-top {
 
     .treatment-card .card-image-placeholder img {
         height: 130px;
+    }
+
+    .treatments-deck-slider {
+        padding: 43px 5%;
     }
 
     .modal-content {
@@ -2797,6 +2812,10 @@ header.at-top {
         margin: -50px auto;
         transform: translateY(0%) scale(1.3);
     }
+
+    .circulo-setas {
+        display: none;
+    }
 }
 
 /* --- Telas de Celular Muito Pequenas (Até 480px) --- */
@@ -2834,43 +2853,37 @@ header.at-top {
 @media (max-width: 1200px) {
 
     .procedures-section {
-        padding: 60px 5%;
+        padding: 55px 5%;
     }
 
     .procedures-section .section-title {
-        margin-top: 30px;
-        font-size: 3.3em;
+        font-size: 2.7em;
     }
 
     .procedures-section .section-subtitle {
-        font-size: 1.25em;
-        margin-bottom: 60px;
+        font-size: 1.05em;
+        max-width: 800px;
     }
 
     .procedure-card {
-        max-width: 750px;
         gap: 35px;
-        padding: 40px;
+        max-width: 720px;
     }
 
     .video-box {
-        max-width: 280px;
-        border-width: 2px;
+        max-width: 250px;
     }
 
-    .procedure-text h3 {
-        font-size: 2.8em;
+    .procedure-card h3 {
+        font-size: 2.3em;
     }
 
-    .procedure-text p {
-        font-size: 1.7em;
-    }
-
-    .swiper-button-next,
-    .swiper-button-prev {
-        transform: scale(1.15);
+    .procedure-card p {
+        font-size: 1.45em;
+        max-width: 480px;
     }
 }
+
 
 /* ============================================================
    🟦 CELULARES GRANDES / TABLETS (≤ 992px)
@@ -2878,7 +2891,7 @@ header.at-top {
 @media (max-width: 992px) {
 
     .procedures-section {
-        padding: 60px 5%;
+        padding: 0px 5%;
     }
 
     .procedure-card {
@@ -2886,7 +2899,7 @@ header.at-top {
         max-width: 520px;
         padding: 32px 30px;
         align-items: center;
-        gap: 25px;
+        gap: 10px;
     }
 
     .video-box {
@@ -2917,7 +2930,7 @@ header.at-top {
 @media (max-width: 768px) {
 
     .procedures-section {
-        padding: 60px 5%;
+        padding: 0px 5%;
     }
 
     .procedures-section .section-title {
@@ -2930,13 +2943,13 @@ header.at-top {
     }
 
     .procedure-card {
-        max-width: 440px;
+        max-width: 240px;
         padding: 28px;
-        gap: 20px;
+        gap: 10px;
     }
 
     .video-box {
-        max-width: 75%;
+        max-width: 85%;
         /* vídeo reduzido */
         border-radius: 14px;
     }
@@ -2946,12 +2959,17 @@ header.at-top {
     }
 
     .procedure-text p {
+        text-align: center;
         font-size: 1.3em;
     }
 
     .swiper-button-next,
     .swiper-button-prev {
         transform: scale(1);
+    }
+
+    .button-swiper-pagination {
+        bottom: 50px !important;
     }
 }
 
@@ -2961,7 +2979,7 @@ header.at-top {
 @media (max-width: 430px) {
 
     .procedures-section {
-        padding: 60px 5%;
+        padding: 0px 5%;
     }
 
     .procedures-section .section-title {
@@ -2974,9 +2992,9 @@ header.at-top {
     }
 
     .procedure-card {
-        max-width: 330px;
+        max-width: 210px;
         padding: 24px;
-        gap: 18px;
+        gap: 10px;
         border-radius: 14px;
     }
 
@@ -2992,6 +3010,7 @@ header.at-top {
 
     .procedure-text p {
         font-size: 1.15em;
+        text-align: center;
         line-height: 1.55;
     }
 
@@ -3000,7 +3019,7 @@ header.at-top {
         display: none;
     }
 
-    .swiper-pagination {
+    .button-swiper-pagination {
         bottom: 0;
     }
 }
@@ -3011,7 +3030,7 @@ header.at-top {
 @media (max-width: 360px) {
 
     .procedures-section {
-        padding: 60px 4%;
+        padding: 0px 4%;
     }
 
     .procedures-section .section-title {
@@ -3023,9 +3042,9 @@ header.at-top {
     }
 
     .procedure-card {
-        max-width: 300px;
+        max-width: 260px;
         padding: 20px;
-        gap: 16px;
+        gap: 10px;
     }
 
     .video-box {
@@ -3039,11 +3058,12 @@ header.at-top {
 
     .procedure-text p {
         font-size: 1.05em;
+        text-align: center;
     }
 
-    .swiper-pagination-bullet {
-        width: 7px;
-        height: 7px;
+    .button-swiper-pagination {
+        width: 9px;
+        height: 9px;
     }
 }
 
@@ -3648,7 +3668,7 @@ header.at-top {
 @media (max-width: 430px) {
 
     .foto-quem {
-        height: auto!important;
+        height: auto !important;
         border-radius: 14px;
     }
 
@@ -3696,7 +3716,7 @@ header.at-top {
     .texto-quem p {
         font-size: 0.9rem;
     }
-    
+
 
     .dados-quem strong {
         font-size: 1.6rem;
