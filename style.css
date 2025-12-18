@@ -2226,7 +2226,7 @@ header.at-top {
 .chat-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.45);
+    background: rgba(0, 0, 0, 0.45);
     backdrop-filter: blur(2px);
     z-index: 9998;
 }
@@ -4087,5 +4087,96 @@ header.at-top {
     .bot,
     .user {
         font-size: 13px;
+    }
+}
+
+/* ===============================
+   ATÉ 1200px
+=============================== */
+@media (max-width: 1200px) {
+    .chatbot {
+        width: 320px;
+        right: 24px;
+        bottom: 90px;
+    }
+
+    #clearChat {
+        font-size: 0.75rem;
+        padding: 8px 10px;
+    }
+}
+
+/* ===============================
+   ATÉ 992px (tablets grandes)
+=============================== */
+@media (max-width: 992px) {
+    .chatbot {
+        width: 300px;
+        right: 20px;
+        bottom: 80px;
+    }
+
+    #clearChat {
+        font-size: 0.72rem;
+        padding: 8px 9px;
+    }
+
+    .chat-overlay {
+        backdrop-filter: blur(3px);
+    }
+}
+
+/* ===============================
+   ATÉ 768px (tablet / mobile grande)
+=============================== */
+@media (max-width: 768px) {
+    .chatbot {
+        width: 92%;
+        right: 4%;
+        bottom: 70px;
+        border-radius: 16px;
+    }
+
+    #clearChat {
+        font-size: 0.70rem;
+        padding: 7px 9px;
+    }
+}
+
+/* ===============================
+   ATÉ 430px (mobile padrão)
+=============================== */
+@media (max-width: 430px) {
+    .chatbot {
+        width: 94%;
+        right: 3%;
+        bottom: 60px;
+        border-radius: 14px;
+    }
+
+    #clearChat {
+        font-size: 0.68rem;
+        padding: 7px 8px;
+    }
+
+    .chat-overlay {
+        background: rgba(0, 0, 0, 0.55);
+    }
+}
+
+/* ===============================
+   ATÉ 360px (mobile pequeno)
+=============================== */
+@media (max-width: 360px) {
+    .chatbot {
+        width: 96%;
+        right: 2%;
+        bottom: 55px;
+        border-radius: 12px;
+    }
+
+    #clearChat {
+        font-size: 0.65rem;
+        padding: 6px 7px;
     }
 }
