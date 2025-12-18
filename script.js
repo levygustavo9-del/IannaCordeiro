@@ -517,39 +517,86 @@ Atendemos de segunda a sexta-feira, das 9h às 18h.
 Rua Eng. Mário de Gusmão, 988 – Ponta Verde, Maceió – AL
 `,
         procedimentos: {
-            botox: {
-                nome: "Botox",
-                descricao: "Indicado para suavizar linhas de expressão e prevenir rugas.",
-                tempo: "20 a 30 minutos",
-                recuperacao: "Retorno imediato às atividades, com poucos cuidados nas primeiras horas."
-            },
             ultraformer: {
-                nome: "Ultraformer MPT",
-                descricao: "Tecnologia de ultrassom para firmeza e estímulo de colágeno.",
+                nome: "Ultraforme MPT",
+                descricao: "Tecnlogia de ultrassom de última geração para lifting facial, firmeza e estímulo de colágeno.",
                 tempo: "30 a 60 minutos",
                 recuperacao: "Atividades normais no mesmo dia ou no dia seguinte."
             },
+            botox: {
+                nome: "Botox",
+                descricao: "Indicado para suavizar linhas de expressão e prevenir rugas dinâmicas.",
+                tempo: "20 a 30 minutos",
+                recuperacao: "Retorno imediato às atividades, evitando deitar-se nas primeiras 4 horas."
+            },
+            hof: {
+                nome: "Harmonização Orofacial (HOF)",
+                descricao: "Conjunto de procedimentos integrados para equilibrar a estética e funcionalidade da face.",
+                tempo: "Variável",
+                recuperacao: "Depende da combinação de técnicas, geralmente retorno rápido à rotina."
+            },
             bioestimulador: {
                 nome: "Bioestimulador de Colágeno",
-                descricao: "Estimula a produção natural de colágeno, melhorando firmeza da pele.",
+                descricao: "Substâncias que estimulam a produção natural de colágeno, melhorando a espessura e firmeza da pele.",
                 tempo: "30 a 40 minutos",
                 recuperacao: "Pode haver leve inchaço inicial, com retorno rápido à rotina."
             },
+            peim: {
+                nome: "PEIM (Secagem de Vazinhos)",
+                descricao: "Procedimento Injetável para Microvasos, focado na eliminação de telangiectasias (vasos finos).",
+                tempo: "30 minutos",
+                recuperacao: "Evitar exposição solar direta e exercícios físicos intensos por 24h a 48h."
+            },
+            lavieen: {
+                nome: "Lavieen",
+                descricao: "Laser de Thulium que trata textura, manchas e poros, proporcionando efeito de pele de porcelana (BB Glow).",
+                tempo: "20 a 30 minutos",
+                recuperacao: "Pele levemente avermelhada por 24h, sem necessidade de afastamento."
+            },
+            pdrn: {
+                nome: "PDRN",
+                descricao: "Bioestimulador derivado do DNA do salmão que promove regeneração celular e hidratação profunda.",
+                tempo: "30 minutos",
+                recuperacao: "Pequenas pápulas podem ser visíveis por algumas horas após a aplicação."
+            },
+            skinbooster: {
+                nome: "Skinbooster",
+                descricao: "Hidratação injetável profunda com ácido hialurônico para melhorar o viço e a elasticidade.",
+                tempo: "30 minutos",
+                recuperacao: "Retorno imediato, podendo haver pequenos pontos de hematoma."
+            },
+            mesclas: {
+                nome: "Mesclas / Enzimas",
+                descricao: "Combinação de ativos injetáveis para tratar gordura localizada, flacidez ou manchas.",
+                tempo: "20 a 30 minutos",
+                recuperacao: "Retorno imediato, com possibilidade de leve edema no local aplicado."
+            },
             labios: {
                 nome: "Preenchimento Labial",
-                descricao: "Realça contorno, volume e hidratação dos lábios.",
-                tempo: "30 minutos",
-                recuperacao: "Inchaço leve nos primeiros dias, com retorno imediato às atividades."
+                descricao: "Uso de ácido hialurônico para realçar contorno, dar volume e hidratação aos lábios.",
+                tempo: "30 a 40 minutos",
+                recuperacao: "Inchaço leve nos primeiros 3 dias, com retorno imediato às atividades."
             },
             fios: {
                 nome: "Fios de Sustentação",
-                descricao: "Efeito lifting e estímulo de colágeno.",
+                descricao: "Fios absorvíveis que promovem efeito lifting imediato e estímulo contínuo de colágeno.",
                 tempo: "40 a 60 minutos",
-                recuperacao: "Cuidados leves por alguns dias, sem afastamento prolongado."
+                recuperacao: "Cuidados leves com movimentos faciais por alguns dias, sem afastamento."
+            },
+            preenchimento: {
+                nome: "Preenchimento Facial",
+                descricao: "Reposição de volumes em áreas como olheiras, maçãs do rosto e mandíbula.",
+                tempo: "30 a 50 minutos",
+                recuperacao: "Retorno imediato, com cuidados básicos para evitar pressão no local."
+            },
+            profhilo: {
+                nome: "Profhilo",
+                descricao: "Biorremodelador celular que recupera a estrutura da pele sem alterar o volume facial.",
+                tempo: "20 a 30 minutos",
+                recuperacao: "Retorno imediato; os pontos de aplicação são absorvidos rapidamente pelo tecido."
             }
         }
     };
-
     // ===============================
     // DIGITAÇÃO REAL (SEM BUG)
     // ===============================
@@ -624,10 +671,11 @@ Rua Eng. Mário de Gusmão, 988 – Ponta Verde, Maceió – AL
     function askName() {
         botReply("Antes de começarmos, como posso te chamar?");
         chatOptions.innerHTML = `
+            <div class="chat-input-area">
             <input type="text" id="inputUser" placeholder="Digite seu nome" />
             <button id="sendBtn">Enviar</button>
+        </div>
         `;
-
         document.getElementById("sendBtn").onclick = () => {
             const input = document.getElementById("inputUser");
             if (!input.value.trim()) return;

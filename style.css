@@ -2147,19 +2147,65 @@ header.at-top {
 }
 
 .chat-options::-webkit-scrollbar-thumb {
-    background-color: rgba(0,0,0,0.25);
+    background-color: rgba(0, 0, 0, 0.25);
     border-radius: 10px;
 }
 
+/* ===============================
+   INPUT DE CONVERSA – CHATBOT
+=============================== */
 
-/*===== RESPONSIVIDADE DO SITE: */
+.chat-input-area {
+    display: flex;
+    gap: 8px;
+}
+
+.chat-input-area input {
+    flex: 1;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    outline: none;
+    transition: border 0.25s ease, box-shadow 0.25s ease;
+}
+
+.chat-input-area input::placeholder {
+    color: #999;
+}
+
+.chat-input-area input:focus {
+    border-color: var(--detalhes);
+    box-shadow: 0 0 0 2px rgba(209, 159, 109, 0.2);
+}
+
+/* BOTÃO ENVIAR */
+.chat-input-area button {
+    padding: 10px 16px;
+    border-radius: 12px;
+    border: none;
+    background: var(--detalhes);
+    color: #fff;
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.15s ease;
+}
+
+.chat-input-area button:hover {
+    background: #895c33;
+    transform: translateY(-1px);
+}
+
+.chat-input-area button:active {
+    transform: scale(0.96);
+}
+
 
 /* ================================
    RESPONSIVIDADE DO HEADER
 ================================ */
-
-
-
 
 /* Tablets e telas médias */
 @media (max-width: 1200px) {
@@ -2410,8 +2456,6 @@ header.at-top {
     }
 }
 
-
-
 /* =============================================================
    =============== 992px — ATIVA O PARALLAX =====================
    ============================================================= */
@@ -2463,8 +2507,6 @@ header.at-top {
     }
 }
 
-
-
 /* =============== 900px =============== */
 /* (Essa parte só será usada se a tela estiver entre 992px e 900px e SEM parallax.
    Mas como agora o parallax cobre tudo abaixo de 992px, esta área funciona apenas como reforço de fonte.) */
@@ -2484,8 +2526,6 @@ header.at-top {
     }
 }
 
-
-
 /* =============== 768px =============== */
 @media (max-width: 768px) {
 
@@ -2502,8 +2542,6 @@ header.at-top {
         width: 40%;
     }
 }
-
-
 
 /* =============== 430px =============== */
 @media (max-width: 430px) {
@@ -2530,8 +2568,6 @@ header.at-top {
 
 }
 
-
-
 /* =============== 360px =============== */
 @media (max-width: 360px) {
 
@@ -2554,11 +2590,9 @@ header.at-top {
 
 }
 
-
 /* =================================================== */
 /* RESPONSIVIDADE - SEÇÃO TRATAMENTOS E MODAL          */
-/* =================================================== */
-/* ================================================
+
 
 
 /* 1. Telas Médias-Grandes (Abaixo de 1200px) */
@@ -2721,7 +2755,6 @@ header.at-top {
     }
 
 }
-
 
 /* 4. Smartphones Padrão (Abaixo de 430px) */
 @media (max-width: 430px) {
@@ -2898,7 +2931,6 @@ header.at-top {
     }
 }
 
-
 /* --- Telas de Celular (Até 768px) --- */
 @media (max-width: 768px) {
     .depoimentos {
@@ -3028,7 +3060,6 @@ header.at-top {
         max-width: 480px;
     }
 }
-
 
 /* ============================================================
    🟦 CELULARES GRANDES / TABLETS (≤ 992px)
