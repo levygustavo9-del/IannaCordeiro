@@ -2202,6 +2202,41 @@ header.at-top {
     transform: scale(0.96);
 }
 
+.chat-actions {
+    display: flex;
+    gap: 8px;
+}
+
+#clearChat {
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    padding: 9px 10px;
+    border-radius: 8px;
+    font-size: 0.70rem;
+    cursor: pointer;
+    transition: background .25s ease;
+}
+
+#clearChat:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.chat-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(2px);
+    z-index: 9998;
+}
+
+.chatbot {
+    z-index: 9999;
+}
+
+
+
 
 /* ================================
    RESPONSIVIDADE DO HEADER

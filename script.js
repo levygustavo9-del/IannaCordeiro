@@ -480,133 +480,117 @@ function showOptions(options) {
 }
 
 // ===== FLUXOS =====
-
 document.addEventListener("DOMContentLoaded", () => {
 
+    /* ===============================
+       ELEMENTOS
+    =============================== */
     const chatToggle = document.getElementById("chatToggle");
     const chatbot = document.getElementById("chatbot");
     const closeChat = document.getElementById("closeChat");
     const chatBody = document.getElementById("chatBody");
     const chatOptions = document.getElementById("chatOptions");
+    const chatOverlay = document.getElementById("chatOverlay");
+    const clearChatBtn = document.getElementById("clearChat");
 
-    const userData = {};
+    let userData = {};
+    let typingEl = null;
 
-    chatToggle.onclick = () => {
-        chatbot.classList.toggle("hidden");
-        if (!chatbot.dataset.started) {
-            startChat();
-            chatbot.dataset.started = "true";
-        }
-    };
-
-    closeChat.onclick = () => chatbot.classList.add("hidden");
-
-    // ===============================
-    // BASE DE CONHECIMENTO
-    // ===============================
+    /* ===============================
+       BASE DE CONHECIMENTO
+    =============================== */
     const knowledge = {
         intro: `
-Olá! Sou a assistente virtual da Dra. Ianna Cordeiro 😊
+Olá! Sou a assistente virtual da Dra. Ianna Cordeiro.
 Estou aqui para te orientar sobre os procedimentos estéticos
 e esclarecer suas dúvidas iniciais.
-`,
+        `,
         horarios: `
-Atendemos de segunda a sexta-feira, das 9h às 18h.
-`,
+Atendemos de segunda a sexta-feira, das 9h às 18h,
+sempre mediante agendamento prévio.
+        `,
         localizacao: `
-Rua Eng. Mário de Gusmão, 988 – Ponta Verde, Maceió – AL
-`,
+Rua Eng. Mário de Gusmão, 988 – Ponta Verde  
+Maceió – AL | Record Offices
+        `,
         procedimentos: {
             ultraformer: {
-                nome: "Ultraforme MPT",
-                descricao: "Tecnlogia de ultrassom de última geração para lifting facial, firmeza e estímulo de colágeno.",
+                nome: "Ultraformer MPT",
+                descricao: "Tecnologia de ultrassom micro e macrofocado para firmeza, lifting e estímulo de colágeno.",
                 tempo: "30 a 60 minutos",
-                recuperacao: "Atividades normais no mesmo dia ou no dia seguinte."
+                recuperacao: "Atividades normais no mesmo dia."
             },
             botox: {
                 nome: "Botox",
-                descricao: "Indicado para suavizar linhas de expressão e prevenir rugas dinâmicas.",
+                descricao: "Suaviza linhas de expressão e previne o envelhecimento dinâmico.",
                 tempo: "20 a 30 minutos",
-                recuperacao: "Retorno imediato às atividades, evitando deitar-se nas primeiras 4 horas."
+                recuperacao: "Retorno imediato, com cuidados nas primeiras horas."
             },
             hof: {
-                nome: "Harmonização Orofacial (HOF)",
-                descricao: "Conjunto de procedimentos integrados para equilibrar a estética e funcionalidade da face.",
+                nome: "Harmonização Orofacial",
+                descricao: "Conjunto de procedimentos para equilíbrio estético e funcional da face.",
                 tempo: "Variável",
-                recuperacao: "Depende da combinação de técnicas, geralmente retorno rápido à rotina."
+                recuperacao: "Depende do protocolo, geralmente retorno rápido."
             },
             bioestimulador: {
                 nome: "Bioestimulador de Colágeno",
-                descricao: "Substâncias que estimulam a produção natural de colágeno, melhorando a espessura e firmeza da pele.",
+                descricao: "Estimula a produção natural de colágeno, melhorando firmeza e qualidade da pele.",
                 tempo: "30 a 40 minutos",
-                recuperacao: "Pode haver leve inchaço inicial, com retorno rápido à rotina."
-            },
-            peim: {
-                nome: "PEIM (Secagem de Vazinhos)",
-                descricao: "Procedimento Injetável para Microvasos, focado na eliminação de telangiectasias (vasos finos).",
-                tempo: "30 minutos",
-                recuperacao: "Evitar exposição solar direta e exercícios físicos intensos por 24h a 48h."
+                recuperacao: "Leve inchaço inicial, com retorno rápido."
             },
             lavieen: {
                 nome: "Lavieen",
-                descricao: "Laser de Thulium que trata textura, manchas e poros, proporcionando efeito de pele de porcelana (BB Glow).",
+                descricao: "Laser de Thulium para textura, poros e manchas, com efeito de pele uniforme.",
                 tempo: "20 a 30 minutos",
-                recuperacao: "Pele levemente avermelhada por 24h, sem necessidade de afastamento."
+                recuperacao: "Pele levemente avermelhada por até 24h."
             },
             pdrn: {
                 nome: "PDRN",
-                descricao: "Bioestimulador derivado do DNA do salmão que promove regeneração celular e hidratação profunda.",
+                descricao: "Bioestimulador regenerador e hidratante profundo.",
                 tempo: "30 minutos",
-                recuperacao: "Pequenas pápulas podem ser visíveis por algumas horas após a aplicação."
+                recuperacao: "Pequenas pápulas temporárias."
             },
             skinbooster: {
                 nome: "Skinbooster",
-                descricao: "Hidratação injetável profunda com ácido hialurônico para melhorar o viço e a elasticidade.",
+                descricao: "Hidratação profunda para viço e elasticidade da pele.",
                 tempo: "30 minutos",
-                recuperacao: "Retorno imediato, podendo haver pequenos pontos de hematoma."
-            },
-            mesclas: {
-                nome: "Mesclas / Enzimas",
-                descricao: "Combinação de ativos injetáveis para tratar gordura localizada, flacidez ou manchas.",
-                tempo: "20 a 30 minutos",
-                recuperacao: "Retorno imediato, com possibilidade de leve edema no local aplicado."
+                recuperacao: "Retorno imediato."
             },
             labios: {
                 nome: "Preenchimento Labial",
-                descricao: "Uso de ácido hialurônico para realçar contorno, dar volume e hidratação aos lábios.",
+                descricao: "Realça contorno, volume e hidratação dos lábios.",
                 tempo: "30 a 40 minutos",
-                recuperacao: "Inchaço leve nos primeiros 3 dias, com retorno imediato às atividades."
+                recuperacao: "Inchaço leve nos primeiros dias."
             },
             fios: {
                 nome: "Fios de Sustentação",
-                descricao: "Fios absorvíveis que promovem efeito lifting imediato e estímulo contínuo de colágeno.",
+                descricao: "Efeito lifting imediato com estímulo contínuo de colágeno.",
                 tempo: "40 a 60 minutos",
-                recuperacao: "Cuidados leves com movimentos faciais por alguns dias, sem afastamento."
+                recuperacao: "Cuidados leves por alguns dias."
             },
             preenchimento: {
                 nome: "Preenchimento Facial",
-                descricao: "Reposição de volumes em áreas como olheiras, maçãs do rosto e mandíbula.",
+                descricao: "Reposição de volume facial com ácido hialurônico.",
                 tempo: "30 a 50 minutos",
-                recuperacao: "Retorno imediato, com cuidados básicos para evitar pressão no local."
+                recuperacao: "Retorno imediato com cuidados básicos."
             },
             profhilo: {
                 nome: "Profhilo",
-                descricao: "Biorremodelador celular que recupera a estrutura da pele sem alterar o volume facial.",
+                descricao: "Biorremodelador celular para melhora da qualidade da pele.",
                 tempo: "20 a 30 minutos",
-                recuperacao: "Retorno imediato; os pontos de aplicação são absorvidos rapidamente pelo tecido."
+                recuperacao: "Pontos absorvidos rapidamente."
             }
         }
     };
-    // ===============================
-    // DIGITAÇÃO REAL (SEM BUG)
-    // ===============================
-    let typingEl = null;
 
+    /* ===============================
+       DIGITAÇÃO REAL
+    =============================== */
     function showTyping() {
         hideTyping();
         typingEl = document.createElement("div");
         typingEl.className = "bot typing";
-        typingEl.innerText = "Digitando...";
+        typingEl.textContent = "Digitando...";
         chatBody.appendChild(typingEl);
         chatBody.scrollTop = chatBody.scrollHeight;
     }
@@ -618,23 +602,13 @@ Rua Eng. Mário de Gusmão, 988 – Ponta Verde, Maceió – AL
         }
     }
 
-    function replyAndReturnToMenu(text, delay = 900) {
-        botReply(text, delay);
-
-        setTimeout(() => {
-            mainMenu();
-        }, delay + 1200);
-    }
-
-
     function botReply(text, delay = 900) {
         showTyping();
-
         setTimeout(() => {
             hideTyping();
             chatBody.innerHTML += `<div class="bot">${text.replace(/\n/g, "<br>")}</div>`;
             chatBody.scrollTop = chatBody.scrollHeight;
-        }, delay + Math.random() * 600);
+        }, delay + Math.random() * 500);
     }
 
     function userReply(text) {
@@ -656,63 +630,57 @@ Rua Eng. Mário de Gusmão, 988 – Ponta Verde, Maceió – AL
         });
     }
 
-    // ===============================
-    // FLUXO
-    // ===============================
+    /* ===============================
+       FLUXO
+    =============================== */
     function startChat() {
         chatBody.innerHTML = "";
         botReply(knowledge.intro);
-
-        setTimeout(() => {
-            askName();
-        }, 1200);
+        setTimeout(askName, 1200);
     }
 
     function askName() {
         botReply("Antes de começarmos, como posso te chamar?");
         chatOptions.innerHTML = `
             <div class="chat-input-area">
-            <input type="text" id="inputUser" placeholder="Digite seu nome" />
-            <button id="sendBtn">Enviar</button>
-        </div>
+                <input type="text" id="inputUser" placeholder="Digite seu nome" />
+                <button id="sendBtn">Enviar</button>
+            </div>
         `;
-        document.getElementById("sendBtn").onclick = () => {
-            const input = document.getElementById("inputUser");
-            if (!input.value.trim()) return;
 
+        const input = document.getElementById("inputUser");
+        const btn = document.getElementById("sendBtn");
+
+        btn.onclick = () => {
+            if (!input.value.trim()) return;
             userReply(input.value);
             userData.nome = input.value.trim();
             chatOptions.innerHTML = "";
-
             botReply(`Prazer, ${userData.nome}! Como posso te ajudar hoje?`);
             setTimeout(mainMenu, 1200);
         };
+
+        input.addEventListener("keydown", e => {
+            if (e.key === "Enter") btn.click();
+        });
     }
 
     function mainMenu() {
         showOptions([
-            {
-                label: "Conhecer procedimentos",
-                action: menuProcedimentos
-            },
-            {
-                label: "Horários de atendimento",
-                action: () => replyAndReturnToMenu(knowledge.horarios)
-            },
-            {
-                label: "Localização da clínica",
-                action: () => replyAndReturnToMenu(knowledge.localizacao)
-            },
-            {
-                label: "Falar com a clínica",
-                action: whatsapp
-            }
+            { label: "Conhecer procedimentos", action: menuProcedimentos },
+            { label: "Horários de atendimento", action: () => replyAndReturn(knowledge.horarios) },
+            { label: "Localização da clínica", action: () => replyAndReturn(knowledge.localizacao) },
+            { label: "Falar com a clínica", action: whatsapp }
         ]);
     }
 
-    function menuProcedimentos() {
-        botReply(`${userData.nome}, qual procedimento você gostaria de conhecer melhor?`);
+    function replyAndReturn(text) {
+        botReply(text);
+        setTimeout(mainMenu, 1800);
+    }
 
+    function menuProcedimentos() {
+        botReply(`${userData.nome}, qual procedimento você gostaria de conhecer?`);
         showOptions(
             Object.keys(knowledge.procedimentos).map(key => ({
                 label: knowledge.procedimentos[key].nome,
@@ -723,7 +691,6 @@ Rua Eng. Mário de Gusmão, 988 – Ponta Verde, Maceió – AL
 
     function mostrarProcedimento(key) {
         const p = knowledge.procedimentos[key];
-
         botReply(`🔹 ${p.nome}\n\n${p.descricao}`);
         setTimeout(() => botReply(`⏱ Duração média: ${p.tempo}`), 1200);
         setTimeout(() => botReply(`🕊 Recuperação: ${p.recuperacao}`), 2200);
@@ -737,8 +704,7 @@ Rua Eng. Mário de Gusmão, 988 – Ponta Verde, Maceió – AL
     }
 
     function whatsapp() {
-        botReply(`${userData.nome}, vou te direcionar para o WhatsApp da clínica para um atendimento personalizado.`);
-
+        botReply(`${userData.nome}, vou te direcionar para o WhatsApp da clínica.`);
         showOptions([
             {
                 label: "Ir para o WhatsApp",
@@ -750,5 +716,35 @@ Rua Eng. Mário de Gusmão, 988 – Ponta Verde, Maceió – AL
             { label: "Voltar", action: mainMenu }
         ]);
     }
+
+    /* ===============================
+       RESET / CONTROLES
+    =============================== */
+    function resetChat() {
+        chatBody.innerHTML = "";
+        chatOptions.innerHTML = "";
+        userData = {};
+        chatbot.dataset.started = "";
+        startChat();
+    }
+
+    if (clearChatBtn) {
+        clearChatBtn.onclick = resetChat;
+    }
+
+    chatToggle.onclick = () => {
+        chatbot.classList.toggle("hidden");
+        chatOverlay?.classList.toggle("hidden");
+
+        if (!chatbot.dataset.started) {
+            startChat();
+            chatbot.dataset.started = "true";
+        }
+    };
+
+    closeChat.onclick = () => {
+        chatbot.classList.add("hidden");
+        chatOverlay?.classList.add("hidden");
+    };
 
 });
