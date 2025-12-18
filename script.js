@@ -181,17 +181,27 @@ document.addEventListener('DOMContentLoaded', function () {
                     const slideIndex = parseInt(targetLink.getAttribute('data-slide-index'));
 
                     if (!isNaN(slideIndex)) {
-                        // 1. Mude o slide instantaneamente (velocidade 0)
+
+                        // 1️⃣ Move o slide SEM animação
                         proceduresSwiper.slideTo(slideIndex, 0);
 
-                        // 2. Rolagem instantânea (behavior: 'auto')
+                        // 2️⃣ Aguarda o layout mobile estabilizar
                         setTimeout(() => {
+
+                            // Scroll correto
                             proceduresSection.scrollIntoView({ behavior: 'auto' });
-                        }, 50);
+
+                            // 3️⃣ FORÇA o Swiper a recalcular tudo
+                            proceduresSwiper.update();
+                            proceduresSwiper.updateSlides();
+                            proceduresSwiper.updateSize();
+
+                        }, 300); // tempo crítico para mobile
                     }
                 }
             }
         }
+
 
         // ✅ CHAMADA: Executa a função após a inicialização do Swiper.
         goToSlideFromHash();
@@ -445,3 +455,252 @@ window.addEventListener("scroll", () => {
 });
 
 
+const chatToggle = document.getElementById("chatToggle");
+const chatbot = document.getElementById("chatbot");
+const closeChat = document.getElementById("closeChat");
+const chatBody = document.getElementById("chatBody");
+const chatOptions = document.getElementById("chatOptions");
+
+chatToggle.onclick = () => chatbot.classList.toggle("hidden");
+closeChat.onclick = () => chatbot.classList.add("hidden");
+
+function botMessage(text) {
+    chatBody.innerHTML += `<div class="bot">${text}</div>`;
+    chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function showOptions(options) {
+    chatOptions.innerHTML = "";
+    options.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.innerText = opt.label;
+        btn.onclick = opt.action;
+        chatOptions.appendChild(btn);
+    });
+}
+
+// ===== FLUXOS =====
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const chatToggle = document.getElementById("chatToggle");
+    const chatbot = document.getElementById("chatbot");
+    const closeChat = document.getElementById("closeChat");
+    const chatBody = document.getElementById("chatBody");
+    const chatOptions = document.getElementById("chatOptions");
+
+    const userData = {};
+
+    chatToggle.onclick = () => {
+        chatbot.classList.toggle("hidden");
+        if (!chatbot.dataset.started) {
+            startChat();
+            chatbot.dataset.started = "true";
+        }
+    };
+
+    closeChat.onclick = () => chatbot.classList.add("hidden");
+
+    // ===============================
+    // BASE DE CONHECIMENTO
+    // ===============================
+    const knowledge = {
+        intro: `
+Olá! Sou a assistente virtual da Dra. Ianna Cordeiro 😊
+Estou aqui para te orientar sobre os procedimentos estéticos
+e esclarecer suas dúvidas iniciais.
+`,
+        horarios: `
+Atendemos de segunda a sexta-feira, das 9h às 18h.
+`,
+        localizacao: `
+Rua Eng. Mário de Gusmão, 988 – Ponta Verde, Maceió – AL
+`,
+        procedimentos: {
+            botox: {
+                nome: "Botox",
+                descricao: "Indicado para suavizar linhas de expressão e prevenir rugas.",
+                tempo: "20 a 30 minutos",
+                recuperacao: "Retorno imediato às atividades, com poucos cuidados nas primeiras horas."
+            },
+            ultraformer: {
+                nome: "Ultraformer MPT",
+                descricao: "Tecnologia de ultrassom para firmeza e estímulo de colágeno.",
+                tempo: "30 a 60 minutos",
+                recuperacao: "Atividades normais no mesmo dia ou no dia seguinte."
+            },
+            bioestimulador: {
+                nome: "Bioestimulador de Colágeno",
+                descricao: "Estimula a produção natural de colágeno, melhorando firmeza da pele.",
+                tempo: "30 a 40 minutos",
+                recuperacao: "Pode haver leve inchaço inicial, com retorno rápido à rotina."
+            },
+            labios: {
+                nome: "Preenchimento Labial",
+                descricao: "Realça contorno, volume e hidratação dos lábios.",
+                tempo: "30 minutos",
+                recuperacao: "Inchaço leve nos primeiros dias, com retorno imediato às atividades."
+            },
+            fios: {
+                nome: "Fios de Sustentação",
+                descricao: "Efeito lifting e estímulo de colágeno.",
+                tempo: "40 a 60 minutos",
+                recuperacao: "Cuidados leves por alguns dias, sem afastamento prolongado."
+            }
+        }
+    };
+
+    // ===============================
+    // DIGITAÇÃO REAL (SEM BUG)
+    // ===============================
+    let typingEl = null;
+
+    function showTyping() {
+        hideTyping();
+        typingEl = document.createElement("div");
+        typingEl.className = "bot typing";
+        typingEl.innerText = "Digitando...";
+        chatBody.appendChild(typingEl);
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    function hideTyping() {
+        if (typingEl) {
+            typingEl.remove();
+            typingEl = null;
+        }
+    }
+
+    function replyAndReturnToMenu(text, delay = 900) {
+        botReply(text, delay);
+
+        setTimeout(() => {
+            mainMenu();
+        }, delay + 1200);
+    }
+
+
+    function botReply(text, delay = 900) {
+        showTyping();
+
+        setTimeout(() => {
+            hideTyping();
+            chatBody.innerHTML += `<div class="bot">${text.replace(/\n/g, "<br>")}</div>`;
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }, delay + Math.random() * 600);
+    }
+
+    function userReply(text) {
+        chatBody.innerHTML += `<div class="user">${text}</div>`;
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    function showOptions(options) {
+        chatOptions.innerHTML = "";
+        options.forEach(opt => {
+            const btn = document.createElement("button");
+            btn.textContent = opt.label;
+            btn.onclick = () => {
+                userReply(opt.label);
+                chatOptions.innerHTML = "";
+                opt.action();
+            };
+            chatOptions.appendChild(btn);
+        });
+    }
+
+    // ===============================
+    // FLUXO
+    // ===============================
+    function startChat() {
+        chatBody.innerHTML = "";
+        botReply(knowledge.intro);
+
+        setTimeout(() => {
+            askName();
+        }, 1200);
+    }
+
+    function askName() {
+        botReply("Antes de começarmos, como posso te chamar?");
+        chatOptions.innerHTML = `
+            <input type="text" id="inputUser" placeholder="Digite seu nome" />
+            <button id="sendBtn">Enviar</button>
+        `;
+
+        document.getElementById("sendBtn").onclick = () => {
+            const input = document.getElementById("inputUser");
+            if (!input.value.trim()) return;
+
+            userReply(input.value);
+            userData.nome = input.value.trim();
+            chatOptions.innerHTML = "";
+
+            botReply(`Prazer, ${userData.nome}! Como posso te ajudar hoje?`);
+            setTimeout(mainMenu, 1200);
+        };
+    }
+
+    function mainMenu() {
+        showOptions([
+            {
+                label: "Conhecer procedimentos",
+                action: menuProcedimentos
+            },
+            {
+                label: "Horários de atendimento",
+                action: () => replyAndReturnToMenu(knowledge.horarios)
+            },
+            {
+                label: "Localização da clínica",
+                action: () => replyAndReturnToMenu(knowledge.localizacao)
+            },
+            {
+                label: "Falar com a clínica",
+                action: whatsapp
+            }
+        ]);
+    }
+
+    function menuProcedimentos() {
+        botReply(`${userData.nome}, qual procedimento você gostaria de conhecer melhor?`);
+
+        showOptions(
+            Object.keys(knowledge.procedimentos).map(key => ({
+                label: knowledge.procedimentos[key].nome,
+                action: () => mostrarProcedimento(key)
+            })).concat([{ label: "Voltar", action: mainMenu }])
+        );
+    }
+
+    function mostrarProcedimento(key) {
+        const p = knowledge.procedimentos[key];
+
+        botReply(`🔹 ${p.nome}\n\n${p.descricao}`);
+        setTimeout(() => botReply(`⏱ Duração média: ${p.tempo}`), 1200);
+        setTimeout(() => botReply(`🕊 Recuperação: ${p.recuperacao}`), 2200);
+
+        setTimeout(() => {
+            showOptions([
+                { label: "Falar com a clínica", action: whatsapp },
+                { label: "Ver outro procedimento", action: menuProcedimentos }
+            ]);
+        }, 3200);
+    }
+
+    function whatsapp() {
+        botReply(`${userData.nome}, vou te direcionar para o WhatsApp da clínica para um atendimento personalizado.`);
+
+        showOptions([
+            {
+                label: "Ir para o WhatsApp",
+                action: () => window.open(
+                    "https://wa.me/558198289582?text=Olá! Gostaria de informações sobre os procedimentos.",
+                    "_blank"
+                )
+            },
+            { label: "Voltar", action: mainMenu }
+        ]);
+    }
+
+});
