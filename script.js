@@ -496,6 +496,52 @@ document.addEventListener("DOMContentLoaded", () => {
     let userData = {};
     let typingEl = null;
 
+
+    /* ===============================
+       ABRIR / FECHAR CHAT
+    =============================== */
+    function openChat() {
+        chatbot.classList.remove("hidden");
+        chatOverlay.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+
+        if (!chatbot.dataset.started) {
+            startChat();
+            chatbot.dataset.started = "true";
+        }
+    }
+
+    function closeChatFn() {
+        chatbot.classList.add("hidden");
+        chatOverlay.classList.add("hidden");
+        document.body.style.overflow = "";
+    }
+
+    chatToggle.addEventListener("click", openChat);
+    closeChat.addEventListener("click", closeChatFn);
+    chatOverlay.addEventListener("click", closeChatFn);
+
+    /* ===============================
+       LIMPAR CONVERSA (DESKTOP + MOBILE)
+    =============================== */
+    function resetChat(e) {
+        e.preventDefault();
+
+        chatBody.innerHTML = "";
+        chatOptions.innerHTML = "";
+        userData = {};
+        chatbot.dataset.started = "";
+
+        botReply("Tudo bem 😊 Vamos começar novamente.", 1000);
+        setTimeout(startChat, 1200);
+    }
+
+    if (clearChatBtn) {
+        clearChatBtn.addEventListener("click", resetChat);
+        clearChatBtn.addEventListener("touchstart", resetChat, { passive: false });
+    }
+
+
     /* ===============================
        BASE DE CONHECIMENTO
     =============================== */
@@ -635,6 +681,7 @@ Maceió – AL | Record Offices
     =============================== */
     function startChat() {
         chatBody.innerHTML = "";
+        chatOptions.innerHTML = "";
         botReply(knowledge.intro);
         setTimeout(askName, 1200);
     }
@@ -716,35 +763,5 @@ Maceió – AL | Record Offices
             { label: "Voltar", action: mainMenu }
         ]);
     }
-
-    /* ===============================
-       RESET / CONTROLES
-    =============================== */
-    function resetChat() {
-        chatBody.innerHTML = "";
-        chatOptions.innerHTML = "";
-        userData = {};
-        chatbot.dataset.started = "";
-        startChat();
-    }
-
-    if (clearChatBtn) {
-        clearChatBtn.onclick = resetChat;
-    }
-
-    chatToggle.onclick = () => {
-        chatbot.classList.toggle("hidden");
-        chatOverlay?.classList.toggle("hidden");
-
-        if (!chatbot.dataset.started) {
-            startChat();
-            chatbot.dataset.started = "true";
-        }
-    };
-
-    closeChat.onclick = () => {
-        chatbot.classList.add("hidden");
-        chatOverlay?.classList.add("hidden");
-    };
 
 });

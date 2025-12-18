@@ -2081,6 +2081,7 @@ header.at-top {
     color: #fff;
     font-size: 18px;
     cursor: pointer;
+    z-index: 10001;
 }
 
 /* CORPO */
@@ -2216,6 +2217,7 @@ header.at-top {
     border-radius: 8px;
     font-size: 0.70rem;
     cursor: pointer;
+    z-index: 10001;
     transition: background .25s ease;
 }
 
@@ -2232,7 +2234,7 @@ header.at-top {
 }
 
 .chatbot {
-    z-index: 9999;
+    z-index: 10000;
 }
 
 
@@ -3102,7 +3104,7 @@ header.at-top {
 @media (max-width: 992px) {
 
     .procedures-section {
-        padding: 0px 5%;
+        padding: 20px 5%;
     }
 
     .procedure-card {
@@ -3141,7 +3143,7 @@ header.at-top {
 @media (max-width: 768px) {
 
     .procedures-section {
-        padding: 0px 5%;
+        padding:40px 5%;
     }
 
     .procedures-section .section-title {
@@ -3190,7 +3192,7 @@ header.at-top {
 @media (max-width: 430px) {
 
     .procedures-section {
-        padding: 0px 5%;
+        padding: 40px 5%;
     }
 
     .procedures-section .section-title {
@@ -3241,7 +3243,7 @@ header.at-top {
 @media (max-width: 360px) {
 
     .procedures-section {
-        padding: 0px 4%;
+        padding: 30px 4%;
     }
 
     .procedures-section .section-title {
