@@ -2025,7 +2025,29 @@ header.at-top {
 }
 
 .chat-float span {
+    margin-top: 8px;
     font-size: 22px;
+}
+
+@keyframes pulse-light {
+    0% {
+        box-shadow: 0 0 0 0 rgba(166, 115, 81, 0.7);
+        /* Use a cor da sua variável --detalhes aqui */
+    }
+
+    70% {
+        box-shadow: 0 0 0 15px rgba(166, 115, 81, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(166, 115, 81, 0);
+    }
+}
+
+/* 3. Aplicando a animação ao botão flutuante */
+.chat-float {
+    /* Mantém suas propriedades originais e adiciona a linha abaixo */
+    animation: pulse-light 2s infinite;
 }
 
 /* CHAT */
@@ -3131,9 +3153,10 @@ header.at-top {
         font-size: 1.45em;
     }
 
-    .swiper-button-next,
-    .swiper-button-prev {
-        transform: scale(1.1);
+    .button-swiper-next,
+    .button-swiper-prev {
+        display: block;
+        transform: scale(1);
     }
 }
 
@@ -3143,7 +3166,7 @@ header.at-top {
 @media (max-width: 768px) {
 
     .procedures-section {
-        padding:40px 5%;
+        padding: 40px 5%;
     }
 
     .procedures-section .section-title {
@@ -3176,9 +3199,10 @@ header.at-top {
         font-size: 1.3em;
     }
 
-    .swiper-button-next,
-    .swiper-button-prev {
-        transform: scale(1);
+    .button-swiper-next,
+    .button-swiper-prev {
+        width: auto !important;
+        transform: scale(1)!important;
     }
 
     .button-swiper-pagination {
@@ -3227,9 +3251,10 @@ header.at-top {
         line-height: 1.55;
     }
 
-    .swiper-button-next,
-    .swiper-button-prev {
-        display: none;
+    .button-swiper-next,
+    .button-swiper-prev {
+        width: -100px !important;
+        transform: scale(0.9);
     }
 
     .button-swiper-pagination {
@@ -3272,6 +3297,12 @@ header.at-top {
     .procedure-text p {
         font-size: 1.05em;
         text-align: center;
+    }
+
+    .button-swiper-next,
+    .button-swiper-prev {
+        width: 15%;
+        transform: scale(0.105);
     }
 
     .button-swiper-pagination {

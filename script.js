@@ -584,12 +584,6 @@ Maceió – AL | Record Offices
                 tempo: "30 a 40 minutos",
                 recuperacao: "Leve inchaço inicial, com retorno rápido."
             },
-            lavieen: {
-                nome: "Lavieen",
-                descricao: "Laser de Thulium para textura, poros e manchas, com efeito de pele uniforme.",
-                tempo: "20 a 30 minutos",
-                recuperacao: "Pele levemente avermelhada por até 24h."
-            },
             pdrn: {
                 nome: "PDRN",
                 descricao: "Bioestimulador regenerador e hidratante profundo.",
@@ -609,7 +603,7 @@ Maceió – AL | Record Offices
                 recuperacao: "Inchaço leve nos primeiros dias."
             },
             fios: {
-                nome: "Fios de Sustentação",
+                nome: "Fios de PDO",
                 descricao: "Efeito lifting imediato com estímulo contínuo de colágeno.",
                 tempo: "40 a 60 minutos",
                 recuperacao: "Cuidados leves por alguns dias."
