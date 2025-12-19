@@ -58,9 +58,6 @@ header.at-top {
 
 }
 
-
-
-
 .whatsapp-float {
     position: fixed;
     width: 45px;
@@ -75,7 +72,8 @@ header.at-top {
     align-items: center;
     justify-content: center;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.25);
-    z-index: 999;
+    z-index: 990;
+   
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -88,9 +86,6 @@ header.at-top {
     transform: scale(1.12);
     box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.35);
 }
-
-
-
 
 /*ANIMAÇÃO AO ROLAR A TELA*/
 
@@ -175,6 +170,28 @@ header.at-top {
 
 .link-logo {
     text-decoration: none;
+}
+.info-menu {
+    margin-top: 50px;
+}
+
+.info-menu img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+.info-menu p {
+    font-family: var(--fonte-secundaria);
+    margin-top: -20px;
+    font-size: 1em;
+    text-transform: uppercase;
+}
+
+.linha-menu {
+    width: 80%;
+    margin-left: -20px;
+    border: 1px solid var(--detalhes);
 }
 
 .nav {
@@ -2021,7 +2038,7 @@ header.at-top {
     justify-content: center;
     cursor: pointer;
     box-shadow: 0 12px 30px rgba(0, 0, 0, .25);
-    z-index: 9999;
+    z-index: 990;
 }
 
 .chat-float span {
@@ -2061,7 +2078,7 @@ header.at-top {
     box-shadow: 0 30px 70px rgba(0, 0, 0, .18);
     font-family: 'Montserrat', sans-serif;
     overflow: hidden;
-    z-index: 9999;
+    z-index: 999;
     animation: fadeUp .35s ease;
 }
 
@@ -2103,7 +2120,7 @@ header.at-top {
     color: #fff;
     font-size: 18px;
     cursor: pointer;
-    z-index: 10001;
+    z-index: 999;
 }
 
 /* CORPO */
@@ -2329,7 +2346,7 @@ header.at-top {
         /* distância controlada */
         top: 35px;
         /* posição linda e alinhada */
-        z-index: 1000;
+        z-index: 10000;
     }
 
     .hamburguer span {
@@ -2425,7 +2442,7 @@ header.at-top {
         /* distância controlada */
         top: 35px;
         /* posição linda e alinhada */
-        z-index: 1000;
+        z-index: 10000;
     }
 
     .menu-mobile {
@@ -3155,8 +3172,7 @@ header.at-top {
 
     .button-swiper-next,
     .button-swiper-prev {
-        display: block;
-        transform: scale(1);
+        display: none;
     }
 }
 
@@ -3201,12 +3217,11 @@ header.at-top {
 
     .button-swiper-next,
     .button-swiper-prev {
-        width: auto !important;
-        transform: scale(1)!important;
+        display: none;
     }
 
     .button-swiper-pagination {
-        bottom: 50px !important;
+        bottom: 55px !important;
     }
 }
 
@@ -3253,12 +3268,11 @@ header.at-top {
 
     .button-swiper-next,
     .button-swiper-prev {
-        width: -100px !important;
-        transform: scale(0.9);
+        display: none;
     }
 
     .button-swiper-pagination {
-        bottom: 0;
+        bottom: 55;
     }
 }
 
@@ -3301,13 +3315,13 @@ header.at-top {
 
     .button-swiper-next,
     .button-swiper-prev {
-        width: 15%;
-        transform: scale(0.105);
+      display: none;
     }
-
+    
     .button-swiper-pagination {
-        width: 9px;
-        height: 9px;
+        width: 10px;
+        height: 10px;
+        bottom: 60px !important;
     }
 }
 
