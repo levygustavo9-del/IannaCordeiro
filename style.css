@@ -4,8 +4,6 @@
     margin: 0;
     padding: 0;
 }
-
-
 :root {
     --fundo: #F4F0E7;
     --fundo-section: #e2d0b8;
@@ -175,12 +173,49 @@ header.at-top {
     margin-top: 50px;
 }
 
+.info-menu p {
+    font-family: var(--fonte-secundaria);
+    font-size: 1.1em;
+}
+
+.icone { 
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.email{
+    margin: 50px 0 20px 0;
+    font-family: var(--fonte-secundaria);
+}
+
+.email p {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+.email button {
+    color: var(--fundo);
+    font-size: 1em;
+    text-transform: uppercase;
+    margin-left: 20px;
+    background-color: #e4e4e428 !important;
+    padding: 5px 10px;
+    border-radius: 10px;
+
+}
+
+#email-texto {
+    font-family: var(--fonte-secundaria);
+    font-size: 1.1em;
+    margin-top: 10px;
+}
+
 .info-menu img {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
+    margin-top: 10px;
 }
+
 .info-menu p {
     font-family: var(--fonte-secundaria);
     margin-top: -20px;

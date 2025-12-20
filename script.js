@@ -614,12 +614,18 @@ Maceió – AL | Record Offices
                 tempo: "30 a 50 minutos",
                 recuperacao: "Retorno imediato com cuidados básicos."
             },
+            Limpeza: {
+                nome: "Limpeza de Pele Profunda",
+                descricao: "Remoção de impurezas, cravos e células mortas, promovendo a desintoxicação e renovação da pele.",
+                tempo: "60 a 90 minutos",
+                recuperacao: "Leve vermelhidão por algumas horas, evitar sol nas primeiras 48h."
+            },
             profhilo: {
                 nome: "Profhilo",
                 descricao: "Biorremodelador celular para melhora da qualidade da pele.",
                 tempo: "20 a 30 minutos",
                 recuperacao: "Pontos absorvidos rapidamente."
-            }
+            },
         }
     };
 
@@ -759,3 +765,10 @@ Maceió – AL | Record Offices
     }
 
 });
+
+// COPIAR EMAIL PARA ÁREA DE TRANSFERÊNCIA 
+function copiarEmail() {
+    const email = "iirclinica@gmail.com";
+    navigator.clipboard.writeText(email);
+    alert("E-mail copiado com sucesso!");
+}
