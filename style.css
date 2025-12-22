@@ -196,7 +196,7 @@ header.at-top {
 
 .email button {
     color: var(--fundo);
-    font-size: 1em;
+    font-size: 0.90em;
     text-transform: uppercase;
     margin-left: 20px;
     background-color: #e4e4e428 !important;
@@ -212,6 +212,7 @@ header.at-top {
 }
 
 .info-menu img {
+    width: 25px;
     display: flex;
     margin-top: 10px;
 }
@@ -1071,7 +1072,7 @@ header.at-top {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px 20px;
+    padding: 20px 10px;
     flex-direction: row;
     gap: 40px;
     min-height: 500px;
@@ -1097,9 +1098,9 @@ header.at-top {
 
 .card-depoimentos p {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 2.5em;
+    font-size: 2em;
     font-weight: 500;
-    line-height: 1.6;
+    line-height: 1.2;
     color: #000000;
     margin-bottom: 0;
     font-style: italic;
@@ -1108,7 +1109,7 @@ header.at-top {
 .card-depoimentos .procedure-type {
     font-family: var(--fonte-secundaria);
     color: var(--detalhes);
-    font-size: 1.5em;
+    font-size: 1.2em;
     font-style: normal;
 }
 
@@ -2910,7 +2911,7 @@ header.at-top {
 
     /* Aumenta o padding para o botão ser fácil de tocar */
     .treatment-card .details-button {
-        padding: 12px 25px;
+        padding: 12px 15px;
         font-size: 1.05em;
         /* Garante que o link esteja no topo da camada */
         position: relative;

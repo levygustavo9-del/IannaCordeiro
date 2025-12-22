@@ -770,5 +770,5 @@ Maceió – AL | Record Offices
 function copiarEmail() {
     const email = "iirclinica@gmail.com";
     navigator.clipboard.writeText(email);
-    alert("E-mail copiado com sucesso!");
+    alert("E-mail copiado com sucesso!✅");
 }
