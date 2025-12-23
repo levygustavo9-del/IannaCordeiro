@@ -4,6 +4,7 @@
     margin: 0;
     padding: 0;
 }
+
 :root {
     --fundo: #F4F0E7;
     --fundo-section: #e2d0b8;
@@ -23,7 +24,7 @@ body {
 
 body {
     background-color: var(--fundo);
-    padding-top: 120px;
+    padding-top: 44px;
     /* altura REAL do header */
 }
 
@@ -71,7 +72,7 @@ header.at-top {
     justify-content: center;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.25);
     z-index: 990;
-   
+
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -169,6 +170,7 @@ header.at-top {
 .link-logo {
     text-decoration: none;
 }
+
 .info-menu {
     margin-top: 50px;
 }
@@ -178,13 +180,13 @@ header.at-top {
     font-size: 1.1em;
 }
 
-.icone { 
+.icone {
     display: flex;
     gap: 25px;
     align-items: center;
 }
 
-.email{
+.email {
     margin: 50px 0 20px 0;
     font-family: var(--fonte-secundaria);
 }
@@ -621,18 +623,42 @@ header.at-top {
 
 .hero-section {
     width: 100%;
-    height: 58vh;
-    background-color: var(--fundo);
+    max-width: 1530px;
+    height:80vh;
 
+    position: relative;
     display: flex;
     align-items: center;
-    margin-top: 20vh;
-    justify-content: center;
-    padding: 0;
-    box-sizing: border-box;
-    border-radius: 8px;
 
+    background-image: url("imgs/ianna-hero-background.png");
+    background-size: cover;
+    background-position: right center;
+    background-repeat: no-repeat;
+
+    margin-top: 20vh;
+    border-radius: 8px;
+    overflow: hidden;
 }
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+
+    max-width: 500px;
+    padding: 60px 60px;
+    color: var(--fundo);
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right,
+            rgba(0, 0, 0, 0.55),
+            rgba(0, 0, 0, 0.15));
+    z-index: 1;
+}
+
+
 
 .hero-content {
     max-width: 500px;
@@ -646,7 +672,7 @@ header.at-top {
     font-weight: 600;
     line-height: 1.2;
     margin-bottom: 10px;
-    color: var(--texto);
+    color: var(--fundo);
 }
 
 .hero-content p {
@@ -654,7 +680,7 @@ header.at-top {
     font-size: 1.5em;
     line-height: 1.5;
     margin-bottom: 25px;
-    color: var(--texto);
+    color: var(--fundo);
 }
 
 .linha2 {
@@ -664,7 +690,7 @@ header.at-top {
 
 .hero-button {
     display: inline-block;
-    background-color: var(--secundario);
+    background-color: var(--detalhes);
     color: #ffffff;
     padding: 15px 30px;
     border-radius: 10px;
@@ -678,28 +704,9 @@ header.at-top {
 }
 
 .hero-button:hover {
-    background-color: var(--detalhes);
+    background-color: var(--fundo-section);
+    color: var(--texto);
     transform: translateY(-4px);
-}
-
-.hero-image {
-    max-width: 100%;
-}
-
-.hero-image img {
-    width: 80%;
-    max-height: auto;
-    object-fit: cover;
-    margin: auto 50px;
-    margin-top: 20px;
-    border-radius: 50% 10% / 10% 50% 10% 50%;
-    box-shadow: 0 10px 25px rgb(0, 0, 0, 0.15);
-    transition: filter 0.3s ease-in-out;
-}
-
-.hero-image img:hover {
-    transition: 0.3s;
-    filter: grayscale(100%)
 }
 
 .bg-tratamentos {
@@ -711,7 +718,7 @@ header.at-top {
 }
 
 .treatments-section {
-    padding: 120px 0 0 0;
+    padding: 0;
     text-align: center;
     margin: 0;
     background-color: var(--fundo);
@@ -2546,12 +2553,16 @@ header.at-top {
       HERO – RESPONSIVIDADE TOTAL  
 ====================================================== */
 
-/* =============== 1200px =============== */
-@media (max-width: 1200px) {
+@media (max-width: 1220px) {
 
     .hero-section {
-        height: auto;
-        padding: 60px 5%;
+        height: 75vh;
+        margin-top: 18vh;
+        background-position: left center;
+    }
+
+    .hero-content {
+        padding: 50px 50px;
     }
 
     .hero-content h1 {
@@ -2562,41 +2573,42 @@ header.at-top {
         font-size: 1.4em;
     }
 
-    .hero-image img {
-        width: 75%;
-        margin-top: 40px;
+    .linha2 {
+        width: 55%;
     }
 }
 
-/* =============================================================
-   =============== 992px — ATIVA O PARALLAX =====================
-   ============================================================= */
+
 @media (max-width: 992px) {
 
     .hero-section {
-        position: relative;
-        height: 83vh !important;
-        padding: 0 !important;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        text-align: center;
+        height: 87vh !important;
+        margin-top: 0;
+        border-radius: 0;
+
+        background-position: 75% center;
+
     }
 
-    .hero-image {
-        order: 1;
-    }
+    .hero-overlay {
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.55),
+        rgba(0, 0, 0, 0.35)
+    );
+}
 
-    /* Bloco do texto */
+
     .hero-content {
-        height: 50vh;
+        max-width: 100%;
+        padding: 0 8% 40px;
+
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        padding: 0 6%;
-        text-align: center;
-        order: 2;
+        justify-content: space-between;
+        align-items: flex-start;
+        text-align: left;
+        margin-top: 67%;
     }
 
     .hero-content h1 {
@@ -2605,49 +2617,31 @@ header.at-top {
 
     .hero-content p {
         font-size: 1.3em;
+        max-width: 90%;
     }
 
     .linha2 {
         width: 45%;
-        margin: 10px auto 0;
+        margin-top: 10px;
     }
 
     .hero-button {
+        align-self: flex-start;
         font-size: 1.2em;
         padding: 14px 26px;
-        border-radius: 8px;
     }
 }
 
-/* =============== 900px =============== */
-/* (Essa parte só será usada se a tela estiver entre 992px e 900px e SEM parallax.
-   Mas como agora o parallax cobre tudo abaixo de 992px, esta área funciona apenas como reforço de fonte.) */
 
-@media (max-width: 900px) {
-
-    .hero-content h1 {
-        font-size: 3em;
-    }
-
-    .hero-content p {
-        font-size: 1.3em;
-    }
-
-    .linha2 {
-        width: 45%;
-    }
-}
-
-/* =============== 768px =============== */
 @media (max-width: 768px) {
 
     .hero-content h1 {
-        align-items: center;
         font-size: 2.7em;
     }
 
     .hero-content p {
         font-size: 1.2em;
+        max-width: 100%;
     }
 
     .linha2 {
@@ -2655,8 +2649,13 @@ header.at-top {
     }
 }
 
+
 /* =============== 430px =============== */
 @media (max-width: 430px) {
+
+    .hero-section {
+        height: 90vh;
+    }
 
     .hero-content h1 {
         font-size: 2.2em;
@@ -2675,10 +2674,9 @@ header.at-top {
 
     .linha2 {
         width: 50%;
-        margin: 10px auto;
     }
-
 }
+
 
 /* =============== 360px =============== */
 @media (max-width: 360px) {
@@ -2699,7 +2697,6 @@ header.at-top {
     .linha2 {
         width: 55%;
     }
-
 }
 
 /* =================================================== */
@@ -3351,9 +3348,9 @@ header.at-top {
 
     .button-swiper-next,
     .button-swiper-prev {
-      display: none;
+        display: none;
     }
-    
+
     .button-swiper-pagination {
         width: 10px;
         height: 10px;
