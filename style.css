@@ -163,8 +163,8 @@ header.at-top {
 
 .logo p {
     font-family: var(--fonte-secundaria);
-    font-size: 1.1em;
-    margin-top: 15px;
+    font-size: 1em;
+    margin-top: 10px;
 }
 
 .link-logo {
@@ -346,7 +346,7 @@ header.at-top {
     text-align: center;
     padding: 10px 15px;
     font-family: var(--fonte-secundaria);
-    font-size: 14px;
+
 }
 
 /* ===== DROPDONW DE PROCEDIMENTOS ===== */
@@ -369,12 +369,16 @@ header.at-top {
     padding: 10px 25px;
     text-decoration: none;
     display: block;
-    text-align: left;
+    text-align: center;
     line-height: 1em;
     font-family: var(--fonte-secundaria);
     font-size: 14px;
 }
 
+.procedures-dropdown a:hover {
+    font-size: 14.3px !important;
+
+}
 
 /* ===== DROPDONW DE A CLINICA =====  */
 .dropdown-content a:hover {
@@ -624,7 +628,7 @@ header.at-top {
 .hero-section {
     width: 100%;
     max-width: 1530px;
-    height:80vh;
+    height: 80vh;
 
     position: relative;
     display: flex;
@@ -2060,12 +2064,34 @@ header.at-top {
 }
 
 .filosofia-img img {
-    width: 520px;
-    height: 620px;
+    width: 420px !important;
+    height: 510px;
     object-fit: cover;
     border-radius: 18px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.17);
+    animation: missionBreath 4s ease-in-out infinite;
+    will-change: transform, filter;
 }
+
+/* Animação suave */
+@keyframes missionBreath {
+    0% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
+
+    50% {
+        transform: scale(1.025);
+        filter: brightness(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
+}
+
+
 
 /* BOTÃO FLOANTE */
 .chat-float {
@@ -2334,7 +2360,7 @@ header.at-top {
     }
 
     .logo p {
-        font-size: 1.2em;
+        font-size: 1em;
     }
 
     .container-box {
@@ -2378,7 +2404,7 @@ header.at-top {
 
     .logo p {
         text-align: center;
-        font-size: 1.1em;
+        font-size: 0.95em;
     }
 
     .hamburguer {
@@ -2434,7 +2460,8 @@ header.at-top {
 
     .logo p {
         text-align: center;
-        font-size: 1em;
+        font-size: 0.90em;
+        margin-top: 1px;
     }
 
     .menu-mobile a,
@@ -2474,7 +2501,7 @@ header.at-top {
 
     .logo p {
         margin: auto;
-        font-size: .9em;
+        font-size: 0.85em;
     }
 
     .hamburguer {
@@ -2591,12 +2618,10 @@ header.at-top {
     }
 
     .hero-overlay {
-    background: linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 0.55),
-        rgba(0, 0, 0, 0.35)
-    );
-}
+        background: linear-gradient(to bottom,
+                rgba(0, 0, 0, 0.55),
+                rgba(0, 0, 0, 0.35));
+    }
 
 
     .hero-content {
@@ -2847,7 +2872,8 @@ header.at-top {
 
     .modal-content {
         max-width: 380px !important;
-        padding: 2rem;
+        padding: 1.2rem !important;
+        margin-top: -10px;
     }
 
     .modal-content h2 {
@@ -2937,7 +2963,7 @@ header.at-top {
 
     .whatsapp-button {
         width: 90%;
-        font-size: 1rem !important;
+        font-size: 1rem;
     }
 
 }
@@ -3989,7 +4015,8 @@ header.at-top {
     }
 
     .filosofia-img img {
-        height: 478px;
+        max-width: 326px;
+        height: 278px;
         border-radius: 14px;
     }
 }
