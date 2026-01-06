@@ -1319,36 +1319,35 @@ header.at-top {
 /* ========== PROCEDIMENTOS ========== */
 .procedures-section {
     background: var(--fundo-section);
-    padding: 60px 6%;
+    padding: 80px 6%;
     text-align: center;
     position: relative;
 }
 
-/* TITULO PRINCIPAL */
+/* TÍTULOS */
 .procedures-section .section-title {
     font-family: var(--fonte-titulo);
     text-transform: uppercase;
-    font-size: 3.1em;
+    font-size: 3em;
     color: var(--texto);
     font-weight: 400;
-    letter-spacing: 1px;
-    margin-bottom: 8px;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
 }
 
 .procedures-section .section-subtitle {
     font-family: var(--fonte-secundaria);
     font-size: 1.1em;
-
     color: var(--secundario);
-    max-width: 900px;
-    margin: 0 auto 40px;
-    line-height: 1.7;
+    max-width: 880px;
+    margin: 0 auto 60px;
+    line-height: 1.8;
 }
 
 /* SWIPER */
 .procedures-slider {
     width: 100%;
-    padding-bottom: 90px;
+    padding-bottom: 80px;
 }
 
 .swiper-slide {
@@ -1357,129 +1356,306 @@ header.at-top {
 }
 
 /* =============================================== */
-/* ⭐ CARD — ESTRUTURA PRINCIPAL                    */
+/* ⭐ CARD PREMIUM — DESIGN FINAL                  */
 /* =============================================== */
 
 .procedure-card {
     width: 100%;
-    max-width: 800px;
-    background-color: var(--fundo);
-    display: flex;
-    gap: 50px;
-    padding: 0px 17px 0px 0px;
-    border-radius: 20px;
-    transition: 0.35s ease;
-    border: 1px solid rgba(166, 116, 73, 0.08);
-}
+    max-width: 720px;
+    min-height: 320px;
 
-.procedures-section {
-    scroll-margin-top: -117px;
-    /* ajuste esse valor conforme a altura do header */
-}
-
-
-/* =============================================== */
-/* ⭐ VÍDEO — CAIXA PREMIUM                         */
-/* =============================================== */
-
-.video-box {
-    width: 100%;
-    max-width: 270px;
-    height: auto;
-    aspect-ratio: 9/16;
-    background-color: #000;
-    border-radius: 18px;
-    overflow: hidden;
-    border: 3px solid rgba(166, 116, 73, 0.35);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
-    flex-shrink: 0;
+    background: linear-gradient(145deg,
+            rgba(255, 255, 255, 0.96),
+            var(--fundo));
+    margin-top: 3px;
+    border-radius: 16px;
+    padding: 50px 46px;
     position: relative;
+
+    border: 1px solid rgba(166, 116, 73, 0.12);
+
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.08),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+
+    transition:
+        transform 0.45s ease,
+        box-shadow 0.45s ease;
 }
 
-.video-box video {
-    width: 100%;
+@property --angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+
+.procedure-card::after,
+.procedure-card::before {
+    content: "";
+    position: absolute;
     height: 100%;
-    object-fit: cover;
+    width: 100%;
+    background-image: conic-gradient(from var(--angle), transparent 50%, #a6744995 0);
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    ;
+    z-index: -1;
+    padding: 3px;
+    border-radius: 16px;
+    animation: 4s spin infinite linear;
+
+}
+
+.procedure-card::before {
+    filter: blur(0.2rem);
+    /* Diminuído de 1.5rem para 0.5rem */
+    opacity: 0;
+    /* Diminuído de 0.6 para 0.3 */
+}
+
+@keyframes spin {
+    from {
+        --angle: 0deg;
+    }
+
+    to {
+        --angle: 360deg;
+    }
+
 }
 
 /* =============================================== */
-/* ⭐ TEXTO À DIREITA – EFEITO CLÍNICA DE LUXO     */
+/* ⭐ CONTEÚDO DO CARD                            */
 /* =============================================== */
-
-.procedure-card h3 {
-    font-family: var(--variação);
-    font-size: 2.7em;
-    font-weight: 700;
-    color: var(--detalhes);
-    margin-bottom: 18px !important;
-
-    /* leve brilho de elegância */
-    text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.8);
-}
-
-.procedure-card p {
-    font-family: var(--fonte-secundaria);
-    font-size: 1.6em;
-    color: var(--secundario);
-    line-height: 1.7;
-    max-width: 550px;
-    margin: 0;
-    margin-top: 10% !important;
-}
 
 .procedure-text {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    text-align: left;
-    max-width: 550px;
+    font-size: 1.3em;
+    text-align: center;
+    height: 100%;
 }
 
-.procedure-text h3,
-.procedure-card h3 {
-    margin-bottom: 18px !important;
-    display: block;
+.procedure-text h3 {
+    font-family: var(--variação);
+    font-size: 2.3em;
+    font-weight: 600;
+    color: var(--detalhes);
+    margin-bottom: 22px;
+    letter-spacing: 0.5px;
 }
 
-.procedure-text p,
-.procedure-card p {
-    margin-top: 0 !important;
-    display: block;
+.procedure-text p {
+    font-family: var(--fonte-secundaria);
+    font-size: 1.25em;
+    color: var(--secundario);
+    line-height: 1.75;
+    margin-bottom: 32px;
 }
 
 /* =============================================== */
-/* ⭐ SETAS DO SWIPER — VISUAL DE LUXO             */
+/* ⭐ BOTÃO SAIBA MAIS — ESTILO CLÍNICA             */
+/* =============================================== */
+
+.btn-saiba-mais {
+    align-self: center;
+
+    padding: 14px 36px;
+    border-radius: 40px;
+
+    background: transparent;
+    border: 1px solid var(--detalhes);
+
+    color: var(--detalhes);
+    font-family: var(--variação);
+    font-size: 0.9em;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition:
+        background 0.35s ease,
+        color 0.35s ease,
+        transform 0.3s ease;
+}
+
+.btn-saiba-mais:hover {
+    background: var(--detalhes);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* =============================================== */
+/* ⭐ MODAL PREMIUM — SAIBA MAIS                  */
+/* =============================================== */
+
+/* OVERLAY */
+.procedure-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(6px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+/* ATIVO */
+.procedure-modal-overlay.active {
+    display: flex;
+}
+
+/* CARD */
+.procedure-modal-card {
+    background: var(--fundo);
+    width: 90%;
+    max-width: 620px;
+    height: 100%;
+    max-height: 56vh;
+    padding: 40px;
+    border-radius: 22px;
+    position: relative;
+    animation: modalUp 0.45s ease;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, .35);
+}
+
+/* ANIMAÇÃO */
+@keyframes modalUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* FECHAR */
+.procedure-modal-close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    font-size: 2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--secundario);
+}
+
+/* TEXTO */
+.procedure-modal-card h3 {
+    font-size: 2.8em;
+    text-align: center;
+    margin-bottom: 15px;
+    color: var(--detalhes);
+}
+
+.procedure-info {
+    list-style: none;
+    padding: 0;
+    margin: 25px 0;
+}
+
+.procedure-info li {
+    font-family: var(--fonte-titulo);
+    color: var(--texto);
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+#modalDescription {
+    font-size: 1.6em;
+    color: var();
+}
+
+.procedure-info li span {
+    font-size: 1em;
+}
+
+/* CTA */
+.procedure-modal-cta {
+    width: 170px;
+    display: block;
+    text-align: center;
+    margin: 50px auto;
+    padding: 16px;
+    font-size: 1em;
+    font-family: var(--fonte-secundaria);
+    border-radius: 50px;
+    background: var(--detalhes);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    transform: translateY(8px);
+    transition: .42s ease, transform .42s ease;
+    overflow: hidden;
+}
+
+.procedure-modal-cta::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 60%;
+    height: 100%;
+
+    background: linear-gradient(120deg,
+            transparent,
+            rgba(255, 255, 255, 0.492),
+            transparent);
+
+    transform: skewX(-20deg);
+    transition: left 0.9s ease;
+    pointer-events: none;
+}
+
+.procedure-modal-cta:hover::after {
+    left: 120%;
+}
+
+
+.procedure-modal-cta:hover {
+    background: var(--secundario);
+    transform: translateY(0);
+}
+
+/* =============================================== */
+/* ⭐ SETAS SWIPER — DISCRETAS E SOFISTICADAS      */
 /* =============================================== */
 
 .button-swiper-next,
 .button-swiper-prev {
     color: var(--detalhes) !important;
-    width: 15%;
-    transform: scale(1.5) !important;
-    transition: 0.3s;
-    text-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    transform: scale(1.3);
+    transition: 0.3s ease;
 }
 
 .button-swiper-next:hover,
 .button-swiper-prev:hover {
     color: var(--texto) !important;
-    transform: scale(1.45);
+    transform: scale(1.4);
 }
 
 /* PAGINAÇÃO */
+.swiper-pagination {
+    padding-bottom: 40px;
+}
+
 .swiper-pagination-bullet {
     background: var(--secundario);
-    opacity: .45;
-
+    opacity: 0.35;
+    transition: 0.3s;
 }
 
 .swiper-pagination-bullet-active {
     background: var(--detalhes);
     opacity: 1;
-}
-
-.swiper-pagination {
-    padding-bottom: 50px;
 }
 
 /* =============================
@@ -3015,12 +3191,16 @@ header.at-top {
 
 
 /* --- Telas Grandes e Médias (Até 1200px) --- */
-@media (max-width: 1200px) {
+@media (max-width: 1280px) {
 
     .depoimentos {
         padding: 0px 15px !important;
         /* Remove a altura fixa para evitar cortes de conteúdo no celular */
         height: auto;
+    }
+
+    .depoimentos h2{
+        margin-top: 50px;
     }
 
     /* Diminui o espaçamento dos slides em telas grandes/médias */
@@ -3031,8 +3211,21 @@ header.at-top {
 
     /* Reduz o tamanho da fonte do depoimento */
     .card-depoimentos p {
-        font-size: 2em;
-        /* De 2.4em para 2em */
+        font-size: clamp(1rem, 4vw, 1.4rem);
+        line-height: 1.4;
+        word-break: break-word;
+    }
+
+    .swiper-pagination {
+        margin: 20px auto 0;
+        transform: translateY(0%) scale(1.2);
+    }
+
+    .image-comparison-container {
+        max-width: 500px;
+        height: 400px;
+        margin-left: 10px;
+        /* De 500px para 450px */
     }
 }
 
@@ -3174,37 +3367,29 @@ header.at-top {
 /* ============================================================
    🟦 TELAS GRANDES E MÉDIAS (≤ 1200px)
 ============================================================ */
-@media (max-width: 1200px) {
-
-    .procedures-section {
-        padding: 55px 5%;
-    }
-
-    .procedures-section .section-title {
-        font-size: 2.7em;
-    }
-
-    .procedures-section .section-subtitle {
-        font-size: 1.05em;
-        max-width: 800px;
-    }
+@media (max-width: 1280px) {
 
     .procedure-card {
-        gap: 35px;
-        max-width: 720px;
+        max-width: 660px;
+        padding: 46px 40px;
     }
 
-    .video-box {
-        max-width: 250px;
+    .procedure-text h3 {
+        font-size: 2.1em;
     }
 
-    .procedure-card h3 {
-        font-size: 2.3em;
+    .procedure-text p {
+        font-size: 1.15em;
     }
 
-    .procedure-card p {
-        font-size: 1.45em;
-        max-width: 480px;
+    .btn-saiba-mais {
+        padding: 13px 34px;
+    }
+
+    .procedure-modal-card {
+        max-height: 50vh !important;
+        max-width: 580px;
+        padding: 38px;
     }
 }
 
@@ -3214,31 +3399,38 @@ header.at-top {
 @media (max-width: 992px) {
 
     .procedures-section {
-        padding: 20px 5%;
+        padding: 50px 5%;
     }
 
     .procedure-card {
-        flex-direction: column;
-        max-width: 520px;
-        padding: 32px 30px;
-        align-items: center;
-        gap: 10px;
+        max-width: 600px;
+        min-height: auto;
+        padding: 42px 36px;
     }
 
-    .video-box {
-        max-width: 60%;
-        /* antes 70% — agora menor */
-        border-radius: 16px;
+    .procedure-text {
+        text-align: center;
     }
 
     .procedure-text h3 {
-        text-align: center;
-        font-size: 2.3em;
+        font-size: 2em;
     }
 
     .procedure-text p {
-        text-align: center;
-        font-size: 1.45em;
+        font-size: 1.1em;
+    }
+
+    .btn-saiba-mais {
+        font-size: 0.85em;
+    }
+
+    .procedure-modal-card {
+        max-width: 540px;
+        max-height: 43vh;
+    }
+
+    .procedure-modal-card h3 {
+        font-size: 2.4em;
     }
 
     .button-swiper-next,
@@ -3252,49 +3444,52 @@ header.at-top {
 ============================================================ */
 @media (max-width: 768px) {
 
-    .procedures-section {
-        padding: 40px 5%;
-    }
-
     .procedures-section .section-title {
-        font-size: 2.8em;
+        font-size: 2.4em;
     }
 
     .procedures-section .section-subtitle {
-        font-size: 1.15em;
-        margin-bottom: 50px;
+        font-size: 1em;
+        padding: 0 10px;
     }
 
     .procedure-card {
-        max-width: 240px;
-        padding: 28px;
-        gap: 10px;
-    }
-
-    .video-box {
-        max-width: 85%;
-        /* vídeo reduzido */
+        max-width: 100%;
+        padding: 38px 28px;
         border-radius: 14px;
     }
 
     .procedure-text h3 {
-        font-size: 2em;
+        font-size: 1.9em;
     }
 
     .procedure-text p {
-        text-align: center;
-        font-size: 1.3em;
+        font-size: 1.05em;
+        line-height: 1.6;
     }
 
+    .btn-saiba-mais {
+        padding: 12px 30px;
+    }
+
+    /* Swiper */
     .button-swiper-next,
     .button-swiper-prev {
-        display: none;
+        transform: scale(1.1);
     }
 
-    .button-swiper-pagination {
-        bottom: 55px !important;
+    /* Modal */
+    .procedure-modal-card {
+        max-height: 46vh;
+        width: 92%;
+        padding: 34px 26px;
+    }
+
+    .procedure-info li {
+        font-size: 1.3em;
     }
 }
+
 
 /* ============================================================
    🟦 CELULARES PEQUENOS (≤ 430px)
@@ -3302,98 +3497,100 @@ header.at-top {
 @media (max-width: 430px) {
 
     .procedures-section {
-        padding: 0px 5%;
+        padding: 45px 0%;
     }
 
     .procedures-section .section-title {
-        padding-top: 20px;
-        font-size: 2.4em;
-    }
-
-    .procedures-section .section-subtitle {
-        font-size: 1.05em;
-        margin-bottom: 40px;
+        font-size: 2.1em;
     }
 
     .procedure-card {
-        max-width: 210px;
-        padding: 24px;
-        gap: 10px;
-        border-radius: 14px;
-    }
-
-    .video-box {
-        max-width: 85%;
-        /* reduzido */
+        padding: 30px 22px;
         border-radius: 12px;
+        box-shadow: none;
+        width: 80%;
     }
 
     .procedure-text h3 {
-        font-size: 1.65em;
+        font-size: 1.7em;
     }
 
     .procedure-text p {
-        font-size: 1.15em;
-        text-align: center;
-        line-height: 1.55;
+        font-size: 0.95em;
+        margin-bottom: 24px;
     }
 
-    .button-swiper-next,
-    .button-swiper-prev {
-        display: none;
+    .btn-saiba-mais {
+        padding: 11px 26px;
+        font-size: 0.8em;
     }
 
-    .button-swiper-pagination {
-        bottom: 70px !important; 
+    /* Modal */
+    .procedure-modal-card {
+        max-height: 50vh;
+        padding: 30px 9px;
+    }
+
+    .procedure-modal-card h3 {
+        font-size: 2em;
+    }
+
+    #modalDescription {
+        font-size: 1.25em;
+    }
+
+    .procedure-info li {
+        font-size: 1.2em;
+    }
+
+    .procedure-modal-cta {
+        width: 60%;
     }
 }
+
 
 /* ============================================================
    🟦 TELAS MUITO PEQUENAS (≤ 360px)
 ============================================================ */
-@media (max-width: 360px) {
-
-    .procedures-section {
-        padding: 30px 4%;
-    }
+@media (max-width: 390px) {
 
     .procedures-section .section-title {
-        font-size: 2em;
-    }
-
-    .procedures-section .section-subtitle {
-        font-size: .95em;
+        font-size: 1.9em;
     }
 
     .procedure-card {
-        max-width: 260px;
-        padding: 20px;
-        gap: 10px;
-    }
-
-    .video-box {
-        max-width: 90%;
-        /* ajuste final */
+        padding: 26px 18px;
+        width: 70%;
     }
 
     .procedure-text h3 {
-        font-size: 1.45em;
+        font-size: 1.55em;
     }
 
     .procedure-text p {
-        font-size: 1.05em;
-        text-align: center;
+        font-size: 0.9em;
     }
 
-    .button-swiper-next,
-    .button-swiper-prev {
-        display: none;
+    .btn-saiba-mais {
+        padding: 10px 22px;
+        font-size: 0.75em;
     }
 
-    .button-swiper-pagination {
-        width: 10px;
-        height: 10px;
-        bottom: 60px !important;
+    .procedure-modal-card {
+        padding: 26px 10px;
+        max-height: 49vh;
+    }
+
+    .procedure-modal-cta {
+        margin-top: 10px;
+    }
+
+    .procedure-modal-card h3 {
+        font-size: 1.8em;
+    }
+
+    .procedure-info li {
+        font-size: 1.1em;
     }
 }
 

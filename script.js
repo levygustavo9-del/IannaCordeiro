@@ -104,6 +104,134 @@ document.addEventListener('DOMContentLoaded', function () {
         depoimentosSwiper.allowTouchMove = true;
     });
 
+    // ===============================
+    // MODAL DE PROCEDIMENTOS (CARDS)
+    // ===============================
+
+    const procedureData = {
+        botox: {
+            title: "Botox (Toxina Botulínica)",
+            description: "Suaviza rugas dinâmicas e previne o envelhecimento, promovendo um semblante mais descansado.",
+            indication: "Rugas na testa, pés de galinha, linhas entre as sobrancelhas e arqueamento de sobrancelha.",
+            time: "20 a 30 minutos",
+            recovery: "Retorno imediato às atividades"
+        },
+        ultraformer: {
+            title: "Ultraformer MPT",
+            description: "Tecnologia de ultrassom de última geração que combina efeito lifting com a quebra de gordura localizada.",
+            indication: "Flacidez facial, papada, contorno mandibular indefinido e flacidez corporal.",
+            time: "30 a 60 minutos",
+            recovery: "Atividades normais no mesmo dia"
+        },
+        hof: {
+            title: "Harmonização Orofacial (HOF)",
+            description: "Planejamento personalizado que utiliza diversas técnicas para equilibrar a estética e funcionalidade da face.",
+            indication: "Assimetrias faciais, perda de volume global, desproporção entre nariz, queixo e mandíbula.",
+            time: "60 a 90 minutos",
+            recovery: "Pequeno inchaço local por 48h"
+        },
+        bioestimulador: {
+            title: "Bioestimulador de Colágeno",
+            description: "Substâncias que ativam a produção natural de colágeno pelo próprio organismo de forma progressiva.",
+            indication: "Perda de firmeza (derretimento facial), pele fina, flacidez no pescoço e interno de braços/coxas.",
+            time: "30 a 45 minutos",
+            recovery: "Retorno imediato, evitar sol e esforço físico por 24h"
+        },
+        peim: {
+            title: "PEIM (Secagem de Vasinhos)",
+            description: "Microinjeções de substâncias esclerosantes para eliminar pequenos vasos superficiais.",
+            indication: "Telangiectasias (vasinhos estéticos) nas pernas e microvarizes.",
+            time: "30 minutos",
+            recovery: "Evitar exposição solar direta e exercícios intensos por 48h"
+        },
+        pdrn: {
+            title: "PDRN (Regenerador Celular)",
+            description: "Bioestimulador de última geração derivado do DNA do salmão que recupera a saúde da pele.",
+            indication: "Cicatrizes de acne, poros abertos, manchas, olheiras escuras e envelhecimento precoce.",
+            time: "30 a 40 minutos",
+            recovery: "Pequenas pápulas que desaparecem em até 24h"
+        },
+        skinbooster: {
+            title: "SkinBooster",
+            description: "Banho de hidratação profunda com ácido hialurônico que atua nas camadas internas da derme.",
+            indication: "Pele ressecada, desvitalizada, rugas finas ao redor dos olhos e do 'código de barras'.",
+            time: "30 minutos",
+            recovery: "Retorno imediato"
+        },
+        mesclas: {
+            title: "Mesoterapia / Mesclas",
+            description: "Aplicação direta de ativos farmacológicos para tratar queixas específicas de forma localizada.",
+            indication: "Gordura localizada, queda capilar (alopecia), celulite e melasma.",
+            time: "20 a 40 minutos",
+            recovery: "Retorno imediato"
+        },
+        labios: {
+            title: "Preenchimento Labial",
+            description: "Refinamento do contorno e volume labial, mantendo a naturalidade e a hidratação dos tecidos.",
+            indication: "Lábios finos, perda de contorno, assimetria labial e rugas periorais.",
+            time: "40 a 60 minutos",
+            recovery: "Edema (inchaço) leve nos primeiros 2 a 5 dias"
+        },
+        fios: {
+            title: "Fios de Sustentação / PDO",
+            description: "Fios absorvíveis que criam uma malha de sustentação e estimulam a produção de colágeno.",
+            indication: "Queda da bochecha (buldogue), sobrancelhas caídas e flacidez leve a moderada.",
+            time: "45 a 60 minutos",
+            recovery: "Repouso relativo de atividades físicas por 7 dias"
+        },
+        preenchimento: {
+            title: "Preenchimento Facial",
+            description: "Reposição de volumes perdidos com ácido hialurônico para sustentar e rejuvenescer a face.",
+            indication: "Sulco nasogeniano (bigode chinês), olheiras profundas e perda de volume nas maçãs do rosto.",
+            time: "30 a 60 minutos",
+            recovery: "Retorno imediato, evitar massagear a área"
+        },
+        profhilo: {
+            title: "Profhilo",
+            description: "Biorremodelador celular que melhora a qualidade da pele através da máxima hidratação e elasticidade.",
+            indication: "Laxidão da pele, perda de viço, aspecto 'craquelado' e envelhecimento do pescoço e mãos.",
+            time: "20 a 30 minutos",
+            recovery: "Retorno imediato"
+        }
+    };
+
+    const modal = document.getElementById("procedureModal");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalIndication = document.getElementById("modalIndication");
+    const modalDescription = document.getElementById("modalDescription");
+    const modalTime = document.getElementById("modalTime");
+    const modalRecovery = document.getElementById("modalRecovery");
+
+    document.querySelectorAll(".btn-saiba-mais").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const key = btn.dataset.procedure;
+            const data = procedureData[key];
+
+            if (!data) return;
+
+            modalTitle.textContent = data.title;
+            modalDescription.textContent = data.description;
+            modalIndication.textContent = data.indication;
+            modalTime.textContent = data.time;
+            modalRecovery.textContent = data.recovery;
+
+            modal.classList.add("active");
+            document.body.style.overflow = "hidden";
+        });
+    });
+
+    // FECHAR
+    modal.addEventListener("click", e => {
+        if (
+            e.target.classList.contains("procedure-modal-overlay") ||
+            e.target.classList.contains("procedure-modal-close")
+        ) {
+            modal.classList.remove("active");
+            document.body.style.overflow = "";
+        }
+    });
+
+
 
 
 
@@ -205,27 +333,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // ✅ CHAMADA: Executa a função após a inicialização do Swiper.
         goToSlideFromHash();
-
-        // ==========================================================
-        // PARTE 7: FULLSCREEN FIX PARA VÍDEOS (Agora dentro do IF)
-        // ==========================================================
-        proceduresSection.querySelectorAll('video').forEach(video => {
-            video.addEventListener('webkitbeginfullscreen', () => {
-                video.style.objectFit = "contain";
-            });
-
-            video.addEventListener('webkitendfullscreen', () => {
-                video.style.objectFit = "";
-            });
-
-            video.addEventListener('fullscreenchange', () => {
-                if (document.fullscreenElement === video) {
-                    video.style.objectFit = "contain";
-                } else {
-                    video.style.objectFit = "";
-                }
-            });
-        });
     }
 
     // --- SWIPER DA GALERIA DE ESTRUTURA ---
@@ -314,29 +421,6 @@ document.querySelectorAll(".accordion-toggle").forEach(btn => {
         group.classList.toggle("open");
     });
 });
-
-
-// --------------------------------------------------------------------------
-// PARTE 6: PAUSAR VÍDEOS QUANDO SAIR DA TELA (AJUSTADO PARA SER MAIS SEGURO)
-// --------------------------------------------------------------------------
-// Variável definida globalmente para o evento de scroll
-const scrollProceduresSection = document.querySelector('.procedures-section');
-
-window.addEventListener('scroll', function () {
-    // 🚩 CORREÇÃO: Busca o elemento no scroll se for NULL (para o caso de o JS carregar antes)
-    const targetSection = scrollProceduresSection || document.querySelector('.procedures-section');
-
-    if (!targetSection) return;
-
-    const rect = targetSection.getBoundingClientRect();
-
-    if (rect.bottom < 0 || rect.top > window.innerHeight) {
-        targetSection.querySelectorAll('video').forEach(video => {
-            video.pause();
-        });
-    }
-});
-
 
 // --------------------------------------------------------------------------
 // PARTE 8: DROPDOWN DE ESTRUTURA
