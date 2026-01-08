@@ -3055,6 +3055,10 @@ header.at-top {
         font-size: 2.4em !important;
     }
 
+    .modal-content h3 {
+        font-size: 1.8em !important;
+    }
+
     .modal-content p,
     .modal-content ul {
         font-size: 1.1rem !important;
@@ -3131,14 +3135,20 @@ header.at-top {
         font-size: 1.6em !important;
     }
 
+    .modal-content h3 {
+        font-size: 1.8em !important;
+    }
+
     .modal-content p,
     .modal-content ul {
         font-size: 1rem !important;
     }
 
     .whatsapp-button {
-        width: 90%;
-        font-size: 1rem;
+        width: 40%;
+        padding: 9px 50px;
+        font-size: 1.2rem;
+        border-radius: 18px;
     }
 
 }
@@ -3169,6 +3179,10 @@ header.at-top {
     .modal-content {
         max-width: 300px !important;
         padding: 1.1rem !important;
+    }
+
+    .modal-content h3 {
+        font-size: 1.8em !important;
     }
 
     .modal-content h2 {
