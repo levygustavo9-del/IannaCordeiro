@@ -109,47 +109,19 @@ document.addEventListener('DOMContentLoaded', function () {
     // ===============================
 
     const procedureData = {
-        botox: {
-            title: "Botox (Toxina Botulínica)",
-            description: "Suaviza rugas dinâmicas e previne o envelhecimento, promovendo um semblante mais descansado.",
-            indication: "Rugas na testa, pés de galinha, linhas entre as sobrancelhas e arqueamento de sobrancelha.",
-            time: "20 a 30 minutos",
-            recovery: "Retorno imediato às atividades"
-        },
-        ultraformer: {
-            title: "Ultraformer MPT",
-            description: "Tecnologia de ultrassom de última geração que combina efeito lifting com a quebra de gordura localizada.",
-            indication: "Flacidez facial, papada, contorno mandibular indefinido e flacidez corporal.",
-            time: "30 a 60 minutos",
-            recovery: "Atividades normais no mesmo dia"
-        },
-        hof: {
-            title: "Harmonização Orofacial (HOF)",
-            description: "Planejamento personalizado que utiliza diversas técnicas para equilibrar a estética e funcionalidade da face.",
-            indication: "Assimetrias faciais, perda de volume global, desproporção entre nariz, queixo e mandíbula.",
-            time: "60 a 90 minutos",
-            recovery: "Pequeno inchaço local por 48h"
-        },
-        bioestimulador: {
-            title: "Bioestimulador",
-            description: "Substâncias que ativam a produção natural de colágeno pelo próprio organismo de forma progressiva.",
-            indication: "Perda de firmeza (derretimento facial), pele fina, flacidez no pescoço e interno de braços/coxas.",
-            time: "30 a 45 minutos",
-            recovery: "Retorno imediato, evitar sol e esforço físico por 24h"
-        },
-        peim: {
-            title: "PEIM (Secagem de Vasinhos)",
-            description: "Microinjeções de substâncias esclerosantes para eliminar pequenos vasos superficiais.",
-            indication: "Telangiectasias (vasinhos estéticos) nas pernas e microvarizes.",
-            time: "30 minutos",
-            recovery: "Evitar exposição solar direta e exercícios intensos por 48h"
-        },
         pdrn: {
             title: "PDRN",
             description: "Bioestimulador de última geração derivado do DNA do salmão que recupera a saúde da pele.",
             indication: "Cicatrizes de acne, poros abertos, manchas, olheiras escuras e envelhecimento precoce.",
             time: "30 a 40 minutos",
             recovery: "Pequenas pápulas que desaparecem em até 24h"
+        },
+        limpeza_pele: {
+            title: "Limpeza de Pele Profunda",
+            description: "Protocolo completo para remoção de impurezas, cravos e células mortas, devolvendo o viço à pele.",
+            indication: "Cravos (comedões), milium, excesso de oleosidade e preparação para outros tratamentos.",
+            time: "60 a 90 minutos",
+            recovery: "Evitar exposição solar direta por 48h"
         },
         skinbooster: {
             title: "SkinBooster",
@@ -158,12 +130,54 @@ document.addEventListener('DOMContentLoaded', function () {
             time: "30 minutos",
             recovery: "Retorno imediato"
         },
+        botox: {
+            title: "Botox (Toxina Botulínica)",
+            description: "Suaviza rugas dinâmicas e previne o envelhecimento, promovendo um semblante mais descansado.",
+            indication: "Rugas na testa, pés de galinha, linhas entre as sobrancelhas e arqueamento de sobrancelha.",
+            time: "20 a 30 minutos",
+            recovery: "Retorno imediato às atividades"
+        },
+        microagulhamento: {
+            title: "Microagulhamento Específico",
+            description: "Indução de colágeno através de microagulhas associada ao drug delivery de ativos concentrados.",
+            indication: "Cicatrizes de acne, poros dilatados, estrias, melasma e rejuvenescimento.",
+            time: "45 a 60 minutos",
+            recovery: "Vermelhidão leve a moderada por 24h a 48h"
+        },
+        bioestimulador: {
+            title: "Bioestimulador de Colágeno",
+            description: "Substâncias que ativam a produção natural de colágeno pelo próprio organismo de forma progressiva.",
+            indication: "Perda de firmeza (derretimento facial), pele fina, flacidez no pescoço e interno de braços/coxas.",
+            time: "30 a 45 minutos",
+            recovery: "Retorno imediato, evitar sol e esforço físico por 24h"
+        },
+        peeling: {
+            title: "Peeling Químico",
+            description: "Aplicação de ácidos que removem camadas danificadas da pele e estimulam a renovação celular.",
+            indication: "Manchas (melasma/sol), acne ativa, sequelas de acne e textura irregular da pele.",
+            time: "30 minutos",
+            recovery: "Descamação fina entre o 3º e 7º dia"
+        },
+        peim: {
+            title: "PEIM (Secagem de Vasinhos)",
+            description: "Microinjeções de substâncias esclerosantes para eliminar pequenos vasos superficiais.",
+            indication: "Telangiectasias (vasinhos estéticos) nas pernas e microvarizes.",
+            time: "30 minutos",
+            recovery: "Evitar exposição solar direta e exercícios intensos por 48h"
+        },
         mesclas: {
             title: "Mesoterapia / Mesclas",
-            description: "Aplicação direta de ativos farmacológicos para tratar queixas específicas de forma localizada.",
-            indication: "Gordura localizada, queda capilar (alopecia), celulite e melasma.",
+            description: "Aplicação direta de coquetéis de ativos farmacológicos para tratar queixas específicas de forma concentrada.",
+            indication: "Gordura localizada, queda capilar (alopecia), celulite, estrias e clareamento de manchas.",
             time: "20 a 40 minutos",
-            recovery: "Retorno imediato"
+            recovery: "Retorno imediato, podendo apresentar leve sensibilidade no local"
+        },
+        ultraformer: {
+            title: "Ultraformer MPT",
+            description: "Tecnologia de ultrassom de última geração que combina efeito lifting com a quebra de gordura localizada.",
+            indication: "Flacidez facial, papada, contorno mandibular indefinido e flacidez corporal.",
+            time: "30 a 60 minutos",
+            recovery: "Atividades normais no mesmo dia"
         },
         labios: {
             title: "Preenchimento Labial",
@@ -172,26 +186,19 @@ document.addEventListener('DOMContentLoaded', function () {
             time: "40 a 60 minutos",
             recovery: "Edema (inchaço) leve nos primeiros 2 a 5 dias"
         },
-        fios: {
-            title: "Fios de Sustentação / PDO",
-            description: "Fios absorvíveis que criam uma malha de sustentação e estimulam a produção de colágeno.",
-            indication: "Queda da bochecha (buldogue), sobrancelhas caídas e flacidez leve a moderada.",
-            time: "45 a 60 minutos",
-            recovery: "Repouso relativo de atividades físicas por 7 dias"
-        },
-        preenchimento: {
-            title: "Preenchimento Facial",
-            description: "Reposição de volumes perdidos com ácido hialurônico para sustentar e rejuvenescer a face.",
-            indication: "Sulco nasogeniano (bigode chinês), olheiras profundas e perda de volume nas maçãs do rosto.",
-            time: "30 a 60 minutos",
-            recovery: "Retorno imediato, evitar massagear a área"
-        },
         profhilo: {
             title: "Profhilo",
             description: "Biorremodelador celular que melhora a qualidade da pele através da máxima hidratação e elasticidade.",
             indication: "Laxidão da pele, perda de viço, aspecto 'craquelado' e envelhecimento do pescoço e mãos.",
             time: "20 a 30 minutos",
             recovery: "Retorno imediato"
+        },
+        hof: {
+            title: "Harmonização Orofacial (HOF)",
+            description: "Planejamento personalizado que utiliza diversas técnicas para equilibrar a estética e funcionalidade da face.",
+            indication: "Assimetrias faciais, perda de volume global, desproporção entre nariz, queixo e mandíbula.",
+            time: "60 a 90 minutos",
+            recovery: "Pequeno inchaço local por 48h"
         }
     };
 
@@ -230,9 +237,6 @@ document.addEventListener('DOMContentLoaded', function () {
             document.body.style.overflow = "";
         }
     });
-
-
-
 
 
     // --- SWIPER DECK ---
@@ -644,72 +648,78 @@ Rua Eng. Mário de Gusmão, 988 – Ponta Verde
 Maceió – AL | Record Offices
         `,
         procedimentos: {
-            ultraformer: {
-                nome: "Ultraformer MPT",
-                descricao: "Tecnologia de ultrassom micro e macrofocado para firmeza, lifting e estímulo de colágeno.",
-                tempo: "30 a 60 minutos",
-                recuperacao: "Atividades normais no mesmo dia."
-            },
-            botox: {
-                nome: "Botox",
-                descricao: "Suaviza linhas de expressão e previne o envelhecimento dinâmico.",
-                tempo: "20 a 30 minutos",
-                recuperacao: "Retorno imediato, com cuidados nas primeiras horas."
-            },
-            hof: {
-                nome: "Harmonização Orofacial",
-                descricao: "Conjunto de procedimentos para equilíbrio estético e funcional da face.",
-                tempo: "Variável",
-                recuperacao: "Depende do protocolo, geralmente retorno rápido."
-            },
-            bioestimulador: {
-                nome: "Bioestimulador de Colágeno",
-                descricao: "Estimula a produção natural de colágeno, melhorando firmeza e qualidade da pele.",
-                tempo: "30 a 40 minutos",
-                recuperacao: "Leve inchaço inicial, com retorno rápido."
-            },
             pdrn: {
                 nome: "PDRN",
-                descricao: "Bioestimulador regenerador e hidratante profundo.",
-                tempo: "30 minutos",
-                recuperacao: "Pequenas pápulas temporárias."
-            },
-            skinbooster: {
-                nome: "Skinbooster",
-                descricao: "Hidratação profunda para viço e elasticidade da pele.",
-                tempo: "30 minutos",
-                recuperacao: "Retorno imediato."
-            },
-            labios: {
-                nome: "Preenchimento Labial",
-                descricao: "Realça contorno, volume e hidratação dos lábios.",
+                descricao: "Bioestimulador regenerador derivado do DNA do salmão que recupera a saúde e o viço da pele.",
                 tempo: "30 a 40 minutos",
-                recuperacao: "Inchaço leve nos primeiros dias."
+                recuperacao: "Pequenas pápulas temporárias que desaparecem em até 24h."
             },
-            fios: {
-                nome: "Fios de PDO",
-                descricao: "Efeito lifting imediato com estímulo contínuo de colágeno.",
-                tempo: "40 a 60 minutos",
-                recuperacao: "Cuidados leves por alguns dias."
-            },
-            preenchimento: {
-                nome: "Preenchimento Facial",
-                descricao: "Reposição de volume facial com ácido hialurônico.",
-                tempo: "30 a 50 minutos",
-                recuperacao: "Retorno imediato com cuidados básicos."
-            },
-            Limpeza: {
+            limpeza_pele: {
                 nome: "Limpeza de Pele Profunda",
                 descricao: "Remoção de impurezas, cravos e células mortas, promovendo a desintoxicação e renovação da pele.",
                 tempo: "60 a 90 minutos",
                 recuperacao: "Leve vermelhidão por algumas horas, evitar sol nas primeiras 48h."
             },
+            skinbooster: {
+                nome: "Skinbooster",
+                descricao: "Hidratação profunda com ácido hialurônico para melhorar o brilho e a elasticidade da pele.",
+                tempo: "30 minutos",
+                recuperacao: "Retorno imediato às atividades."
+            },
+            botox: {
+                nome: "Botox",
+                descricao: "Suaviza linhas de expressão e previne o envelhecimento dinâmico relaxando a musculatura.",
+                tempo: "20 a 30 minutos",
+                recuperacao: "Retorno imediato, evitando deitar ou massagear a área por 4h."
+            },
+            microagulhamento: {
+                nome: "Microagulhamento Específico",
+                descricao: "Indução de colágeno via microagulhas para tratar poros, manchas e textura da pele.",
+                tempo: "45 a 60 minutos",
+                recuperacao: "Vermelhidão por 24h a 48h e uso rigoroso de protetor solar."
+            },
+            bioestimulador: {
+                nome: "Bioestimulador de Colágeno",
+                descricao: "Estimula a produção natural de colágeno, combatendo a flacidez e o derretimento facial.",
+                tempo: "30 a 45 minutos",
+                recuperacao: "Leve inchaço inicial, com retorno rápido às atividades."
+            },
+            peeling: {
+                nome: "Peeling Químico",
+                descricao: "Aplicação de ácidos para renovação celular, tratamento de manchas e rejuvenescimento.",
+                tempo: "30 minutos",
+                recuperacao: "Descamação controlada por alguns dias, proteção solar obrigatória."
+            },
+            peim: {
+                nome: "PEIM (Secagem de Vasinhos)",
+                descricao: "Eliminação de vasos estéticos superficiais através de microinjeções esclerosantes.",
+                tempo: "30 minutos",
+                recuperacao: "Evitar sol e exercícios físicos intensos por 48h."
+            },
+            ultraformer: {
+                nome: "Ultraformer MPT",
+                descricao: "Tecnologia de ultrassom de última geração para efeito lifting e quebra de gordura localizada.",
+                tempo: "30 a 60 minutos",
+                recuperacao: "Atividades normais no mesmo dia."
+            },
+            labios: {
+                nome: "Preenchimento Labial",
+                descricao: "Realça o contorno, volume e a hidratação dos lábios com ácido hialurônico.",
+                tempo: "40 a 60 minutos",
+                recuperacao: "Inchaço leve nos primeiros 2 a 5 dias."
+            },
             profhilo: {
                 nome: "Profhilo",
-                descricao: "Biorremodelador celular para melhora da qualidade da pele.",
+                descricao: "Biorremodelador celular que melhora a arquitetura da pele e a hidratação profunda.",
                 tempo: "20 a 30 minutos",
-                recuperacao: "Pontos absorvidos rapidamente."
+                recuperacao: "Pontos de aplicação são absorvidos rapidamente pela pele."
             },
+            hof: {
+                nome: "Harmonização Orofacial (HOF)",
+                descricao: "Planejamento global para equilibrar a estética e funcionalidade dos traços faciais.",
+                tempo: "60 a 90 minutos",
+                recuperacao: "Pequeno inchaço ou edema local por cerca de 48h."
+            }
         }
     };
 
