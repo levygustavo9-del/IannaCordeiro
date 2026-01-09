@@ -3514,7 +3514,7 @@ header.at-top {
     .procedure-modal-card {
         max-height: 46vh;
         width: 92%;
-        padding: 34px 26px;
+        padding: 65px 26px;
     }
 
     .procedure-info li {
@@ -3559,8 +3559,8 @@ header.at-top {
 
     /* Modal */
     .procedure-modal-card {
-        max-height: 50vh;
-        padding: 30px 9px;
+        max-height: 60vh;
+        padding: 65px 9px;
     }
 
     .procedure-modal-card h3 {
@@ -3576,6 +3576,7 @@ header.at-top {
     }
 
     .procedure-modal-cta {
+        margin-top: 0px;
         width: 60%;
     }
 }
@@ -3609,7 +3610,7 @@ header.at-top {
     }
 
     .procedure-modal-card {
-        padding: 26px 10px;
+        padding:  65px 10px;
         max-height: 49vh;
     }
 

@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
             recovery: "Pequeno inchaço local por 48h"
         },
         bioestimulador: {
-            title: "Bioestimulador de Colágeno",
+            title: "Bioestimulador",
             description: "Substâncias que ativam a produção natural de colágeno pelo próprio organismo de forma progressiva.",
             indication: "Perda de firmeza (derretimento facial), pele fina, flacidez no pescoço e interno de braços/coxas.",
             time: "30 a 45 minutos",
@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function () {
             recovery: "Evitar exposição solar direta e exercícios intensos por 48h"
         },
         pdrn: {
-            title: "PDRN (Regenerador Celular)",
+            title: "PDRN",
             description: "Bioestimulador de última geração derivado do DNA do salmão que recupera a saúde da pele.",
             indication: "Cicatrizes de acne, poros abertos, manchas, olheiras escuras e envelhecimento precoce.",
             time: "30 a 40 minutos",
