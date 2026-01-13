@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function () {
             recovery: "Evitar exposição solar direta e exercícios intensos por 48h"
         },
         mesclas: {
-            title: "Mesoterapia / Mesclas",
+            title: "Intradermoterapia / Mesclas",
             description: "Aplicação direta de coquetéis de ativos farmacológicos para tratar queixas específicas de forma concentrada.",
             indication: "Gordura localizada, queda capilar (alopecia), celulite, estrias e clareamento de manchas.",
             time: "20 a 40 minutos",
@@ -542,7 +542,7 @@ window.addEventListener("scroll", () => {
     lastScroll = currentScroll;
 });
 
-
+//CHAT BOt
 const chatToggle = document.getElementById("chatToggle");
 const chatbot = document.getElementById("chatbot");
 const closeChat = document.getElementById("closeChat");
