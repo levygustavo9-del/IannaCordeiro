@@ -15,7 +15,9 @@
     --fonte-titulo: "EB Garamond", serif;
     --variação: "Playfair Display", serif;
     --fonte-secundaria: "Montserrat", sans-serif;
-}
+    --fonte-requisitados: "Quicksand", sans-serif;
+    }
+
 
 html,
 body {
@@ -906,7 +908,7 @@ header.at-top {
     color: var(--secundario);
     position: absolute;
     top: 15px;
-    right: 20px;
+    right: 8px;
     font-size: 32px;
     line-height: 1;
     cursor: pointer;
@@ -993,10 +995,10 @@ header.at-top {
 .treatments-text .impact-title {
     font-size: 3.5em;
     line-height: 1.1em;
-    font-family: var(--fonte-titulo);
+    font-family: var(--fonte-requisitados);
     color: var(--texto);
-    font-style: italic;
     font-weight: 500;
+    font-style: normal;
 
 }
 
@@ -1514,8 +1516,8 @@ header.at-top {
     background: var(--fundo);
     width: 90%;
     max-width: 620px;
-    height: 100%;
-    max-height: 56vh;
+    height: auto;
+    max-height: 450px;
     padding: 40px;
     border-radius: 22px;
     position: relative;
@@ -1580,7 +1582,7 @@ header.at-top {
 
 /* CTA */
 .procedure-modal-cta {
-    width: 170px;
+    width: 340px;
     display: block;
     text-align: center;
     margin: 50px auto;
@@ -2979,7 +2981,7 @@ header.at-top {
         flex-direction: column;
         align-items: center;
         padding: 0;
-        gap: 30px;
+        gap: 0px;
     }
 
     /* O bloco de fundo agora envolve tudo e precisa de padding horizontal */
@@ -3050,7 +3052,7 @@ header.at-top {
     }
 
     .treatments-deck-slider {
-        padding: 43px 5%;
+         padding: 0px 3%;
     }
 
     .treatments-text .impact-title {
@@ -3066,7 +3068,7 @@ header.at-top {
     .modal-content {
         max-width: 380px !important;
         padding: 1.2rem !important;
-        margin-top: -10px;
+        margin-top: 50px;
     }
 
     .modal-content h2 {
@@ -3139,14 +3141,14 @@ header.at-top {
     }
 
     .treatments-deck-slider {
-        padding: 43px 5%;
+        padding: 0px 2%;
     }
 
     /* Otimização do Modal para Telas Estreitas */
     .modal-content {
         width: 84% !important;
         max-width: 330px !important;
-        padding: 1.3rem !important;
+        padding: 1.8rem !important;
     }
 
     .modal-content h2 {
@@ -3191,12 +3193,12 @@ header.at-top {
     }
 
     .treatments-deck-slider {
-        padding: 43px 5%;
+        padding: 0px 3%;
     }
 
     .modal-content {
         max-width: 300px !important;
-        padding: 1.1rem !important;
+        padding: 1.2rem !important;
     }
 
     .modal-content h3 {
@@ -3458,7 +3460,7 @@ header.at-top {
 
     .procedure-modal-card {
         max-width: 540px;
-        max-height: 43vh;
+        max-height: 350px;
     }
 
     .procedure-modal-card h3 {
@@ -3512,7 +3514,7 @@ header.at-top {
 
     /* Modal */
     .procedure-modal-card {
-        max-height: 46vh;
+           max-height: 350px;
         width: 92%;
         padding: 65px 26px;
     }
@@ -3559,8 +3561,8 @@ header.at-top {
 
     /* Modal */
     .procedure-modal-card {
-        max-height: 60vh;
-        padding: 65px 9px;
+        max-height: 450px !important; 
+        padding: 65px 9px 5% 9px;
     }
 
     .procedure-modal-card h3 {
