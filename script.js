@@ -1,4 +1,3 @@
-
 const btn = document.getElementById("hamburguer");
 const menu = document.getElementById("menuMobile");
 
@@ -37,11 +36,6 @@ document.querySelectorAll("#menuMobile a").forEach(link => {
         btn.classList.remove("ativo");
     });
 });
-
-
-
-
-
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -94,16 +88,19 @@ document.addEventListener('DOMContentLoaded', function () {
     // Seleciona o slider de comparação
     const comparisonContainer = document.querySelector('.image-comparison-container');
 
-    // Quando o usuário começa a tocar no slider ➜ desativa o arrastar do Swiper
-    comparisonContainer.addEventListener('touchstart', () => {
-        depoimentosSwiper.allowTouchMove = false;
-    });
+    if (comparisonContainer) {
+        const disableSwiper = () => { depoimentosSwiper.allowTouchMove = false; };
+        const enableSwiper = () => { depoimentosSwiper.allowTouchMove = true; };
 
-    // Quando o usuário termina o toque ➜ reativa o Swiper normalmente
-    comparisonContainer.addEventListener('touchend', () => {
-        depoimentosSwiper.allowTouchMove = true;
-    });
+        // Bloqueia o Swiper ao interagir com o comparador
+        comparisonContainer.addEventListener('mousedown', disableSwiper);
+        comparisonContainer.addEventListener('touchstart', disableSwiper, { passive: true });
 
+        // O PULO DO GATO: Reativa o Swiper no WINDOW (global)
+        // Isso garante que se o usuário soltar o clique fora do elemento, o Swiper destrava.
+        window.addEventListener('mouseup', enableSwiper);
+        window.addEventListener('touchend', enableSwiper);
+    }
     // ===============================
     // MODAL DE PROCEDIMENTOS (CARDS)
     // ===============================
@@ -238,7 +235,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-
     // --- SWIPER DECK ---
     const treatmentsDeck = new Swiper('.treatments-deck-slider', {
         loop: true,
@@ -246,6 +242,9 @@ document.addEventListener('DOMContentLoaded', function () {
         centeredSlides: true,
         slidesPerView: 'auto',
         effect: 'creative',
+        touchStartPreventDefault: false, // Permite que o clique inicial seja registrado corretamente
+        edgeSwipeDetection: true,        // Ajuda a detectar quando o arrasto sai da borda
+        // ...
 
         creativeEffect: {
             perspective: true,
@@ -268,16 +267,64 @@ document.addEventListener('DOMContentLoaded', function () {
             loop: false,
             navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
             pagination: { el: '.swiper-pagination', clickable: true },
-            on: {
-                slideChange: function () {
-                    // Pausa vídeos ao mudar o slide
-                    proceduresSection.querySelectorAll('video').forEach(video => {
-                        video.pause();
-                        video.currentTime = 0;
-                    });
-                }
-            }
         });
+
+        function pauseAllVideos() {
+            const iframes = document.querySelectorAll('.procedure-video iframe');
+            iframes.forEach(iframe => {
+                const currentSrc = iframe.getAttribute('src') || iframe.getAttribute('data-src');
+                if (currentSrc) {
+                    // No mobile, forçar o src a ficar vazio antes de restaurar ajuda o browser a entender a parada
+                    iframe.setAttribute('src', '');
+
+                    // Usamos um pequeno timeout para garantir que o browser processe a parada antes de reatribuir
+                    setTimeout(() => {
+                        iframe.setAttribute('src', currentSrc);
+                    }, 10);
+                }
+            });
+        }
+
+        // Pausa vídeos ao mudar de slide
+        function pauseAllVideos() {
+            const iframes = document.querySelectorAll('.procedure-video iframe');
+
+            iframes.forEach(iframe => {
+                // Verifica se o iframe está carregado e é do YouTube
+                if (iframe.contentWindow) {
+                    iframe.contentWindow.postMessage(
+                        '{"event":"command","func":"pauseVideo","args":""}',
+                        '*'
+                    );
+                }
+            });
+        }
+
+        if (proceduresSection && proceduresSwiper) {
+            // 1. Pausa ao começar a arrastar (Mobile e Desktop)
+            proceduresSwiper.on('touchStart', () => {
+                pauseAllVideos();
+            });
+
+            // 2. Pausa ao mudar o slide
+            proceduresSwiper.on('slideChange', () => {
+                pauseAllVideos();
+            });
+        }
+
+        // 3. Pausa ao sair da aba ou minimizar
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) pauseAllVideos();
+        });
+
+        // 4. Pausa ao sair da seção (Scroll)
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) pauseAllVideos();
+            });
+        }, { threshold: 0.1 });
+
+        if (proceduresSection) videoObserver.observe(proceduresSection);
 
         // ==========================================================
         // PARTE 3: NAVEGAÇÃO DO DROPDOWN → SLIDE DOS PROCEDIMENTOS
@@ -297,7 +344,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
         });
-
 
         // ==========================================================
         // PARTE 10: NAVEGAÇÃO EXTERNA RÁPIDA (ROLAGEM FINALMENTE CORRIGIDA)
@@ -333,7 +379,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
         }
-
 
         // ✅ CHAMADA: Executa a função após a inicialização do Swiper.
         goToSlideFromHash();
@@ -374,7 +419,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 }); // Fim do DOMContentLoaded
 
-
 // --------------------------------------------------------------------------
 // PARTE 4: SLIDER ANTES E DEPOIS (Pode ficar fora se não houver conflito)
 // --------------------------------------------------------------------------
@@ -409,7 +453,6 @@ function setupImageComparison(container) {
 }
 
 document.querySelectorAll('.image-comparison-container').forEach(setupImageComparison);
-
 
 // --------------------------------------------------------------------------
 // PARTE 5: ACCORDION
@@ -455,92 +498,88 @@ const quemSouEuSlider = new Swiper('.quemSouEu-slider', {
     },
     speed: 1300,
 });
+document.addEventListener("DOMContentLoaded", () => {
+    const header = document.querySelector("header"); // ou .header
+    if (!header) return;
 
+    let lastScrollY = window.scrollY;
+    let scrollTimeout;
+    let isInteracting = false;
 
-//animação ao rolar a tela:
+    const showHeader = () => {
+        header.classList.add("is-visible");
+        header.classList.remove("is-hidden");
+    };
 
+    const hideHeader = () => {
+        // Só esconde se não estiver no topo e não estiver interagindo (mouse em cima)
+        if (window.scrollY > 50 && !isInteracting) {
+            header.classList.remove("is-visible");
+            header.classList.add("is-hidden");
+        }
+    };
+
+    window.addEventListener("scroll", () => {
+        const currentScroll = window.scrollY;
+
+        // 1. Comportamento no Topo
+        if (currentScroll <= 10) {
+            header.classList.remove("is-fixed");
+            showHeader();
+            lastScrollY = currentScroll;
+            return;
+        }
+
+        // 2. Comportamento durante o Scroll
+        header.classList.add("is-fixed");
+
+        if (currentScroll > lastScrollY && !isInteracting) {
+            // Scroll para baixo -> Esconde
+            hideHeader();
+        } else if (currentScroll < lastScrollY - 10) {
+            // Scroll para cima -> Mostra
+            showHeader();
+        }
+
+        lastScrollY = currentScroll;
+
+        // 3. Timer para esconder após inatividade (o efeito que você pediu)
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            hideHeader();
+        }, 2000); // 2 segundos parado, o header sobe
+    });
+
+    // Interações para evitar que o header suma enquanto o usuário clica no menu
+    const setInteracting = (val) => isInteracting = val;
+
+    header.addEventListener("mouseenter", () => setInteracting(true));
+    header.addEventListener("mouseleave", () => setInteracting(false));
+    header.addEventListener("touchstart", () => setInteracting(true));
+    header.addEventListener("touchend", () => {
+        setInteracting(false);
+        // Pequeno delay no touch para permitir o clique antes de esconder
+        setTimeout(() => hideHeader(), 2000);
+    });
+
+    // Estado inicial
+    header.classList.add("is-visible");
+});
+
+// --- Mantendo sua animação de revelar elementos (Reveal) ---
 const reveals = document.querySelectorAll('.reveal');
-
-const observer = new IntersectionObserver((entries) => {
+const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('active');
-            observer.unobserve(entry.target);
+            revealObserver.unobserve(entry.target);
         }
     });
 }, { threshold: 0.18 });
 
-reveals.forEach(el => observer.observe(el));
+reveals.forEach(el => revealObserver.observe(el));
 
-// ===== Cabeçalho que desaparece ao rolar para baixo =====
-let lastScroll = 0;
-const header = document.querySelector("header");
-
-const SHOW_GHOST_AFTER = 180;
-const LOCK_AT_TOP = 20;
-const THRESHOLD = 6;
-const GHOST_DURATION = 900;
-
-let isInteracting = false;
-let hideTimeout = null;
-
-// Interações
-header.addEventListener("mouseenter", () => {
-    isInteracting = true;
-    header.classList.remove("hidden");
-    header.classList.add("floating");
-});
-
-header.addEventListener("mouseleave", () => {
-    isInteracting = false;
-});
-
-header.addEventListener("touchstart", () => {
-    isInteracting = true;
-    header.classList.remove("hidden");
-    header.classList.add("floating");
-});
-
-header.addEventListener("touchend", () => {
-    isInteracting = false;
-});
-
-window.addEventListener("scroll", () => {
-    const currentScroll = window.pageYOffset;
-
-    // 🔝 Topo real
-    if (currentScroll <= LOCK_AT_TOP) {
-        header.className = "fixed-top";
-        lastScroll = currentScroll;
-        return;
-    }
-
-    header.classList.remove("fixed-top");
-
-    if (Math.abs(currentScroll - lastScroll) < THRESHOLD) return;
-
-    // ⬇️ Descendo → some (se não estiver interagindo)
-    if (currentScroll > lastScroll && currentScroll > SHOW_GHOST_AFTER) {
-        if (!isInteracting) {
-            header.className = "hidden";
-        }
-    }
-
-    // ⬆️ Subindo → aparece temporariamente
-    else if (currentScroll < lastScroll) {
-        header.className = "floating";
-
-        clearTimeout(hideTimeout);
-
-        hideTimeout = setTimeout(() => {
-            if (!isInteracting && window.pageYOffset > LOCK_AT_TOP + 40) {
-                header.className = "hidden";
-            }
-        }, GHOST_DURATION);
-    }
-
-    lastScroll = currentScroll;
-});
+//======= FIM DO SCRIPT DO HEADER ========
 
 //CHAT BOt
 const chatToggle = document.getElementById("chatToggle");
@@ -583,7 +622,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let userData = {};
     let typingEl = null;
-
 
     /* ===============================
        ABRIR / FECHAR CHAT
@@ -628,7 +666,6 @@ document.addEventListener("DOMContentLoaded", () => {
         clearChatBtn.addEventListener("click", resetChat);
         clearChatBtn.addEventListener("touchstart", resetChat, { passive: false });
     }
-
 
     /* ===============================
        BASE DE CONHECIMENTO
