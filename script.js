@@ -101,6 +101,37 @@ document.addEventListener('DOMContentLoaded', function () {
         window.addEventListener('mouseup', enableSwiper);
         window.addEventListener('touchend', enableSwiper);
     }
+
+    // ==========================================================
+    // 2. LÓGICA DE VÍDEOS (FACHADA / CLIQUE PARA CARREGAR)
+    // ==========================================================
+    const videoContainers = document.querySelectorAll('.procedure-video');
+
+    // Função que "limpa" o vídeo e coloca a foto de volta
+    function resetVideo(container) {
+        const videoId = container.getAttribute('data-video');
+        if (container.querySelector('iframe')) {
+            container.innerHTML = `
+                <img src="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg" alt="Capa" loading="lazy">
+                <div class="play-button-wrapper">
+                    <div class="play-button-icon">▶</div>
+                </div>
+            `;
+        }
+    }
+
+    videoContainers.forEach(container => {
+        container.addEventListener('click', function () {
+            if (this.querySelector('iframe')) return; // Se já abriu, não faz nada
+
+            const videoId = this.getAttribute('data-video');
+            this.innerHTML = `
+                <iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen></iframe>`;
+        });
+    });
     // ===============================
     // MODAL DE PROCEDIMENTOS (CARDS)
     // ===============================
@@ -256,7 +287,7 @@ document.addEventListener('DOMContentLoaded', function () {
         pagination: { el: ".swiper-pagination", clickable: true }
     });
 
-    // 🚩 VARIÁVEL DE PROCEDIMENTOS (para uso em múltiplas partes)
+
     // 🚩 INICIALIZAÇÃO DO SWIPER DE PROCEDIMENTOS
     const proceduresSection = document.querySelector('.procedures-section');
     let proceduresSwiper;
@@ -272,17 +303,26 @@ document.addEventListener('DOMContentLoaded', function () {
         function pauseAllVideos() {
             const iframes = document.querySelectorAll('.procedure-video iframe');
             iframes.forEach(iframe => {
-                if (iframe.contentWindow) {
-                    // Envia comando para a API do YouTube pausar o vídeo
-                    iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                // Verifica se o iframe existe e se tem uma URL válida do YouTube
+                if (iframe && iframe.contentWindow && iframe.src.includes('youtube.com')) {
+                    try {
+                        iframe.contentWindow.postMessage(JSON.stringify({
+                            event: 'command',
+                            func: 'pauseVideo',
+                            args: ''
+                        }), '*');
+                    } catch (e) {
+                        console.warn("Não foi possível pausar o vídeo:", e);
+                    }
                 }
             });
         }
 
+
         // --- EVENTOS DO SWIPER ---
 
         // 1. Ao mudar de slide (via setas ou paginação)
-        proceduresSwiper.on('slideChange', pauseAllVideos);
+        proceduresSwiper.on('slideChangeTransitionEnd', pauseAllVideos);
 
         // 2. Ao começar a arrastar (Touch/Mouse)
         proceduresSwiper.on('touchStart', () => {
@@ -311,98 +351,98 @@ document.addEventListener('DOMContentLoaded', function () {
         }, { threshold: 0.1 });
 
         videoObserver.observe(proceduresSection);
-    
 
-    // ==========================================================
-    // PARTE 3: NAVEGAÇÃO DO DROPDOWN → SLIDE DOS PROCEDIMENTOS
-    // ==========================================================
-    const procedureLinks = document.querySelectorAll(
-        '.procedures-dropdown a, .menu-mobile a[data-slide-index]'
-    );
+        // ==========================================================
+        // PARTE 3: NAVEGAÇÃO DO DROPDOWN → SLIDE DOS PROCEDIMENTOS
+        // ==========================================================
+        const procedureLinks = document.querySelectorAll(
+            '.procedures-dropdown a, .menu-mobile a[data-slide-index]'
+        );
 
-    procedureLinks.forEach(link => {
-        link.addEventListener('click', function (event) {
-            const slideIndex = parseInt(this.getAttribute('data-slide-index'));
-
-            if (!isNaN(slideIndex)) {
-                event.preventDefault();
-                proceduresSwiper.slideTo(slideIndex, 1000);
-                proceduresSection.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-    });
-
-    // ==========================================================
-    // PARTE 10: NAVEGAÇÃO EXTERNA RÁPIDA (ROLAGEM FINALMENTE CORRIGIDA)
-    // ==========================================================
-
-    function goToSlideFromHash() {
-        const hash = window.location.hash;
-
-        if (hash) {
-            const targetLink = document.querySelector(`.procedures-dropdown a[href*="${hash}"]`);
-
-            if (targetLink) {
-                const slideIndex = parseInt(targetLink.getAttribute('data-slide-index'));
+        procedureLinks.forEach(link => {
+            link.addEventListener('click', function (event) {
+                const slideIndex = parseInt(this.getAttribute('data-slide-index'));
 
                 if (!isNaN(slideIndex)) {
+                    event.preventDefault();
+                    proceduresSwiper.slideTo(slideIndex, 1000);
+                    proceduresSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
 
-                    // 1️⃣ Move o slide SEM animação
-                    proceduresSwiper.slideTo(slideIndex, 0);
+        // ==========================================================
+        // PARTE 10: NAVEGAÇÃO EXTERNA RÁPIDA (ROLAGEM FINALMENTE CORRIGIDA)
+        // ==========================================================
 
-                    // 2️⃣ Aguarda o layout mobile estabilizar
-                    setTimeout(() => {
+        function goToSlideFromHash() {
+            const hash = window.location.hash;
 
-                        // Scroll correto
-                        proceduresSection.scrollIntoView({ behavior: 'auto' });
+            if (hash) {
+                const targetLink = document.querySelector(`.procedures-dropdown a[href*="${hash}"]`);
 
-                        // 3️⃣ FORÇA o Swiper a recalcular tudo
-                        proceduresSwiper.update();
-                        proceduresSwiper.updateSlides();
-                        proceduresSwiper.updateSize();
+                if (targetLink) {
+                    const slideIndex = parseInt(targetLink.getAttribute('data-slide-index'));
 
-                    }, 300); // tempo crítico para mobile
+                    if (!isNaN(slideIndex)) {
+
+                        // 1️⃣ Move o slide SEM animação
+                        proceduresSwiper.slideTo(slideIndex, 0);
+
+                        // 2️⃣ Aguarda o layout mobile estabilizar
+                        setTimeout(() => {
+
+                            // Scroll correto
+                            proceduresSection.scrollIntoView({ behavior: 'auto' });
+
+                            // 3️⃣ FORÇA o Swiper a recalcular tudo
+                            proceduresSwiper.update();
+                            proceduresSwiper.updateSlides();
+                            proceduresSwiper.updateSize();
+
+                        }, 300); // tempo crítico para mobile
+                    }
                 }
             }
         }
+
+        // ✅ CHAMADA: Executa a função após a inicialização do Swiper.
+        goToSlideFromHash();
     }
 
-    // ✅ CHAMADA: Executa a função após a inicialização do Swiper.
-    goToSlideFromHash();
-}
 
     // --- SWIPER DA GALERIA DE ESTRUTURA ---
     const estruturaGallery = new Swiper('.gallery-display', {
-    loop: true,
-    autoplay: {
-        delay: 2000,
-        disableOnInteraction: false
-    },
-    speed: 1200,
-    effect: 'fade',
-    fadeEffect: { crossFade: true },
-    pagination: {
-        el: '.swiper-pagination-estrutura',
-        clickable: true
-    }
-});
-
-// --- HERO SLIDER (FADE SUAVE) ---
-const heroSlides = document.querySelectorAll(".hero-slider .slide-item");
-let heroIndex = 0;
-
-function showHeroSlide(index) {
-    heroSlides.forEach((slide, i) => {
-        slide.classList.toggle("active", i === index);
+        loop: true,
+        autoplay: {
+            delay: 2000,
+            disableOnInteraction: false
+        },
+        speed: 1200,
+        effect: 'fade',
+        fadeEffect: { crossFade: true },
+        pagination: {
+            el: '.swiper-pagination-estrutura',
+            clickable: true
+        }
     });
-}
 
-showHeroSlide(heroIndex);
+    // --- HERO SLIDER (FADE SUAVE) ---
+    const heroSlides = document.querySelectorAll(".hero-slider .slide-item");
+    let heroIndex = 0;
 
-setInterval(() => {
-    heroIndex = (heroIndex + 1) % heroSlides.length;
+    function showHeroSlide(index) {
+        heroSlides.forEach((slide, i) => {
+            slide.classList.toggle("active", i === index);
+        });
+    }
+
     showHeroSlide(heroIndex);
-}, 4000);
+
+    setInterval(() => {
+        heroIndex = (heroIndex + 1) % heroSlides.length;
+        showHeroSlide(heroIndex);
+    }, 4000);
 
 }); // Fim do DOMContentLoaded
 

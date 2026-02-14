@@ -1482,73 +1482,88 @@ header.is-fixed {
     transform: scale(1);
 }
 
-/* Responsivo para Mobile */
-@media (max-width: 850px) {
-    .procedure-card.horizontal {
-        flex-direction: column;
-        text-align: center;
-        padding: 30px 20px;
-    }
-
-    .procedure-info {
-        text-align: center;
-    }
-
-    .procedure-description {
-        margin: 0 auto 25px;
-    }
-}
-
 /* ================= PROCEDURE VIDEO ================= */
+
+.procedure-showcase {
+    flex: 0 0 280px;
+    position: relative;
+    z-index: 2;
+}
 
 .procedure-video {
     position: relative;
     width: 100%;
-    max-width: 273px;
-    margin: 0 auto 20px;
-
-    padding-top: 67.78%;
-    /* 9:16 */
-
-    background-color: var(--fundo-section);
-    border-radius: 18px;
+    aspect-ratio: 9 / 16;
+    /* Mantendo seu formato vertical */
+    border-radius: 22px;
     overflow: hidden;
-
-    box-shadow:
-        0 10px 30px rgba(62, 58, 55, 0.15),
-        inset 0 0 0 1px rgba(166, 116, 73, 0.25);
-
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    background: #000;
+    /* Fundo preto para o vídeo */
+    cursor: pointer;
+    box-shadow: 15px 15px 40px rgba(62, 58, 55, 0.2);
+    transition: transform 0.35s ease;
 }
 
-.procedure-video:hover {
-    transform: translateY(-4px);
-    box-shadow:
-        0 18px 40px rgba(62, 58, 55, 0.25),
-        inset 0 0 0 1px rgba(166, 116, 73, 0.45);
+/* Imagem de Capa */
+.procedure-video img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.8;
+    /* Um pouco mais escura para o play destacar */
+    transition: all 0.4s ease;
 }
 
+.procedure-video:hover img {
+    transform: scale(1.05);
+    opacity: 1;
+}
+
+/* Botão de Play Customizado */
+.play-button-wrapper {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    pointer-events: none;
+    /* Deixa o clique passar para a div pai */
+}
+
+.play-button-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--detalhes);
+    color: var(--fundo);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    padding-left: 5px;
+    /* Ajuste visual do ícone de play */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.procedure-video:hover .play-button-icon {
+    transform: scale(1.1);
+    background: var(--fundo);
+    color: var(--detalhes);
+}
+
+/* Iframe que será injetado */
 .procedure-video iframe {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     border: none;
-    border-radius: 18px;
-    pointer-events: auto;
+    z-index: 4;
 }
-
-/* Bloqueia interação do iframe durante o drag */
-.procedure-video iframe {
-    pointer-events: auto;
-}
-
-/* Classe aplicada quando o swiper está em movimento */
-.swiper-dragging iframe {
-    pointer-events: none;
-}
-
-
 
 /* =============================================== */
 /* ⭐ BOTÃO SAIBA MAIS — ESTILO CLÍNICA             */
@@ -2615,10 +2630,6 @@ header.is-fixed {
 .chatbot {
     z-index: 10000;
 }
-
-
-
-
 /* ================================
    RESPONSIVIDADE DO HEADER
 ================================ */
@@ -2840,38 +2851,71 @@ header.is-fixed {
         padding: 70px 6%;
     }
 
+    /* Ajuste do Card para não ficar esticado */
     .procedure-card.horizontal {
         flex-direction: column;
-        /* Texto vai para baixo do vídeo */
-        text-align: center;
-        padding: 30px 20px;
-        max-width: 450px;
-        /* Card fica mais "em pé" */
+        /* No celular, a coluna é melhor para o vídeo aparecer bem */
+        gap: 15px;
+        padding: 20px;
+        max-width: 320px;
+        /* Reduzimos a largura para ele ficar mais centralizado e curto */
+        margin: 0 auto;
+        height: auto;
+        max-height: 560px;
+        /* Trava de segurança para não esticar demais */
+        overflow: hidden;
     }
 
-    .procedure-info {
-        text-align: center;
-    }
-
+    /* O Vídeo (Showcase) - Menor e mais proporcional */
     .procedure-showcase {
         flex: none;
         width: 100%;
-        max-width: 250px;
-        /* Centraliza o vídeo Shorts */
+        max-width: 180px;
+        /* Reduzimos o vídeo para sobrar espaço vertical */
+        height: 320px;
+        /* Altura controlada para o Shorts */
+        margin: 0 auto;
     }
 
-    .procedure-badge {
-        align-self: center;
-        /* Badge centralizado no mobile */
+    .procedure-video {
+        width: 100%;
+        height: 100%;
+        padding-top: 0;
+        border-radius: 12px;
+    }
+
+    /* Área de Texto mais compacta */
+    .procedure-info {
+        text-align: center;
+        width: 100%;
     }
 
     .procedure-title {
-        font-size: 2.2rem;
-        margin-top: 10px;
+        font-size: 1.4rem;
+        /* Diminuímos o título */
+        margin-top: 5px;
+        margin-bottom: 8px;
     }
 
     .procedure-description {
-        margin: 0 auto 25px;
+        font-size: 0.9rem;
+        line-height: 1.4;
+        margin-bottom: 15px;
+        /* Limita a 2 ou 3 linhas no máximo */
+        display: -webkit-box;
+        display: box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .btn-saiba-mais {
+        padding: 10px 20px;
+        font-size: 0.8rem;
+        width: 100%;
+        /* Botão ocupa a largura do texto para facilitar o toque */
     }
 
     /* Ajuste do Título da Seção */
@@ -3160,6 +3204,7 @@ header.is-fixed {
         /* Limita a 2 ou 3 linhas no máximo */
         display: -webkit-box;
         -webkit-line-clamp: 2;
+        line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
