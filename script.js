@@ -257,11 +257,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // 🚩 VARIÁVEL DE PROCEDIMENTOS (para uso em múltiplas partes)
+    // 🚩 INICIALIZAÇÃO DO SWIPER DE PROCEDIMENTOS
     const proceduresSection = document.querySelector('.procedures-section');
-
     let proceduresSwiper;
 
-    // Inicializa o Swiper de Procedimentos APENAS se a seção existir
     if (proceduresSection) {
         proceduresSwiper = new Swiper('.procedures-slider', {
             loop: false,
@@ -269,153 +268,141 @@ document.addEventListener('DOMContentLoaded', function () {
             pagination: { el: '.swiper-pagination', clickable: true },
         });
 
+        // Função única e eficiente para pausar todos os vídeos
         function pauseAllVideos() {
             const iframes = document.querySelectorAll('.procedure-video iframe');
             iframes.forEach(iframe => {
-                const currentSrc = iframe.getAttribute('src') || iframe.getAttribute('data-src');
-                if (currentSrc) {
-                    // No mobile, forçar o src a ficar vazio antes de restaurar ajuda o browser a entender a parada
-                    iframe.setAttribute('src', '');
-
-                    // Usamos um pequeno timeout para garantir que o browser processe a parada antes de reatribuir
-                    setTimeout(() => {
-                        iframe.setAttribute('src', currentSrc);
-                    }, 10);
-                }
-            });
-        }
-
-        // Pausa vídeos ao mudar de slide
-        function pauseAllVideos() {
-            const iframes = document.querySelectorAll('.procedure-video iframe');
-
-            iframes.forEach(iframe => {
-                // Verifica se o iframe está carregado e é do YouTube
                 if (iframe.contentWindow) {
-                    iframe.contentWindow.postMessage(
-                        '{"event":"command","func":"pauseVideo","args":""}',
-                        '*'
-                    );
+                    // Envia comando para a API do YouTube pausar o vídeo
+                    iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
                 }
             });
         }
 
-        if (proceduresSection && proceduresSwiper) {
-            // 1. Pausa ao começar a arrastar (Mobile e Desktop)
-            proceduresSwiper.on('touchStart', () => {
-                pauseAllVideos();
-            });
+        // --- EVENTOS DO SWIPER ---
 
-            // 2. Pausa ao mudar o slide
-            proceduresSwiper.on('slideChange', () => {
-                pauseAllVideos();
-            });
-        }
+        // 1. Ao mudar de slide (via setas ou paginação)
+        proceduresSwiper.on('slideChange', pauseAllVideos);
 
-        // 3. Pausa ao sair da aba ou minimizar
+        // 2. Ao começar a arrastar (Touch/Mouse)
+        proceduresSwiper.on('touchStart', () => {
+            proceduresSection.classList.add('swiper-dragging');
+            pauseAllVideos();
+        });
+
+        // 3. Ao soltar o arrasto
+        proceduresSwiper.on('touchEnd', () => {
+            proceduresSection.classList.remove('swiper-dragging');
+        });
+
+        // --- EVENTOS DE TELA E SCROLL ---
+
+        // 4. Pausa ao sair da aba ou minimizar o navegador
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) pauseAllVideos();
         });
 
-        // 4. Pausa ao sair da seção (Scroll)
+        // 5. Pausa ao sair da seção com o Scroll (Intersection Observer)
         const videoObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
+                // Se o usuário não estiver vendo pelo menos 10% da seção, pausa tudo
                 if (!entry.isIntersecting) pauseAllVideos();
             });
         }, { threshold: 0.1 });
 
-        if (proceduresSection) videoObserver.observe(proceduresSection);
+        videoObserver.observe(proceduresSection);
+    
 
-        // ==========================================================
-        // PARTE 3: NAVEGAÇÃO DO DROPDOWN → SLIDE DOS PROCEDIMENTOS
-        // ==========================================================
-        const procedureLinks = document.querySelectorAll(
-            '.procedures-dropdown a, .menu-mobile a[data-slide-index]'
-        );
+    // ==========================================================
+    // PARTE 3: NAVEGAÇÃO DO DROPDOWN → SLIDE DOS PROCEDIMENTOS
+    // ==========================================================
+    const procedureLinks = document.querySelectorAll(
+        '.procedures-dropdown a, .menu-mobile a[data-slide-index]'
+    );
 
-        procedureLinks.forEach(link => {
-            link.addEventListener('click', function (event) {
-                const slideIndex = parseInt(this.getAttribute('data-slide-index'));
+    procedureLinks.forEach(link => {
+        link.addEventListener('click', function (event) {
+            const slideIndex = parseInt(this.getAttribute('data-slide-index'));
+
+            if (!isNaN(slideIndex)) {
+                event.preventDefault();
+                proceduresSwiper.slideTo(slideIndex, 1000);
+                proceduresSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+
+    // ==========================================================
+    // PARTE 10: NAVEGAÇÃO EXTERNA RÁPIDA (ROLAGEM FINALMENTE CORRIGIDA)
+    // ==========================================================
+
+    function goToSlideFromHash() {
+        const hash = window.location.hash;
+
+        if (hash) {
+            const targetLink = document.querySelector(`.procedures-dropdown a[href*="${hash}"]`);
+
+            if (targetLink) {
+                const slideIndex = parseInt(targetLink.getAttribute('data-slide-index'));
 
                 if (!isNaN(slideIndex)) {
-                    event.preventDefault();
-                    proceduresSwiper.slideTo(slideIndex, 1000);
-                    proceduresSection.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
 
-        // ==========================================================
-        // PARTE 10: NAVEGAÇÃO EXTERNA RÁPIDA (ROLAGEM FINALMENTE CORRIGIDA)
-        // ==========================================================
+                    // 1️⃣ Move o slide SEM animação
+                    proceduresSwiper.slideTo(slideIndex, 0);
 
-        function goToSlideFromHash() {
-            const hash = window.location.hash;
+                    // 2️⃣ Aguarda o layout mobile estabilizar
+                    setTimeout(() => {
 
-            if (hash) {
-                const targetLink = document.querySelector(`.procedures-dropdown a[href*="${hash}"]`);
+                        // Scroll correto
+                        proceduresSection.scrollIntoView({ behavior: 'auto' });
 
-                if (targetLink) {
-                    const slideIndex = parseInt(targetLink.getAttribute('data-slide-index'));
+                        // 3️⃣ FORÇA o Swiper a recalcular tudo
+                        proceduresSwiper.update();
+                        proceduresSwiper.updateSlides();
+                        proceduresSwiper.updateSize();
 
-                    if (!isNaN(slideIndex)) {
-
-                        // 1️⃣ Move o slide SEM animação
-                        proceduresSwiper.slideTo(slideIndex, 0);
-
-                        // 2️⃣ Aguarda o layout mobile estabilizar
-                        setTimeout(() => {
-
-                            // Scroll correto
-                            proceduresSection.scrollIntoView({ behavior: 'auto' });
-
-                            // 3️⃣ FORÇA o Swiper a recalcular tudo
-                            proceduresSwiper.update();
-                            proceduresSwiper.updateSlides();
-                            proceduresSwiper.updateSize();
-
-                        }, 300); // tempo crítico para mobile
-                    }
+                    }, 300); // tempo crítico para mobile
                 }
             }
         }
-
-        // ✅ CHAMADA: Executa a função após a inicialização do Swiper.
-        goToSlideFromHash();
     }
+
+    // ✅ CHAMADA: Executa a função após a inicialização do Swiper.
+    goToSlideFromHash();
+}
 
     // --- SWIPER DA GALERIA DE ESTRUTURA ---
     const estruturaGallery = new Swiper('.gallery-display', {
-        loop: true,
-        autoplay: {
-            delay: 2000,
-            disableOnInteraction: false
-        },
-        speed: 1200,
-        effect: 'fade',
-        fadeEffect: { crossFade: true },
-        pagination: {
-            el: '.swiper-pagination-estrutura',
-            clickable: true
-        }
-    });
-
-    // --- HERO SLIDER (FADE SUAVE) ---
-    const heroSlides = document.querySelectorAll(".hero-slider .slide-item");
-    let heroIndex = 0;
-
-    function showHeroSlide(index) {
-        heroSlides.forEach((slide, i) => {
-            slide.classList.toggle("active", i === index);
-        });
+    loop: true,
+    autoplay: {
+        delay: 2000,
+        disableOnInteraction: false
+    },
+    speed: 1200,
+    effect: 'fade',
+    fadeEffect: { crossFade: true },
+    pagination: {
+        el: '.swiper-pagination-estrutura',
+        clickable: true
     }
+});
 
+// --- HERO SLIDER (FADE SUAVE) ---
+const heroSlides = document.querySelectorAll(".hero-slider .slide-item");
+let heroIndex = 0;
+
+function showHeroSlide(index) {
+    heroSlides.forEach((slide, i) => {
+        slide.classList.toggle("active", i === index);
+    });
+}
+
+showHeroSlide(heroIndex);
+
+setInterval(() => {
+    heroIndex = (heroIndex + 1) % heroSlides.length;
     showHeroSlide(heroIndex);
-
-    setInterval(() => {
-        heroIndex = (heroIndex + 1) % heroSlides.length;
-        showHeroSlide(heroIndex);
-    }, 4000);
+}, 4000);
 
 }); // Fim do DOMContentLoaded
 
@@ -708,12 +695,6 @@ Maceió – AL | Record Offices
                 descricao: "Suaviza linhas de expressão e previne o envelhecimento dinâmico relaxando a musculatura.",
                 tempo: "20 a 30 minutos",
                 recuperacao: "Retorno imediato, evitando deitar ou massagear a área por 4h."
-            },
-            microagulhamento: {
-                nome: "Microagulhamento Específico",
-                descricao: "Indução de colágeno via microagulhas para tratar poros, manchas e textura da pele.",
-                tempo: "45 a 60 minutos",
-                recuperacao: "Vermelhidão por 24h a 48h e uso rigoroso de protetor solar."
             },
             bioestimulador: {
                 nome: "Bioestimulador de Colágeno",
