@@ -83,7 +83,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     window.addEventListener('click', (event) => {
-        if (event.target.classList.contains('modal') || event.target.classList.contains('procedure-modal-overlay')) {
+        // O "?" garante que se classList for undefined, ele não trava o código
+        if (event.target.classList?.contains('modal') || event.target.classList?.contains('procedure-modal-overlay')) {
             event.target.classList.remove('show', 'active');
             document.body.style.overflow = "";
         }
@@ -126,16 +127,25 @@ document.addEventListener('DOMContentLoaded', function () {
     const proceduresSection = document.querySelector('.procedures-section');
     if (proceduresSection) videoObserver.observe(proceduresSection);
 
-    const comparisonContainer = document.querySelector('.image-comparison-container');
-    if (comparisonContainer && depoimentosSwiper) {
-        const disableSwiper = () => { depoimentosSwiper.allowTouchMove = false; };
-        const enableSwiper = () => { depoimentosSwiper.allowTouchMove = true; };
+    // Localize a parte do "Antes e Depois" no seu código e use esta lógica:
+    document.querySelectorAll('.image-comparison-container').forEach(container => {
+        setupImageComparison(container);
 
-        comparisonContainer.addEventListener('mousedown', disableSwiper);
-        comparisonContainer.addEventListener('touchstart', disableSwiper, { passive: true });
-        window.addEventListener('mouseup', enableSwiper);
-        window.addEventListener('touchend', enableSwiper);
-    }
+        const sliderInput = container.querySelector('.image-comparison-slider');
+
+        // Bloqueia o Swiper de trocar de slide enquanto o usuário arrasta o Antes/Depois
+        if (sliderInput && depoimentosSwiper) {
+            const bloquearSwiper = () => { depoimentosSwiper.allowTouchMove = false; };
+            const liberarSwiper = () => { depoimentosSwiper.allowTouchMove = true; };
+
+            sliderInput.addEventListener('mousedown', bloquearSwiper);
+            sliderInput.addEventListener('touchstart', bloquearSwiper, { passive: true });
+
+            // Libera quando soltar (em qualquer lugar da tela)
+            window.addEventListener('mouseup', liberarSwiper);
+            window.addEventListener('touchend', liberarSwiper);
+        }
+    });
 
     // ==========================================================
     // MODAL DE PROCEDIMENTOS (CARDS)
@@ -194,17 +204,42 @@ document.addEventListener('DOMContentLoaded', function () {
         grabCursor: true,
         centeredSlides: true,
         slidesPerView: 'auto',
+        watchSlidesProgress: true,
+        slideToClickedSlide: true, // 👈 IMPORTANTE
         effect: 'creative',
-        touchStartPreventDefault: false,
-        edgeSwipeDetection: true,
+        spaceBetween: 0,           // Espaço entre os cards sem quebrar o layout
+
+        // Adicione isso para garantir que o toque no iPhone seja fluido
+        touchEventsTarget: 'container',
+        resistanceRatio: 0,
+
+        navigation: {
+            nextEl: '.button-swiper-next',
+            prevEl: '.button-swiper-prev',
+        },
+
+
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+
         creativeEffect: {
             perspective: true,
-            limitProgress: 3,
-            prev: { translate: ["-70%", 0, -200], opacity: 0.5, scale: 0.85 },
-            next: { translate: ["70%", 0, -200], opacity: 0.5, scale: 0.85 }
-        },
-        pagination: { el: ".swiper-pagination", clickable: true }
+            limitProgress: 2,
+            prev: {
+                translate: ["-80%", 0, -200],
+                opacity: 0.4,
+                scale: 0.85
+            },
+            next: {
+                translate: ["80%", 0, -200],
+                opacity: 0.4,
+                scale: 0.85
+            }
+        }
     });
+
 
     // 🚩 INICIALIZAÇÃO ÚNICA DO SWIPER DE PROCEDIMENTOS
     let proceduresSwiper;

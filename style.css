@@ -646,8 +646,6 @@ header.is-fixed {
     z-index: 1;
 }
 
-
-
 .hero-content {
     max-width: 500px;
     padding: 60px 60px;
@@ -1374,7 +1372,15 @@ header.is-fixed {
     animation: spin 6s linear infinite;
 }
 
-@keyframes spin { from { --angle: 0deg; } to { --angle: 360deg; } }
+@keyframes spin {
+    from {
+        --angle: 0deg;
+    }
+
+    to {
+        --angle: 360deg;
+    }
+}
 
 /* Área do Vídeo */
 .procedure-showcase {
@@ -1420,7 +1426,8 @@ header.is-fixed {
 }
 
 .procedure-title {
-    font-family: var(--variação); /* Playfair Display */
+    font-family: var(--variação);
+    /* Playfair Display */
     font-size: 2.8rem;
     color: var(--detalhes);
     line-height: 1.1;
@@ -1428,7 +1435,8 @@ header.is-fixed {
 }
 
 .procedure-description {
-    font-family: var(--fonte-requisitados); /* Quicksand */
+    font-family: var(--fonte-requisitados);
+    /* Quicksand */
     font-size: 1.05rem;
     color: var(--texto);
     line-height: 1.6;
@@ -1454,8 +1462,9 @@ header.is-fixed {
 .btn-saiba-mais:hover {
     background: var(--secundario);
     transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
+
 .procedure-video {
     position: relative;
     width: 100%;
@@ -1659,18 +1668,32 @@ header.is-fixed {
     transform: scale(1.4);
 }
 
+/* Isso força a paginação a sair de cima dos cards e ir para baixo */
 .button-swiper-pagination {
-    margin-top: 30px;
+    position: relative !important;
+    /* Libera o elemento do 'grude' do fundo */
+    bottom: 0 !important;
+    /* Reseta a posição padrão do Swiper */
+    margin-top: 20px !important;
+    /* Agora sim, o margin vai funcionar e empurrar */
+    width: 100% !important;
+    display: block !important;
+    text-align: center;
 }
 
+/* Garanta que os bullets apareçam bem */
 .swiper-pagination-bullet {
-    background: var(--secundario);
+    background: var(--secundario) !important;
     opacity: 0.35;
+    width: 10px;
+    height: 10px;
+    margin: 0 6px !important;
+    /* Espaçamento entre as bolinhas */
     transition: 0.3s;
 }
 
 .swiper-pagination-bullet-active {
-    background: var(--detalhes);
+    background: var(--detalhes) !important;
     opacity: 1;
 }
 
@@ -2843,6 +2866,64 @@ header.is-fixed {
         display: none;
     }
 
+    .button-swiper-pagination {
+        margin: 50px auto !important;
+        transform: translateY(0%) scale(0.9);
+    }
+
+    @media (max-width: 767px) {
+
+        .procedures-section .section-title {
+            font-size: 2.4em;
+        }
+
+        .procedures-section .section-subtitle {
+            font-size: 1em;
+            padding: 0 10px;
+        }
+
+        .procedure-card {
+            max-width: 100%;
+            padding: 38px 28px;
+            border-radius: 14px;
+        }
+
+        .procedure-text h3 {
+            font-size: 1.9em;
+        }
+
+        .procedure-text p {
+            font-size: 1.05em;
+            line-height: 1.6;
+        }
+
+        .btn-saiba-mais {
+            padding: 12px 30px;
+        }
+
+        /* Swiper */
+        .button-swiper-next,
+        .button-swiper-prev {
+            transform: scale(1.1);
+        }
+
+        /* Modal */
+        .procedure-modal-card {
+            max-height: 350px;
+            width: 92%;
+            padding: 65px 26px;
+        }
+
+        .procedure-info li {
+            font-size: 1.3em;
+        }
+
+        .button-swiper-pagination {
+            margin: 50px auto !important;
+            transform: translateY(0%) scale(0.9);
+        }
+    }
+
 }
 
 /* Celulares pequenos */
@@ -2978,14 +3059,8 @@ header.is-fixed {
     }
 
     .procedures-slider {
-        padding-bottom: 90px;
+        padding-bottom: 20px;
     }
-
-
-    .procedures-slider {
-        padding-bottom: 90px;
-    }
-
 
 }
 
@@ -3194,12 +3269,12 @@ header.is-fixed {
     }
 
     .hero-content h1 {
-        font-size: 3em;
+        font-size: 3.6em;
         margin-bottom: 10px;
     }
 
     .hero-content p {
-        font-size: 1.3em;
+        font-size: 1.7em;
         max-width: 90%;
     }
 
@@ -3210,11 +3285,10 @@ header.is-fixed {
 
     .hero-button {
         align-self: flex-start;
-        font-size: 1.2em;
+        font-size: 1.7em;
         padding: 14px 26px;
     }
 }
-
 
 @media (max-width: 768px) {
 
@@ -3228,12 +3302,44 @@ header.is-fixed {
     }
 
     .hero-content h1 {
-        font-size: 2.7em;
+        font-size: 3em;
+    }
+
+    .hero-content p {
+        font-size: 1.5em;
+        max-width: 100%;
+    }
+
+    .linha2 {
+        width: 40%;
+    }
+}
+
+
+@media (max-width: 767px) {
+
+    .hero-section {
+        height: 70vh !important;
+        margin-top: 0;
+        border-radius: 0;
+
+        background-position: 75% center;
+
+    }
+
+    .hero-content h1 {
+        font-size: 2em;
     }
 
     .hero-content p {
         font-size: 1.2em;
         max-width: 100%;
+    }
+
+    .hero-button {
+        font-size: 1.1em;
+        padding: 10px 22px;
+        margin-bottom: 50px;
     }
 
     .linha2 {
@@ -3255,7 +3361,7 @@ header.is-fixed {
     }
 
     .hero-content {
-        margin-top: 15rem;
+        margin-top: 5rem;
     }
 
     .hero-content h1 {
@@ -3281,6 +3387,10 @@ header.is-fixed {
 
 /* =============== 360px =============== */
 @media (max-width: 360px) {
+    .hero-section {
+        top: 50px;
+        bottom: 50px;
+    }
 
     .hero-content h1 {
         font-size: 2em;
@@ -3293,6 +3403,7 @@ header.is-fixed {
     .hero-button {
         font-size: 1.1em;
         padding: 10px 22px;
+        margin-bottom: 50px;
     }
 
     .linha2 {
@@ -3302,8 +3413,6 @@ header.is-fixed {
 
 /* =================================================== */
 /* RESPONSIVIDADE - SEÇÃO TRATAMENTOS E MODAL          */
-
-
 
 /* 1. Telas Médias-Grandes (Abaixo de 1200px) */
 @media (max-width: 1200px) {
@@ -3334,10 +3443,16 @@ header.is-fixed {
 
     /* Reduz o tamanho do card */
     .treatment-card {
-        width: 320px !important;
-        min-height: 400px !important;
-        margin-right: 50px !important;
+        width: 100%;
+        max-width: 280px;
+        aspect-ratio: 4 / 5;
+        background: #fff;
+        border-radius: 20px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
     }
+
 }
 
 /* 2. Tablets (Abaixo de 900px) */
@@ -3396,44 +3511,53 @@ header.is-fixed {
         padding: 43px 21px;
     }
 
-    /* Redução e centralização do card no carrossel */
     .treatment-card {
-        width: 100% !important;
-        min-height: 290px !important;
-        margin: 0;
-        /* Reduz margem entre cards */
+        background: linear-gradient(180deg, #ffffff, #f9fbfa);
+        border-radius: 18px;
+        width: 100%;
+        max-width: 380px;
+        padding: 30px;
+        border: 2px solid var(--verde-principal);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        text-align: center;
     }
 
     .treatment-card .card-image-placeholder img {
-        height: 200px;
-        /* Reduz a altura da imagem no card */
-    }
-
-    .swiper-pagination-bullet {
-        transform: translateY(0%) scale(1.3);
+        width: 100%;
+        max-width: 680px;
+        border-radius: 16px;
+        margin-bottom: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
     }
 }
 
-/* 3. Smartphones Largos ou Tablets Retrato (Abaixo de 768px/600px) */
-/* Usaremos 768px como referência principal para otimizar o empilhamento */
 @media (max-width: 768px) {
 
     .treatments-section {
         padding: 0px;
     }
 
-
     .treatment-card {
-        width: 60% !important;
-        min-height: 360px !important;
+        background: linear-gradient(180deg, #ffffff, #f9fbfa);
+        border-radius: 18px;
+        width: 100%;
+        max-width: 280px;
+        padding: 30px;
+        border: 2px solid var(--verde-principal);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        text-align: center;
     }
 
     .treatment-card .card-image-placeholder img {
-        height: 140px;
+        width: 100%;
+        max-width: 680px;
+        border-radius: 16px;
+        margin-bottom: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
     }
 
     .treatments-deck-slider {
-        padding: 0px 3%;
+        padding: 0px 0%;
     }
 
     .treatments-text .impact-title {
@@ -3465,10 +3589,103 @@ header.is-fixed {
         font-size: 1.1rem !important;
     }
 
-    .swiper-pagination-bullet {
-        transform: translateY(0%) scale(1.3);
+    /* Redução e centralização do card no carrossel */
+    .treatment-card .card-image-placeholder {
+        width: 100%;
+        height: 55%;
+        overflow: hidden;
     }
 
+
+    .treatment-card .card-image-placeholder img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .swiper-pagination_tratamento {
+        display: none;
+    }
+
+}
+
+/* 3. Smartphones Largos ou Tablets Retrato (Abaixo de 768px/600px) */
+/* Usaremos 768px como referência principal para otimizar o empilhamento */
+@media (max-width: 767px) {
+
+    .treatments-section {
+        padding: 0px;
+    }
+
+    .treatment-card {
+        background: linear-gradient(180deg, #ffffff, #f9fbfa);
+        border-radius: 18px;
+        width: 100%;
+        max-width: 280px;
+        padding: 30px;
+        border: 2px solid var(--verde-principal);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        text-align: center;
+    }
+
+    .treatment-card .card-image-placeholder img {
+        width: 100%;
+        max-width: 680px;
+        border-radius: 16px;
+        margin-bottom: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .treatments-deck-slider {
+        padding: 0px 3%;
+    }
+
+    .treatments-text .impact-title {
+        font-size: 2.1em;
+    }
+
+    .treatments-text .impact-sub {
+        font-size: 1.2em;
+    }
+
+    .treatment-card .details-button {
+        /* Garante que o link esteja no topo da camada */
+        position: relative;
+        z-index: 99;
+    }
+
+    .modal-content {
+        max-width: 380px !important;
+        padding: 1.2rem !important;
+        margin-top: 50px;
+    }
+
+    .modal-content h2 {
+        font-size: 2.4em !important;
+    }
+
+    .modal-content h3 {
+        font-size: 1.8em !important;
+    }
+
+    .modal-content p,
+    .modal-content ul {
+        font-size: 1.1rem !important;
+    }
+
+    /* Redução e centralização do card no carrossel */
+    .treatment-card .card-image-placeholder {
+        width: 100%;
+        height: 55%;
+        overflow: hidden;
+    }
+
+
+    .treatment-card .card-image-placeholder img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 }
 
 /* 4. Smartphones Padrão (Abaixo de 430px) */
@@ -3495,13 +3712,26 @@ header.is-fixed {
 
     /* Redução e centralização do card no carrossel */
     .treatment-card {
-        width: 170px !important;
-        min-height: 360px !important;
-        margin-right: 18px !important;
+        background: linear-gradient(180deg, #ffffff, #f9fbfa);
+        border-radius: 18px;
+        padding: 20px;
+        border: 2px solid var(--verde-principal);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        text-align: center;
     }
 
     .treatment-card .card-image-placeholder img {
-        height: 140px;
+        width: 100%;
+        max-width: 380px;
+        border-radius: 16px;
+        margin-bottom: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .treatment-card .card-image-placeholder img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 
     .treatment-card h3 {
@@ -3551,30 +3781,42 @@ header.is-fixed {
         font-size: 1.2rem;
         border-radius: 18px;
     }
-
 }
 
 /* 5. Smartphones Pequenos (Abaixo de 360px) */
 @media (max-width: 360px) {
     .treatments-text .impact-title {
-        font-size: 1.9em;
+        font-size: 1.6em;
+        padding: 0 1%;
     }
 
     .treatments-text .impact-sub {
         font-size: 1.1em;
+        padding: 0 1%;
     }
 
     .treatment-card {
-        width: 160px !important;
-        min-height: 370px !important;
+        width: 100%;
+        max-width: 220px;
+        height: 220px;
+        background: linear-gradient(180deg, #ffffff, #f9fbfa);
+        border-radius: 18px;
+        padding: 20px;
+        border: 2px solid var(--verde-principal);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        text-align: center;
     }
 
     .treatment-card .card-image-placeholder img {
-        height: 130px;
+        width: 100%;
+        max-width: 220px;
+        border-radius: 16px;
+        margin-bottom: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
     }
 
     .treatments-deck-slider {
-        padding: 0px 3%;
+        padding: 0px 0%;
     }
 
     .modal-content {
@@ -3595,9 +3837,6 @@ header.is-fixed {
         font-size: 0.9rem !important;
     }
 
-    .swiper-pagination-bullet {
-        transform: translateY(0%) scale(1);
-    }
 }
 
 /* ========================================================== */
@@ -3632,7 +3871,7 @@ header.is-fixed {
     }
 
     .swiper-pagination {
-        margin: 20px auto 0;
+        margin: 60px auto 0 !important;
         transform: translateY(0%) scale(1.2);
     }
 
@@ -3681,7 +3920,7 @@ header.is-fixed {
     }
 
     .swiper-pagination {
-        margin: -50px auto;
+        margin: 50px auto;
         transform: translateY(0%) scale(1.3);
     }
 }
@@ -3741,7 +3980,7 @@ header.is-fixed {
 
     /* Aumenta a paginação para toque */
     .swiper-pagination {
-        margin: -50px auto;
+        margin: 60px auto;
         transform: translateY(0%) scale(1.3);
     }
 
@@ -3777,6 +4016,12 @@ header.is-fixed {
     .card-depoimentos p {
         font-size: 1.3em;
     }
+
+    /* Aumenta a paginação para toque */
+    .swiper-pagination {
+        margin: 60px auto;
+        transform: translateY(0%) scale(0.9);
+    }
 }
 
 /* ============================================================
@@ -3805,6 +4050,11 @@ header.is-fixed {
         max-height: 50vh !important;
         max-width: 580px;
         padding: 38px;
+    }
+
+    .swiper-pagination {
+        margin: 60px auto;
+        transform: translateY(0%) scale(0.9);
     }
 }
 
@@ -3854,9 +4104,6 @@ header.is-fixed {
     }
 }
 
-/* ============================================================
-   🟦 CELULARES MÉDIOS (≤ 768px)
-============================================================ */
 @media (max-width: 768px) {
 
     .procedures-section .section-title {
@@ -3902,6 +4149,67 @@ header.is-fixed {
 
     .procedure-info li {
         font-size: 1.3em;
+    }
+
+    .button-swiper-pagination {
+        margin: 50px auto;
+        transform: translateY(0%) scale(0.9);
+    }
+}
+
+/* ============================================================
+   🟦 CELULARES MÉDIOS (≤ 768px)
+============================================================ */
+@media (max-width: 767px) {
+
+    .procedures-section .section-title {
+        font-size: 2.4em;
+    }
+
+    .procedures-section .section-subtitle {
+        font-size: 1em;
+        padding: 0 10px;
+    }
+
+    .procedure-card {
+        max-width: 100%;
+        padding: 38px 28px;
+        border-radius: 14px;
+    }
+
+    .procedure-text h3 {
+        font-size: 1.9em;
+    }
+
+    .procedure-text p {
+        font-size: 1.05em;
+        line-height: 1.6;
+    }
+
+    .btn-saiba-mais {
+        padding: 12px 30px;
+    }
+
+    /* Swiper */
+    .button-swiper-next,
+    .button-swiper-prev {
+        transform: scale(1.1);
+    }
+
+    /* Modal */
+    .procedure-modal-card {
+        max-height: 350px;
+        width: 92%;
+        padding: 65px 26px;
+    }
+
+    .procedure-info li {
+        font-size: 1.3em;
+    }
+
+    .button-swiper-pagination {
+        margin: 60px auto;
+        transform: translateY(0%) scale(0.9);
     }
 }
 
@@ -3964,7 +4272,8 @@ header.is-fixed {
     }
 
     .button-swiper-pagination {
-        bottom: 60px !important;
+        margin: 50px auto;
+        transform: translateY(0%) scale(0.9);
     }
 }
 
