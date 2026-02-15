@@ -1,81 +1,97 @@
+// ==========================================================
+// 1. MENU MOBILE (FORA DO DOMCONTENTLOADED PARA CARGA RÁPIDA)
+// ==========================================================
 const btn = document.getElementById("hamburguer");
 const menu = document.getElementById("menuMobile");
 
-btn.addEventListener("click", () => {
-    btn.classList.toggle("ativo");
-    menu.classList.toggle("ativo");
-});
+if (btn && menu) {
+    btn.addEventListener("click", () => {
+        btn.classList.toggle("ativo");
+        menu.classList.toggle("ativo");
+    });
 
-// Lógica do dropdown mobile
-const mobileButtons = document.querySelectorAll(".mobile-btn");
+    const mobileButtons = document.querySelectorAll(".mobile-btn");
+    mobileButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            mobileButtons.forEach((otherBtn) => {
+                if (otherBtn !== button) {
+                    otherBtn.classList.remove("active");
+                    if (otherBtn.nextElementSibling) otherBtn.nextElementSibling.style.display = "none";
+                }
+            });
 
-mobileButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-
-        // Fecha todos os outros dropdowns abertos
-        mobileButtons.forEach((otherBtn) => {
-            if (otherBtn !== button) {
-                otherBtn.classList.remove("active");
-                otherBtn.nextElementSibling.style.display = "none";
+            const submenu = button.nextElementSibling;
+            if (submenu) {
+                const isOpen = submenu.style.display === "block";
+                submenu.style.display = isOpen ? "none" : "block";
+                button.classList.toggle("active", !isOpen);
             }
         });
-
-        // Alterna o atual
-        const submenu = button.nextElementSibling;
-        const isOpen = submenu.style.display === "block";
-
-        submenu.style.display = isOpen ? "none" : "block";
-        button.classList.toggle("active", !isOpen);
     });
-});
 
-// 🔒 FECHA O MENU MOBILE AO CLICAR EM QUALQUER LINK
-document.querySelectorAll("#menuMobile a").forEach(link => {
-    link.addEventListener("click", () => {
-        menu.classList.remove("ativo");
-        btn.classList.remove("ativo");
+    document.querySelectorAll("#menuMobile a").forEach(link => {
+        link.addEventListener("click", () => {
+            menu.classList.remove("ativo");
+            btn.classList.remove("ativo");
+        });
     });
-});
+}
 
+// ==========================================================
+// 2. LÓGICA PRINCIPAL (DENTRO DE UM ÚNICO DOMCONTENTLOADED)
+// ==========================================================
 document.addEventListener('DOMContentLoaded', function () {
 
+    // --- FUNÇÃO GLOBAL DE PAUSA DE VÍDEOS (YOUTUBE API) ---
+    function pauseAllVideos() {
+        const iframes = document.querySelectorAll('.procedure-video iframe');
+        iframes.forEach(iframe => {
+            if (iframe && iframe.contentWindow) {
+                iframe.contentWindow.postMessage(JSON.stringify({
+                    event: 'command',
+                    func: 'pauseVideo',
+                    args: ''
+                }), '*');
+            }
+        });
+    }
+
     // ==========================================================
-    // PARTE 1: LÓGICA DO MODAL
+    // PARTE 1: LÓGICA DO MODAL (DETALHES)
     // ==========================================================
     const detailButtons = document.querySelectorAll('.details-button');
-
     detailButtons.forEach(button => {
         button.addEventListener('click', function (event) {
             event.preventDefault();
-
             const modalId = this.getAttribute('data-modal-target');
             const targetModal = document.getElementById(modalId);
+            if (targetModal) targetModal.classList.add('show');
+        });
+    });
 
-            if (targetModal) {
-                targetModal.classList.add('show');
+    // ==========================================
+    // LÓGICA PARA FECHAR QUALQUER MODAL
+    // ==========================================
+    document.querySelectorAll('.close-button, .procedure-modal-close').forEach(button => {
+        button.addEventListener('click', () => {
+            const modalToClose = button.closest('.modal, #procedureModal');
+            if (modalToClose) {
+                modalToClose.classList.remove('show', 'active');
+                document.body.style.overflow = "";
             }
         });
     });
 
-    const closeButtons = document.querySelectorAll('.close-button');
-    closeButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            const modal = this.closest('.modal');
-            if (modal) modal.classList.remove('show');
-        });
-    });
-
-    window.addEventListener('click', function (event) {
-        if (event.target.classList.contains('modal')) {
-            event.target.classList.remove('show');
+    window.addEventListener('click', (event) => {
+        if (event.target.classList.contains('modal') || event.target.classList.contains('procedure-modal-overlay')) {
+            event.target.classList.remove('show', 'active');
+            document.body.style.overflow = "";
         }
     });
 
     // ==========================================================
-    // PARTE 2: ATIVAÇÃO DOS SWIPERS
+    // PARTE 2: ATIVAÇÃO DOS SWIPERS E VÍDEOS
     // ==========================================================
-
-    // --- SWIPER DE DEPOIMENTOS ---
     const depoimentosSwiper = new Swiper('.depoimentos-slider', {
         slidesPerView: 1,
         spaceBetween: 30,
@@ -85,149 +101,59 @@ document.addEventListener('DOMContentLoaded', function () {
         navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
     });
 
-    // Seleciona o slider de comparação
-    const comparisonContainer = document.querySelector('.image-comparison-container');
+    const videoContainers = document.querySelectorAll('.procedure-video');
+    videoContainers.forEach(container => {
+        container.addEventListener('click', function () {
+            if (this.querySelector('iframe')) return;
 
-    if (comparisonContainer) {
+            const videoId = this.getAttribute('data-video');
+            this.innerHTML = `
+                <iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen></iframe>`;
+        });
+    });
+
+    const videoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) {
+                pauseAllVideos();
+            }
+        });
+    }, { threshold: 0.1 });
+
+    const proceduresSection = document.querySelector('.procedures-section');
+    if (proceduresSection) videoObserver.observe(proceduresSection);
+
+    const comparisonContainer = document.querySelector('.image-comparison-container');
+    if (comparisonContainer && depoimentosSwiper) {
         const disableSwiper = () => { depoimentosSwiper.allowTouchMove = false; };
         const enableSwiper = () => { depoimentosSwiper.allowTouchMove = true; };
 
-        // Bloqueia o Swiper ao interagir com o comparador
         comparisonContainer.addEventListener('mousedown', disableSwiper);
         comparisonContainer.addEventListener('touchstart', disableSwiper, { passive: true });
-
-        // O PULO DO GATO: Reativa o Swiper no WINDOW (global)
-        // Isso garante que se o usuário soltar o clique fora do elemento, o Swiper destrava.
         window.addEventListener('mouseup', enableSwiper);
         window.addEventListener('touchend', enableSwiper);
     }
 
     // ==========================================================
-    // 2. LÓGICA DE VÍDEOS (FACHADA / CLIQUE PARA CARREGAR)
-    // ==========================================================
-    const videoContainers = document.querySelectorAll('.procedure-video');
-
-    // Função que "limpa" o vídeo e coloca a foto de volta
-    function resetVideo(container) {
-        const videoId = container.getAttribute('data-video');
-        if (container.querySelector('iframe')) {
-            container.innerHTML = `
-                <img src="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg" alt="Capa" loading="lazy">
-                <div class="play-button-wrapper">
-                    <div class="play-button-icon">▶</div>
-                </div>
-            `;
-        }
-    }
-
-    videoContainers.forEach(container => {
-        container.addEventListener('click', function () {
-            if (this.querySelector('iframe')) return; // Se já abriu, não faz nada
-
-            const videoId = this.getAttribute('data-video');
-            this.innerHTML = `
-                <iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen></iframe>`;
-        });
-    });
-    // ===============================
     // MODAL DE PROCEDIMENTOS (CARDS)
-    // ===============================
-
+    // ==========================================================
     const procedureData = {
-        pdrn: {
-            title: "PDRN",
-            description: "Bioestimulador de última geração derivado do DNA do salmão que recupera a saúde da pele.",
-            indication: "Cicatrizes de acne, poros abertos, manchas, olheiras escuras e envelhecimento precoce.",
-            time: "30 a 40 minutos",
-            recovery: "Pequenas pápulas que desaparecem em até 24h"
-        },
-        limpeza_pele: {
-            title: "Limpeza de Pele Profunda",
-            description: "Protocolo completo para remoção de impurezas, cravos e células mortas, devolvendo o viço à pele.",
-            indication: "Cravos (comedões), milium, excesso de oleosidade e preparação para outros tratamentos.",
-            time: "60 a 90 minutos",
-            recovery: "Evitar exposição solar direta por 48h"
-        },
-        skinbooster: {
-            title: "SkinBooster",
-            description: "Banho de hidratação profunda com ácido hialurônico que atua nas camadas internas da derme.",
-            indication: "Pele ressecada, desvitalizada, rugas finas ao redor dos olhos e do 'código de barras'.",
-            time: "30 minutos",
-            recovery: "Retorno imediato"
-        },
-        botox: {
-            title: "Botox (Toxina Botulínica)",
-            description: "Suaviza rugas dinâmicas e previne o envelhecimento, promovendo um semblante mais descansado.",
-            indication: "Rugas na testa, pés de galinha, linhas entre as sobrancelhas e arqueamento de sobrancelha.",
-            time: "20 a 30 minutos",
-            recovery: "Retorno imediato às atividades"
-        },
-        microagulhamento: {
-            title: "Microagulhamento Específico",
-            description: "Indução de colágeno através de microagulhas associada ao drug delivery de ativos concentrados.",
-            indication: "Cicatrizes de acne, poros dilatados, estrias, melasma e rejuvenescimento.",
-            time: "45 a 60 minutos",
-            recovery: "Vermelhidão leve a moderada por 24h a 48h"
-        },
-        bioestimulador: {
-            title: "Bioestimulador de Colágeno",
-            description: "Substâncias que ativam a produção natural de colágeno pelo próprio organismo de forma progressiva.",
-            indication: "Perda de firmeza (derretimento facial), pele fina, flacidez no pescoço e interno de braços/coxas.",
-            time: "30 a 45 minutos",
-            recovery: "Retorno imediato, evitar sol e esforço físico por 24h"
-        },
-        peeling: {
-            title: "Peeling Químico",
-            description: "Aplicação de ácidos que removem camadas danificadas da pele e estimulam a renovação celular.",
-            indication: "Manchas (melasma/sol), acne ativa, sequelas de acne e textura irregular da pele.",
-            time: "30 minutos",
-            recovery: "Descamação fina entre o 3º e 7º dia"
-        },
-        peim: {
-            title: "PEIM (Secagem de Vasinhos)",
-            description: "Microinjeções de substâncias esclerosantes para eliminar pequenos vasos superficiais.",
-            indication: "Telangiectasias (vasinhos estéticos) nas pernas e microvarizes.",
-            time: "30 minutos",
-            recovery: "Evitar exposição solar direta e exercícios intensos por 48h"
-        },
-        mesclas: {
-            title: "Intradermoterapia / Mesclas",
-            description: "Aplicação direta de coquetéis de ativos farmacológicos para tratar queixas específicas de forma concentrada.",
-            indication: "Gordura localizada, queda capilar (alopecia), celulite, estrias e clareamento de manchas.",
-            time: "20 a 40 minutos",
-            recovery: "Retorno imediato, podendo apresentar leve sensibilidade no local"
-        },
-        ultraformer: {
-            title: "Ultraformer MPT",
-            description: "Tecnologia de ultrassom de última geração que combina efeito lifting com a quebra de gordura localizada.",
-            indication: "Flacidez facial, papada, contorno mandibular indefinido e flacidez corporal.",
-            time: "30 a 60 minutos",
-            recovery: "Atividades normais no mesmo dia"
-        },
-        labios: {
-            title: "Preenchimento Labial",
-            description: "Refinamento do contorno e volume labial, mantendo a naturalidade e a hidratação dos tecidos.",
-            indication: "Lábios finos, perda de contorno, assimetria labial e rugas periorais.",
-            time: "40 a 60 minutos",
-            recovery: "Edema (inchaço) leve nos primeiros 2 a 5 dias"
-        },
-        profhilo: {
-            title: "Profhilo",
-            description: "Biorremodelador celular que melhora a qualidade da pele através da máxima hidratação e elasticidade.",
-            indication: "Laxidão da pele, perda de viço, aspecto 'craquelado' e envelhecimento do pescoço e mãos.",
-            time: "20 a 30 minutos",
-            recovery: "Retorno imediato"
-        },
-        hof: {
-            title: "Harmonização Orofacial (HOF)",
-            description: "Planejamento personalizado que utiliza diversas técnicas para equilibrar a estética e funcionalidade da face.",
-            indication: "Assimetrias faciais, perda de volume global, desproporção entre nariz, queixo e mandíbula.",
-            time: "60 a 90 minutos",
-            recovery: "Pequeno inchaço local por 48h"
-        }
+        pdrn: { title: "PDRN", description: "Bioestimulador de última geração derivado do DNA do salmão que recupera a saúde da pele.", indication: "Cicatrizes de acne, poros abertos, manchas, olheiras escuras e envelhecimento precoce.", time: "30 a 40 minutos", recovery: "Pequenas pápulas que desaparecem em até 24h" },
+        limpeza_pele: { title: "Limpeza de Pele Profunda", description: "Protocolo completo para remoção de impurezas, cravos e células mortas, devolvendo o viço à pele.", indication: "Cravos (comedões), milium, excesso de oleosidade e preparação para outros tratamentos.", time: "60 a 90 minutos", recovery: "Evitar exposição solar direta por 48h" },
+        skinbooster: { title: "SkinBooster", description: "Banho de hidratação profunda com ácido hialurônico que atua nas camadas internas da derme.", indication: "Pele ressecada, desvitalizada, rugas finas ao redor dos olhos e do 'código de barras'.", time: "30 minutos", recovery: "Retorno imediato" },
+        botox: { title: "Botox (Toxina Botulínica)", description: "Suaviza rugas dinâmicas e previne o envelhecimento, promovendo um semblante mais descansado.", indication: "Rugas na testa, pés de galinha, linhas entre as sobrancelhas e arqueamento de sobrancelha.", time: "20 a 30 minutos", recovery: "Retorno imediato às atividades" },
+        microagulhamento: { title: "Microagulhamento Específico", description: "Indução de colágeno através de microagulhas associada ao drug delivery de ativos concentrados.", indication: "Cicatrizes de acne, poros dilatados, estrias, melasma e rejuvenescimento.", time: "45 a 60 minutos", recovery: "Vermelhidão leve a moderada por 24h a 48h" },
+        bioestimulador: { title: "Bioestimulador de Colágeno", description: "Substâncias que ativam a produção natural de colágeno pelo próprio organismo de forma progressiva.", indication: "Perda de firmeza (derretimento facial), pele fina, flacidez no pescoço e interno de braços/coxas.", time: "30 a 45 minutos", recovery: "Retorno imediato, evitar sol e esforço físico por 24h" },
+        peeling: { title: "Peeling Químico", description: "Aplicação de ácidos que removem camadas danificadas da pele e estimulam a renovação celular.", indication: "Manchas (melasma/sol), acne ativa, sequelas de acne e textura irregular da pele.", time: "30 minutos", recovery: "Descamação fina entre o 3º e 7º dia" },
+        peim: { title: "PEIM (Secagem de Vasinhos)", description: "Microinjeções de substâncias esclerosantes para eliminar pequenos vasos superficiais.", indication: "Telangiectasias (vasinhos estéticos) nas pernas e microvarizes.", time: "30 minutos", recovery: "Evitar exposição solar direta e exercícios intensos por 48h" },
+        mesclas: { title: "Intradermoterapia / Mesclas", description: "Aplicação direta de coquetéis de ativos farmacológicos para tratar queixas específicas de forma concentrada.", indication: "Gordura localizada, queda capilar (alopecia), celulite, estrias e clareamento de manchas.", time: "20 a 40 minutos", recovery: "Retorno imediato, podendo apresentar leve sensibilidade no local" },
+        ultraformer: { title: "Ultraformer MPT", description: "Tecnologia de ultrassom de última geração que combina efeito lifting com a quebra de gordura localizada.", indication: "Flacidez facial, papada, contorno mandibular indefinido e flacidez corporal.", time: "30 a 60 minutos", recovery: "Atividades normais no mesmo dia" },
+        labios: { title: "Preenchimento Labial", description: "Refinamento do contorno e volume labial, mantendo a naturalidade e a hidratação dos tecidos.", indication: "Lábios finos, perda de contorno, assimetria labial e rugas periorais.", time: "40 a 60 minutos", recovery: "Edema (inchaço) leve nos primeiros 2 a 5 dias" },
+        profhilo: { title: "Profhilo", description: "Biorremodelador celular que melhora a qualidade da pele através da máxima hidratação e elasticidade.", indication: "Laxidão da pele, perda de viço, aspecto 'craquelado' e envelhecimento do pescoço e mãos.", time: "20 a 30 minutos", recovery: "Retorno imediato" },
+        hof: { title: "Harmonização Orofacial (HOF)", description: "Planejamento personalizado que utiliza diversas técnicas para equilibrar a estética e funcionalidade da face.", indication: "Assimetrias faciais, perda de volume global, desproporção entre nariz, queixo e mandíbula.", time: "60 a 90 minutos", recovery: "Pequeno inchaço local por 48h" }
     };
 
     const modal = document.getElementById("procedureModal");
@@ -255,12 +181,8 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // FECHAR
     modal.addEventListener("click", e => {
-        if (
-            e.target.classList.contains("procedure-modal-overlay") ||
-            e.target.classList.contains("procedure-modal-close")
-        ) {
+        if (e.target.classList.contains("procedure-modal-overlay") || e.target.classList.contains("procedure-modal-close")) {
             modal.classList.remove("active");
             document.body.style.overflow = "";
         }
@@ -273,91 +195,69 @@ document.addEventListener('DOMContentLoaded', function () {
         centeredSlides: true,
         slidesPerView: 'auto',
         effect: 'creative',
-        touchStartPreventDefault: false, // Permite que o clique inicial seja registrado corretamente
-        edgeSwipeDetection: true,        // Ajuda a detectar quando o arrasto sai da borda
-        // ...
-
+        touchStartPreventDefault: false,
+        edgeSwipeDetection: true,
         creativeEffect: {
             perspective: true,
             limitProgress: 3,
             prev: { translate: ["-70%", 0, -200], opacity: 0.5, scale: 0.85 },
             next: { translate: ["70%", 0, -200], opacity: 0.5, scale: 0.85 }
         },
-
         pagination: { el: ".swiper-pagination", clickable: true }
     });
 
-
-    // 🚩 INICIALIZAÇÃO DO SWIPER DE PROCEDIMENTOS
-    const proceduresSection = document.querySelector('.procedures-section');
+    // 🚩 INICIALIZAÇÃO ÚNICA DO SWIPER DE PROCEDIMENTOS
     let proceduresSwiper;
 
     if (proceduresSection) {
         proceduresSwiper = new Swiper('.procedures-slider', {
+            slidesPerView: 'auto',
+            centeredSlides: true,
+            spaceBetween: 30,
+            grabCursor: true,
             loop: false,
-            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-            pagination: { el: '.swiper-pagination', clickable: true },
+            centeredSlidesBounds: true,
+            centerInsufficientSlides: true,
+            watchSlidesProgress: true,
+            observer: true,
+            observeParents: true,
+            resizeObserver: true,
+            navigation: {
+                nextEl: '.button-swiper-next',
+                prevEl: '.button-swiper-prev'
+            },
+            pagination: {
+                el: '.button-swiper-pagination',
+                clickable: true
+            },
+            on: {
+                slideChange: function () {
+                    if (typeof pauseAllVideos === "function") pauseAllVideos();
+                },
+                init: function () {
+                    setTimeout(() => this.update(), 500);
+                }
+            }
         });
 
-        // Função única e eficiente para pausar todos os vídeos
-        function pauseAllVideos() {
-            const iframes = document.querySelectorAll('.procedure-video iframe');
-            iframes.forEach(iframe => {
-                // Verifica se o iframe existe e se tem uma URL válida do YouTube
-                if (iframe && iframe.contentWindow && iframe.src.includes('youtube.com')) {
-                    try {
-                        iframe.contentWindow.postMessage(JSON.stringify({
-                            event: 'command',
-                            func: 'pauseVideo',
-                            args: ''
-                        }), '*');
-                    } catch (e) {
-                        console.warn("Não foi possível pausar o vídeo:", e);
-                    }
-                }
-            });
-        }
-
-
-        // --- EVENTOS DO SWIPER ---
-
-        // 1. Ao mudar de slide (via setas ou paginação)
         proceduresSwiper.on('slideChangeTransitionEnd', pauseAllVideos);
 
-        // 2. Ao começar a arrastar (Touch/Mouse)
         proceduresSwiper.on('touchStart', () => {
             proceduresSection.classList.add('swiper-dragging');
             pauseAllVideos();
         });
 
-        // 3. Ao soltar o arrasto
         proceduresSwiper.on('touchEnd', () => {
             proceduresSection.classList.remove('swiper-dragging');
         });
 
-        // --- EVENTOS DE TELA E SCROLL ---
-
-        // 4. Pausa ao sair da aba ou minimizar o navegador
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) pauseAllVideos();
         });
 
-        // 5. Pausa ao sair da seção com o Scroll (Intersection Observer)
-        const videoObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                // Se o usuário não estiver vendo pelo menos 10% da seção, pausa tudo
-                if (!entry.isIntersecting) pauseAllVideos();
-            });
-        }, { threshold: 0.1 });
-
         videoObserver.observe(proceduresSection);
 
-        // ==========================================================
-        // PARTE 3: NAVEGAÇÃO DO DROPDOWN → SLIDE DOS PROCEDIMENTOS
-        // ==========================================================
-        const procedureLinks = document.querySelectorAll(
-            '.procedures-dropdown a, .menu-mobile a[data-slide-index]'
-        );
+        const procedureLinks = document.querySelectorAll('.procedures-dropdown a, .menu-mobile a[data-slide-index]');
 
         procedureLinks.forEach(link => {
             link.addEventListener('click', function (event) {
@@ -371,10 +271,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
 
-        // ==========================================================
-        // PARTE 10: NAVEGAÇÃO EXTERNA RÁPIDA (ROLAGEM FINALMENTE CORRIGIDA)
-        // ==========================================================
-
         function goToSlideFromHash() {
             const hash = window.location.hash;
 
@@ -385,31 +281,21 @@ document.addEventListener('DOMContentLoaded', function () {
                     const slideIndex = parseInt(targetLink.getAttribute('data-slide-index'));
 
                     if (!isNaN(slideIndex)) {
-
-                        // 1️⃣ Move o slide SEM animação
                         proceduresSwiper.slideTo(slideIndex, 0);
 
-                        // 2️⃣ Aguarda o layout mobile estabilizar
                         setTimeout(() => {
-
-                            // Scroll correto
                             proceduresSection.scrollIntoView({ behavior: 'auto' });
-
-                            // 3️⃣ FORÇA o Swiper a recalcular tudo
                             proceduresSwiper.update();
                             proceduresSwiper.updateSlides();
                             proceduresSwiper.updateSize();
-
-                        }, 300); // tempo crítico para mobile
+                        }, 300);
                     }
                 }
             }
         }
 
-        // ✅ CHAMADA: Executa a função após a inicialização do Swiper.
         goToSlideFromHash();
     }
-
 
     // --- SWIPER DA GALERIA DE ESTRUTURA ---
     const estruturaGallery = new Swiper('.gallery-display', {
@@ -444,201 +330,161 @@ document.addEventListener('DOMContentLoaded', function () {
         showHeroSlide(heroIndex);
     }, 4000);
 
-}); // Fim do DOMContentLoaded
+    // --------------------------------------------------------------------------
+    // PARTE 4: SLIDER ANTES E DEPOIS
+    // --------------------------------------------------------------------------
+    function setupImageComparison(container) {
+        const slider = container.querySelector('.image-comparison-slider');
+        const imageBefore = container.querySelector('.image-comparison-before');
+        const sliderLine = container.querySelector('.slider-line');
 
-// --------------------------------------------------------------------------
-// PARTE 4: SLIDER ANTES E DEPOIS (Pode ficar fora se não houver conflito)
-// --------------------------------------------------------------------------
-function setupImageComparison(container) {
-    const slider = container.querySelector('.image-comparison-slider');
-    const imageBefore = container.querySelector('.image-comparison-before');
-    const sliderLine = container.querySelector('.slider-line');
+        if (!slider || !imageBefore || !sliderLine) return;
 
-    if (!slider || !imageBefore || !sliderLine) return;
+        const updateSlider = value => {
+            imageBefore.style.width = value + '%';
+            sliderLine.style.left = value + '%';
+        };
 
-    const updateSlider = value => {
-        imageBefore.style.width = value + '%';
-        sliderLine.style.left = value + '%';
-    };
-
-    slider.addEventListener('input', e => {
-        updateSlider(e.target.value);
-        imageBefore.style.transition = 'none';
-        sliderLine.style.transition = 'none';
-    });
-
-    slider.addEventListener('change', () => {
-        imageBefore.style.transition = 'width 0.3s ease-out';
-        sliderLine.style.transition = 'left 0.3s ease-out';
-
-        const returnValue = 50;
-        slider.value = returnValue;
-        updateSlider(returnValue);
-    });
-
-    updateSlider(slider.value);
-}
-
-document.querySelectorAll('.image-comparison-container').forEach(setupImageComparison);
-
-// --------------------------------------------------------------------------
-// PARTE 5: ACCORDION
-// --------------------------------------------------------------------------
-document.querySelectorAll(".accordion-toggle").forEach(btn => {
-    btn.addEventListener("click", () => {
-        const group = btn.parentElement;
-
-        document.querySelectorAll(".accordion-group").forEach(g => {
-            if (g !== group) g.classList.remove("open");
+        slider.addEventListener('input', e => {
+            updateSlider(e.target.value);
+            imageBefore.style.transition = 'none';
+            sliderLine.style.transition = 'none';
         });
 
-        group.classList.toggle("open");
-    });
-});
+        slider.addEventListener('change', () => {
+            imageBefore.style.transition = 'width 0.3s ease-out';
+            sliderLine.style.transition = 'left 0.3s ease-out';
 
-// --------------------------------------------------------------------------
-// PARTE 8: DROPDOWN DE ESTRUTURA
-// --------------------------------------------------------------------------
-const dropdowns = document.querySelectorAll(".dropdown-bloco");
-
-dropdowns.forEach(bloco => {
-    const titulo = bloco.querySelector(".dropdown-titulo");
-
-    titulo.addEventListener("click", () => {
-
-        dropdowns.forEach(outro => {
-            if (outro !== bloco) outro.classList.remove("ativo");
+            const returnValue = 50;
+            slider.value = returnValue;
+            updateSlider(returnValue);
         });
 
-        bloco.classList.toggle("ativo");
+        updateSlider(slider.value);
+    }
+
+    document.querySelectorAll('.image-comparison-container').forEach(setupImageComparison);
+
+    // --------------------------------------------------------------------------
+    // PARTE 5: ACCORDION
+    // --------------------------------------------------------------------------
+    document.querySelectorAll(".accordion-toggle").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const group = btn.parentElement;
+
+            document.querySelectorAll(".accordion-group").forEach(g => {
+                if (g !== group) g.classList.remove("open");
+            });
+
+            group.classList.toggle("open");
+        });
     });
-});
 
-// SLIDER QUEM SOU EU — FADE SUAVE
-const quemSouEuSlider = new Swiper('.quemSouEu-slider', {
-    effect: 'fade',
-    fadeEffect: { crossFade: true },
-    loop: true,
-    autoplay: {
-        delay: 3500,
-        disableOnInteraction: false,
-    },
-    speed: 1300,
-});
-document.addEventListener("DOMContentLoaded", () => {
-    const header = document.querySelector("header"); // ou .header
-    if (!header) return;
+    // --------------------------------------------------------------------------
+    // PARTE 8: DROPDOWN DE ESTRUTURA
+    // --------------------------------------------------------------------------
+    const dropdowns = document.querySelectorAll(".dropdown-bloco");
 
-    let lastScrollY = window.scrollY;
-    let scrollTimeout;
-    let isInteracting = false;
+    dropdowns.forEach(bloco => {
+        const titulo = bloco.querySelector(".dropdown-titulo");
 
-    const showHeader = () => {
-        header.classList.add("is-visible");
-        header.classList.remove("is-hidden");
-    };
+        titulo.addEventListener("click", () => {
+            dropdowns.forEach(outro => {
+                if (outro !== bloco) outro.classList.remove("ativo");
+            });
 
-    const hideHeader = () => {
-        // Só esconde se não estiver no topo e não estiver interagindo (mouse em cima)
-        if (window.scrollY > 50 && !isInteracting) {
-            header.classList.remove("is-visible");
-            header.classList.add("is-hidden");
-        }
-    };
+            bloco.classList.toggle("ativo");
+        });
+    });
 
-    window.addEventListener("scroll", () => {
-        const currentScroll = window.scrollY;
+    // SLIDER QUEM SOU EU — FADE SUAVE
+    const quemSouEuSlider = new Swiper('.quemSouEu-slider', {
+        effect: 'fade',
+        fadeEffect: { crossFade: true },
+        loop: true,
+        autoplay: {
+            delay: 3500,
+            disableOnInteraction: false,
+        },
+        speed: 1300,
+    });
 
-        // 1. Comportamento no Topo
-        if (currentScroll <= 10) {
-            header.classList.remove("is-fixed");
-            showHeader();
+    // ==========================================================
+    // HEADER COM SCROLL DINÂMICO
+    // ==========================================================
+    const header = document.querySelector("header");
+    if (header) {
+        let lastScrollY = window.scrollY;
+        let scrollTimeout;
+        let isInteracting = false;
+
+        const showHeader = () => {
+            header.classList.add("is-visible");
+            header.classList.remove("is-hidden");
+        };
+
+        const hideHeader = () => {
+            if (window.scrollY > 50 && !isInteracting) {
+                header.classList.remove("is-visible");
+                header.classList.add("is-hidden");
+            }
+        };
+
+        window.addEventListener("scroll", () => {
+            const currentScroll = window.scrollY;
+
+            if (currentScroll <= 10) {
+                header.classList.remove("is-fixed");
+                showHeader();
+                lastScrollY = currentScroll;
+                return;
+            }
+
+            header.classList.add("is-fixed");
+
+            if (currentScroll > lastScrollY && !isInteracting) {
+                hideHeader();
+            } else if (currentScroll < lastScrollY - 10) {
+                showHeader();
+            }
+
             lastScrollY = currentScroll;
-            return;
-        }
 
-        // 2. Comportamento durante o Scroll
-        header.classList.add("is-fixed");
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                hideHeader();
+            }, 2000);
+        });
 
-        if (currentScroll > lastScrollY && !isInteracting) {
-            // Scroll para baixo -> Esconde
-            hideHeader();
-        } else if (currentScroll < lastScrollY - 10) {
-            // Scroll para cima -> Mostra
-            showHeader();
-        }
+        const setInteracting = (val) => isInteracting = val;
 
-        lastScrollY = currentScroll;
+        header.addEventListener("mouseenter", () => setInteracting(true));
+        header.addEventListener("mouseleave", () => setInteracting(false));
+        header.addEventListener("touchstart", () => setInteracting(true));
+        header.addEventListener("touchend", () => {
+            setInteracting(false);
+            setTimeout(() => hideHeader(), 2000);
+        });
 
-        // 3. Timer para esconder após inatividade (o efeito que você pediu)
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-            hideHeader();
-        }, 2000); // 2 segundos parado, o header sobe
-    });
+        header.classList.add("is-visible");
+    }
 
-    // Interações para evitar que o header suma enquanto o usuário clica no menu
-    const setInteracting = (val) => isInteracting = val;
+    // --- Mantendo sua animação de revelar elementos (Reveal) ---
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.18 });
 
-    header.addEventListener("mouseenter", () => setInteracting(true));
-    header.addEventListener("mouseleave", () => setInteracting(false));
-    header.addEventListener("touchstart", () => setInteracting(true));
-    header.addEventListener("touchend", () => {
-        setInteracting(false);
-        // Pequeno delay no touch para permitir o clique antes de esconder
-        setTimeout(() => hideHeader(), 2000);
-    });
+    reveals.forEach(el => revealObserver.observe(el));
 
-    // Estado inicial
-    header.classList.add("is-visible");
-});
-
-// --- Mantendo sua animação de revelar elementos (Reveal) ---
-const reveals = document.querySelectorAll('.reveal');
-const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-            revealObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.18 });
-
-reveals.forEach(el => revealObserver.observe(el));
-
-//======= FIM DO SCRIPT DO HEADER ========
-
-//CHAT BOt
-const chatToggle = document.getElementById("chatToggle");
-const chatbot = document.getElementById("chatbot");
-const closeChat = document.getElementById("closeChat");
-const chatBody = document.getElementById("chatBody");
-const chatOptions = document.getElementById("chatOptions");
-
-chatToggle.onclick = () => chatbot.classList.toggle("hidden");
-closeChat.onclick = () => chatbot.classList.add("hidden");
-
-function botMessage(text) {
-    chatBody.innerHTML += `<div class="bot">${text}</div>`;
-    chatBody.scrollTop = chatBody.scrollHeight;
-}
-
-function showOptions(options) {
-    chatOptions.innerHTML = "";
-    options.forEach(opt => {
-        const btn = document.createElement("button");
-        btn.innerText = opt.label;
-        btn.onclick = opt.action;
-        chatOptions.appendChild(btn);
-    });
-}
-
-// ===== FLUXOS =====
-document.addEventListener("DOMContentLoaded", () => {
-
-    /* ===============================
-       ELEMENTOS
-    =============================== */
+    // ==========================================================
+    // CHATBOT - INTEGRADO NO ÚNICO DOMCONTENTLOADED
+    // ==========================================================
     const chatToggle = document.getElementById("chatToggle");
     const chatbot = document.getElementById("chatbot");
     const closeChat = document.getElementById("closeChat");
@@ -650,9 +496,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let userData = {};
     let typingEl = null;
 
-    /* ===============================
-       ABRIR / FECHAR CHAT
-    =============================== */
     function openChat() {
         chatbot.classList.remove("hidden");
         chatOverlay.classList.remove("hidden");
@@ -670,13 +513,10 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.style.overflow = "";
     }
 
-    chatToggle.addEventListener("click", openChat);
-    closeChat.addEventListener("click", closeChatFn);
-    chatOverlay.addEventListener("click", closeChatFn);
+    if (chatToggle) chatToggle.addEventListener("click", openChat);
+    if (closeChat) closeChat.addEventListener("click", closeChatFn);
+    if (chatOverlay) chatOverlay.addEventListener("click", closeChatFn);
 
-    /* ===============================
-       LIMPAR CONVERSA (DESKTOP + MOBILE)
-    =============================== */
     function resetChat(e) {
         e.preventDefault();
 
@@ -694,98 +534,31 @@ document.addEventListener("DOMContentLoaded", () => {
         clearChatBtn.addEventListener("touchstart", resetChat, { passive: false });
     }
 
-    /* ===============================
-       BASE DE CONHECIMENTO
-    =============================== */
     const knowledge = {
-        intro: `
-Olá! Sou a assistente virtual da Dra. Ianna Cordeiro.
+        intro: `Olá! Sou a assistente virtual da Dra. Ianna Cordeiro.
 Estou aqui para te orientar sobre os procedimentos estéticos
-e esclarecer suas dúvidas iniciais.
-        `,
-        horarios: `
-Atendemos de segunda a sexta-feira, das 9h às 18h,
-sempre mediante agendamento prévio.
-        `,
-        localizacao: `
-Rua Eng. Mário de Gusmão, 988 – Ponta Verde  
-Maceió – AL | Record Offices
-        `,
+e esclarecer suas dúvidas iniciais.`,
+        horarios: `Atendemos de segunda a sexta-feira, das 9h às 18h,
+sempre mediante agendamento prévio.`,
+        localizacao: `Rua Eng. Mário de Gusmão, 988 – Ponta Verde  
+Maceió – AL | Record Offices`,
         procedimentos: {
-            pdrn: {
-                nome: "PDRN",
-                descricao: "Bioestimulador regenerador derivado do DNA do salmão que recupera a saúde e o viço da pele.",
-                tempo: "30 a 40 minutos",
-                recuperacao: "Pequenas pápulas temporárias que desaparecem em até 24h."
-            },
-            limpeza_pele: {
-                nome: "Limpeza de Pele Profunda",
-                descricao: "Remoção de impurezas, cravos e células mortas, promovendo a desintoxicação e renovação da pele.",
-                tempo: "60 a 90 minutos",
-                recuperacao: "Leve vermelhidão por algumas horas, evitar sol nas primeiras 48h."
-            },
-            skinbooster: {
-                nome: "Skinbooster",
-                descricao: "Hidratação profunda com ácido hialurônico para melhorar o brilho e a elasticidade da pele.",
-                tempo: "30 minutos",
-                recuperacao: "Retorno imediato às atividades."
-            },
-            botox: {
-                nome: "Botox",
-                descricao: "Suaviza linhas de expressão e previne o envelhecimento dinâmico relaxando a musculatura.",
-                tempo: "20 a 30 minutos",
-                recuperacao: "Retorno imediato, evitando deitar ou massagear a área por 4h."
-            },
-            bioestimulador: {
-                nome: "Bioestimulador de Colágeno",
-                descricao: "Estimula a produção natural de colágeno, combatendo a flacidez e o derretimento facial.",
-                tempo: "30 a 45 minutos",
-                recuperacao: "Leve inchaço inicial, com retorno rápido às atividades."
-            },
-            peeling: {
-                nome: "Peeling Químico",
-                descricao: "Aplicação de ácidos para renovação celular, tratamento de manchas e rejuvenescimento.",
-                tempo: "30 minutos",
-                recuperacao: "Descamação controlada por alguns dias, proteção solar obrigatória."
-            },
-            peim: {
-                nome: "PEIM (Secagem de Vasinhos)",
-                descricao: "Eliminação de vasos estéticos superficiais através de microinjeções esclerosantes.",
-                tempo: "30 minutos",
-                recuperacao: "Evitar sol e exercícios físicos intensos por 48h."
-            },
-            ultraformer: {
-                nome: "Ultraformer MPT",
-                descricao: "Tecnologia de ultrassom de última geração para efeito lifting e quebra de gordura localizada.",
-                tempo: "30 a 60 minutos",
-                recuperacao: "Atividades normais no mesmo dia."
-            },
-            labios: {
-                nome: "Preenchimento Labial",
-                descricao: "Realça o contorno, volume e a hidratação dos lábios com ácido hialurônico.",
-                tempo: "40 a 60 minutos",
-                recuperacao: "Inchaço leve nos primeiros 2 a 5 dias."
-            },
-            profhilo: {
-                nome: "Profhilo",
-                descricao: "Biorremodelador celular que melhora a arquitetura da pele e a hidratação profunda.",
-                tempo: "20 a 30 minutos",
-                recuperacao: "Pontos de aplicação são absorvidos rapidamente pela pele."
-            },
-            hof: {
-                nome: "Harmonização Orofacial (HOF)",
-                descricao: "Planejamento global para equilibrar a estética e funcionalidade dos traços faciais.",
-                tempo: "60 a 90 minutos",
-                recuperacao: "Pequeno inchaço ou edema local por cerca de 48h."
-            }
+            pdrn: { nome: "PDRN", descricao: "Bioestimulador regenerador derivado do DNA do salmão que recupera a saúde e o viço da pele.", tempo: "30 a 40 minutos", recuperacao: "Pequenas pápulas temporárias que desaparecem em até 24h." },
+            limpeza_pele: { nome: "Limpeza de Pele Profunda", descricao: "Remoção de impurezas, cravos e células mortas, promovendo a desintoxicação e renovação da pele.", tempo: "60 a 90 minutos", recuperacao: "Leve vermelhidão por algumas horas, evitar sol nas primeiras 48h." },
+            skinbooster: { nome: "Skinbooster", descricao: "Hidratação profunda com ácido hialurônico para melhorar o brilho e a elasticidade da pele.", tempo: "30 minutos", recuperacao: "Retorno imediato às atividades." },
+            botox: { nome: "Botox", descricao: "Suaviza linhas de expressão e previne o envelhecimento dinâmico relaxando a musculatura.", tempo: "20 a 30 minutos", recuperacao: "Retorno imediato, evitando deitar ou massagear a área por 4h." },
+            bioestimulador: { nome: "Bioestimulador de Colágeno", descricao: "Estimula a produção natural de colágeno, combatendo a flacidez e o derretimento facial.", tempo: "30 a 45 minutos", recuperacao: "Leve inchaço inicial, com retorno rápido às atividades." },
+            peeling: { nome: "Peeling Químico", descricao: "Aplicação de ácidos para renovação celular, tratamento de manchas e rejuvenescimento.", tempo: "30 minutos", recuperacao: "Descamação controlada por alguns dias, proteção solar obrigatória." },
+            peim: { nome: "PEIM (Secagem de Vasinhos)", descricao: "Eliminação de vasos estéticos superficiais através de microinjeções esclerosantes.", tempo: "30 minutos", recuperacao: "Evitar sol e exercícios físicos intensos por 48h." },
+            ultraformer: { nome: "Ultraformer MPT", descricao: "Tecnologia de ultrassom de última geração para efeito lifting e quebra de gordura localizada.", tempo: "30 a 60 minutos", recuperacao: "Atividades normais no mesmo dia." },
+            labios: { nome: "Preenchimento Labial", descricao: "Realça o contorno, volume e a hidratação dos lábios com ácido hialurônico.", tempo: "40 a 60 minutos", recuperacao: "Inchaço leve nos primeiros 2 a 5 dias." },
+            profhilo: { nome: "Profhilo", descricao: "Biorremodelador celular que melhora a arquitetura da pele e a hidratação profunda.", tempo: "20 a 30 minutos", recuperacao: "Pontos de aplicação são absorvidos rapidamente pela pele." },
+            hof: { nome: "Harmonização Orofacial (HOF)", descricao: "Planejamento global para equilibrar a estética e funcionalidade dos traços faciais.", tempo: "60 a 90 minutos", recuperacao: "Pequeno inchaço ou edema local por cerca de 48h." }
         }
     };
 
-    /* ===============================
-       DIGITAÇÃO REAL
-    =============================== */
     function showTyping() {
-        hideTyping();
+        if (typingEl) typingEl.remove();
         typingEl = document.createElement("div");
         typingEl.className = "bot typing";
         typingEl.textContent = "Digitando...";
@@ -828,9 +601,6 @@ Maceió – AL | Record Offices
         });
     }
 
-    /* ===============================
-       FLUXO
-    =============================== */
     function startChat() {
         chatBody.innerHTML = "";
         chatOptions.innerHTML = "";
@@ -916,7 +686,7 @@ Maceió – AL | Record Offices
         ]);
     }
 
-});
+}); // FIM DO ÚNICO DOMCONTENTLOADED
 
 // COPIAR EMAIL PARA ÁREA DE TRANSFERÊNCIA 
 function copiarEmail() {
