@@ -180,23 +180,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (!data) return;
 
-            modalTitle.textContent = data.title;
-            modalDescription.textContent = data.description;
-            modalIndication.textContent = data.indication;
-            modalTime.textContent = data.time;
-            modalRecovery.textContent = data.recovery;
+            if (modalTitle) modalTitle.textContent = data.title;
+            if (modalDescription) modalDescription.textContent = data.description;
+            if (modalIndication) modalIndication.textContent = data.indication;
+            if (modalTime) modalTime.textContent = data.time;
+            if (modalRecovery) modalRecovery.textContent = data.recovery;
 
-            modal.classList.add("active");
-            document.body.style.overflow = "hidden";
+            if (modal) {
+                modal.classList.add("active");
+                document.body.style.overflow = "hidden";
+            }
         });
     });
 
-    modal.addEventListener("click", e => {
-        if (e.target.classList.contains("procedure-modal-overlay") || e.target.classList.contains("procedure-modal-close")) {
-            modal.classList.remove("active");
-            document.body.style.overflow = "";
-        }
-    });
+    if (modal) {
+        modal.addEventListener("click", e => {
+            if (e.target.classList.contains("procedure-modal-overlay") || e.target.classList.contains("procedure-modal-close")) {
+                modal.classList.remove("active");
+                document.body.style.overflow = "";
+            }
+        });
+    }
 
     // --- SWIPER DECK ---
     const treatmentsDeck = new Swiper('.treatments-deck-slider', {

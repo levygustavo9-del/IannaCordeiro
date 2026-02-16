@@ -25,7 +25,7 @@ body {
 }
 
 body {
-    background-color: var(--fundo);
+    background-color: var(--fundo-section);
     padding-top: 44px;
     /* altura REAL do header */
 }
@@ -1273,14 +1273,9 @@ header.is-fixed {
     color: var(--detalhes) !important;
     top: 60%;
     width: 2%;
-    transform: translateY(-50%) scale(1) !important;
+    transform: translateY(-50%) scale(1.3) !important;
     transition: color 0.3s;
     margin: 0 10px;
-}
-
-.swiper-button-prev {
-    width: 8%;
-    ;
 }
 
 .swiper-button-next:hover,
@@ -1467,6 +1462,7 @@ header.is-fixed {
 
 .procedure-video {
     position: relative;
+    display: block;
     width: 100%;
     aspect-ratio: 9 / 16;
     border-radius: 22px;
@@ -1492,35 +1488,46 @@ header.is-fixed {
     opacity: 1;
 }
 
+/* 2. O botão de play vai para o centro absoluto */
 .play-button-wrapper {
     position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 3;
+    top: 50%;
+    left: 50%;
+    /* O transform faz o ajuste fino para o centro real */
+    transform: translate(-50%, -50%);
+
+    z-index: 100;
+    width: 110px;
+    /* Tamanho do ícone do Shorts */
+    height: 110px;
+
+    background: none !important;
+    border: none !important;
+    flex-shrink: 0;
+    aspect-ratio: 1 / 1;
     pointer-events: none;
+    /* Deixa o clique passar para o vídeo se necessário */
 }
 
 .play-button-icon {
-    width: 60px;
-    height: 60px;
-    background: var(--detalhes);
-    color: var(--fundo);
-    border-radius: 50%;
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
-    padding-left: 5px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
 }
 
-.procedure-video:hover .play-button-icon {
+.play-button-icon svg {
+    width: 100%;
+    height: auto;
+    /* Filtro leve de sombra apenas no ícone para dar leitura sobre vídeos claros */
+    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+/* Efeito suave ao passar o mouse */
+.play-button-wrapper:hover {
     transform: scale(1.1);
-    background: var(--fundo);
-    color: var(--detalhes);
+    transition: transform 0.2s ease;
 }
 
 .procedure-video iframe {
@@ -2848,6 +2855,24 @@ header.is-fixed {
         /* Botão ocupa a largura do texto para facilitar o toque */
     }
 
+    .play-button-wrapper {
+        width: 75px;
+        height: 75px;
+    }
+
+
+    .play-button-icon {
+        width: 100%;
+        height: 100%;
+    }
+
+    .play-button-icon svg {
+        width: 100%;
+        height: 100%;
+        /* Filtro para o ícone não "sumir" em vídeos muito claros */
+        filter: drop-shadow(0px 2px 5px rgba(0, 0, 0, 0.5));
+    }
+
     /* Ajuste do Título da Seção */
     .procedures-section .section-title {
         font-size: 2.2em;
@@ -2870,60 +2895,59 @@ header.is-fixed {
         margin: 50px auto !important;
         transform: translateY(0%) scale(0.9);
     }
+}
 
-    @media (max-width: 767px) {
+@media (max-width: 767px) {
 
-        .procedures-section .section-title {
-            font-size: 2.4em;
-        }
-
-        .procedures-section .section-subtitle {
-            font-size: 1em;
-            padding: 0 10px;
-        }
-
-        .procedure-card {
-            max-width: 100%;
-            padding: 38px 28px;
-            border-radius: 14px;
-        }
-
-        .procedure-text h3 {
-            font-size: 1.9em;
-        }
-
-        .procedure-text p {
-            font-size: 1.05em;
-            line-height: 1.6;
-        }
-
-        .btn-saiba-mais {
-            padding: 12px 30px;
-        }
-
-        /* Swiper */
-        .button-swiper-next,
-        .button-swiper-prev {
-            transform: scale(1.1);
-        }
-
-        /* Modal */
-        .procedure-modal-card {
-            max-height: 350px;
-            width: 92%;
-            padding: 65px 26px;
-        }
-
-        .procedure-info li {
-            font-size: 1.3em;
-        }
-
-        .button-swiper-pagination {
-            margin: 50px auto !important;
-            transform: translateY(0%) scale(0.9);
-        }
+    .procedures-section .section-title {
+        font-size: 2.4em;
     }
 
+    .procedures-section .section-subtitle {
+        font-size: 1em;
+        padding: 0 10px;
+    }
+
+    .procedure-card {
+        max-width: 100%;
+        padding: 38px 28px;
+        border-radius: 14px;
+    }
+
+    .procedure-text h3 {
+        font-size: 1.9em;
+    }
+
+    .procedure-text p {
+        font-size: 1.05em;
+        line-height: 1.6;
+    }
+
+    .btn-saiba-mais {
+        padding: 12px 30px;
+    }
+
+    /* Swiper */
+    .button-swiper-next,
+    .button-swiper-prev {
+        transform: scale(1.1);
+    }
+
+    /* Modal */
+    .procedure-modal-card {
+        max-height: 350px;
+        width: 92%;
+        padding: 65px 26px;
+    }
+
+    .procedure-info li {
+        font-size: 1.3em;
+    }
+
+    .button-swiper-pagination {
+        margin: 50px auto !important;
+        transform: translateY(0%) scale(0.9);
+    }
 }
 
 /* Celulares pequenos */
@@ -3246,7 +3270,7 @@ header.is-fixed {
         margin-top: 0;
         border-radius: 0;
 
-        background-position: 75% center;
+        background-position: 65% center;
 
     }
 
@@ -3279,14 +3303,14 @@ header.is-fixed {
     }
 
     .linha2 {
-        width: 45%;
+        width: 65%;
         margin-top: 10px;
     }
 
     .hero-button {
         align-self: flex-start;
-        font-size: 1.7em;
-        padding: 14px 26px;
+        font-size: 1.6em;
+        padding: 14px 17px;
     }
 }
 
@@ -3297,53 +3321,119 @@ header.is-fixed {
         margin-top: 0;
         border-radius: 0;
 
-        background-position: 75% center;
+        background-position: 65% center;
 
+    }
+
+    .hero-overlay {
+        background: linear-gradient(to bottom,
+                rgba(0, 0, 0, 0.55),
+                rgba(0, 0, 0, 0.35));
+    }
+
+    .hero-content {
+        max-width: 100%;
+        padding: 0 8% 40px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        text-align: left;
+        margin-top: 5%;
     }
 
     .hero-content h1 {
-        font-size: 3em;
+        font-size: 3.6em;
+        margin-bottom: 10px;
     }
 
     .hero-content p {
-        font-size: 1.5em;
-        max-width: 100%;
+        font-size: 1.7em;
+        max-width: 90%;
     }
 
     .linha2 {
-        width: 40%;
+        width: 65%;
+        margin-top: 10px;
     }
-}
 
+    .hero-button {
+        align-self: flex-start;
+        text-align: center;
+        font-size: 1.4em;
+        padding: 14px 17px;
+        width: 100%;
+        /* Botão largo é melhor para o polegar no mobile */
+        max-width: 260px;
+    }
+
+}
 
 @media (max-width: 767px) {
 
     .hero-section {
-        height: 70vh !important;
-        margin-top: 0;
-        border-radius: 0;
+        /* svh ignora a variação da barra de endereços, travando o zoom */
+        height: 80svh !important;
+        min-height: 550px;
 
-        background-position: 75% center;
+        /* Força a imagem a ficar parada sem efeitos de paralaxe bugados */
+        background-attachment: scroll !important;
+        background-position: 80% center !important;
+        background-size: cover !important;
 
+        display: flex;
+        align-items: flex-end;
+        /* Conteúdo no rodapé */
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-overlay {
+        /* Gradiente mais denso na base para garantir leitura */
+        background: linear-gradient(to top,
+                rgba(0, 0, 0, 0.95) 0%,
+                rgba(0, 0, 0, 0.5) 45%,
+                transparent 100%) !important;
+    }
+
+    .hero-content {
+        width: 100%;
+        padding: 0 20px 40px;
+        /* Respiro no fundo */
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 5;
     }
 
     .hero-content h1 {
-        font-size: 2em;
+        font-size: 1.9em;
+        line-height: 1.1;
+        margin-bottom: 10px;
+        color: #FFFFFF;
     }
 
     .hero-content p {
-        font-size: 1.2em;
-        max-width: 100%;
-    }
-
-    .hero-button {
-        font-size: 1.1em;
-        padding: 10px 22px;
-        margin-bottom: 50px;
+        font-size: 1.05em;
+        max-width: 90%;
+        margin-bottom: 15px;
+        color: #f0f0f0;
     }
 
     .linha2 {
-        width: 40%;
+        width: 60%;
+    }
+
+    .hero-button {
+        width: 100%;
+        max-width: 220px;
+        align-self: center;
+        padding: 15px 20px;
+        font-size: 1.1em;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
 }
 
@@ -3352,35 +3442,64 @@ header.is-fixed {
 @media (max-width: 430px) {
 
     .hero-section {
-        height: 75vh !important;
-        margin-top: 0;
-        border-radius: 0;
+         height: 80svh !important;
+        min-height: 550px;
 
-        background-position: 80% center;
+        /* Força a imagem a ficar parada sem efeitos de paralaxe bugados */
+        background-attachment: scroll !important;
+        background-position: 80% center !important;
+        background-size: cover !important;
 
+        display: flex;
+        align-items: flex-end;
+        /* Conteúdo no rodapé */
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-overlay {
+        /* Gradiente que escurece de baixo para cima */
+        background: linear-gradient(to top,
+                rgba(0, 0, 0, 0.8) 0%,
+                rgba(0, 0, 0, 0.4) 40%,
+                transparent 100%) !important;
     }
 
     .hero-content {
-        margin-top: 5rem;
+        margin-top: 0;
+        padding: 0 20px 30px;
+        /* Respiro lateral e folga no fundo */
+        align-items: center;
+        /* Centraliza o texto para um look premium */
+        text-align: center;
+        width: 100%;
     }
 
     .hero-content h1 {
-        font-size: 2.2em;
-        line-height: 1.15;
+        font-size: 2em;
+        line-height: 1.1;
+        margin-bottom: 15px;
     }
 
     .hero-content p {
-        font-size: 1.1em;
-    }
-
-    .hero-button {
-        font-size: 1.15em;
-        padding: 12px 24px;
-        border-radius: 8px;
+        font-size: 1em;
+        max-width: 100%;
     }
 
     .linha2 {
-        width: 50%;
+        width: 65%;
+        /* Linha pequena e centralizada */
+        margin: 15px auto;
+    }
+
+     .hero-button {
+        width: 100%;
+        max-width: 220px;
+        align-self: center;
+        padding: 15px 20px;
+        font-size: 1.1em;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
 }
 
@@ -3388,28 +3507,130 @@ header.is-fixed {
 /* =============== 360px =============== */
 @media (max-width: 360px) {
     .hero-section {
-        top: 50px;
-        bottom: 50px;
+        height: 85vh !important;
+        /* Aumentamos um pouco para dar fôlego */
+        background-position: 80% center;
+
+        background-attachment: scroll !important;
+        background-size: cover !important;
+        height: 75vh !important;
+        min-height: 500px;
+        /* Foca no rosto dela no topo */
+        background-size: cover;
+        display: flex;
+        align-items: flex-end;
+        /* Joga o conteúdo para baixo */
+    }
+
+    .hero-overlay {
+        /* Gradiente que escurece de baixo para cima */
+        background: linear-gradient(to top,
+                rgba(0, 0, 0, 0.8) 0%,
+                rgba(0, 0, 0, 0.4) 40%,
+                transparent 100%) !important;
+    }
+
+    .hero-content {
+        margin-top: 0;
+        padding: 0 20px 40px;
+        /* Respiro lateral e folga no fundo */
+        align-items: center;
+        /* Centraliza o texto para um look premium */
+        text-align: center;
+        width: 100%;
     }
 
     .hero-content h1 {
         font-size: 2em;
+        line-height: 1.1;
+        margin-bottom: 15px;
     }
 
     .hero-content p {
         font-size: 1em;
-    }
-
-    .hero-button {
-        font-size: 1.1em;
-        padding: 10px 22px;
-        margin-bottom: 50px;
+        max-width: 100%;
     }
 
     .linha2 {
-        width: 55%;
+        width: 65%;
+        /* Linha pequena e centralizada */
+        margin: 15px auto;
+    }
+
+     .hero-button {
+        width: 100%;
+        max-width: 220px;
+        align-self: center;
+        padding: 15px 20px;
+        font-size: 1.1em;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
 }
+
+@media (max-width: 320px) {
+    .hero-section {
+        height: 100vh !important;
+        /* Aumentamos um pouco para dar fôlego */
+        background-position: 80% center;
+
+        background-attachment: scroll !important;
+        background-size: cover !important;
+        height: 75vh !important;
+        min-height: 500px;
+        /* Foca no rosto dela no topo */
+        background-size: cover;
+        display: flex;
+        align-items: flex-end;
+        /* Joga o conteúdo para baixo */
+    }
+
+    .hero-overlay {
+        /* Gradiente que escurece de baixo para cima */
+        background: linear-gradient(to top,
+                rgba(0, 0, 0, 0.8) 0%,
+                rgba(0, 0, 0, 0.4) 40%,
+                transparent 100%) !important;
+    }
+
+    .hero-content {
+        margin-top: 20px;
+        padding: 0 20px 40px;
+        /* Respiro lateral e folga no fundo */
+        align-items: center;
+        /* Centraliza o texto para um look premium */
+        text-align: center;
+        width: 100%;
+    }
+
+    .hero-content h1 {
+        font-size: 2em;
+        line-height: 1.1;
+        margin-bottom: 15px;
+    }
+
+    .hero-content p {
+        font-size: 1em;
+        max-width: 100%;
+        margin-bottom: 0;
+    }
+
+    .linha2 {
+        width: 65%;
+        /* Linha pequena e centralizada */
+        margin: 5px auto;
+    }
+ .hero-button {
+        width: 100%;
+        max-width: 220px;
+        align-self: center;
+        padding: 15px 20px;
+        font-size: 1.1em;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+}
+
 
 /* =================================================== */
 /* RESPONSIVIDADE - SEÇÃO TRATAMENTOS E MODAL          */
