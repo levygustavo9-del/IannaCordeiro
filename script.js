@@ -420,7 +420,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // --------------------------------------------------------------------------
-    // PARTE 8: DROPDOWN DE ESTRUTURA
+    // PARTE 8: DROPDOWN DE ESTRUTURA — OTIMIZADO PARA MOBILE
     // --------------------------------------------------------------------------
     const dropdowns = document.querySelectorAll(".dropdown-bloco");
 
@@ -428,11 +428,14 @@ document.addEventListener('DOMContentLoaded', function () {
         const titulo = bloco.querySelector(".dropdown-titulo");
 
         titulo.addEventListener("click", () => {
-            dropdowns.forEach(outro => {
-                if (outro !== bloco) outro.classList.remove("ativo");
-            });
+            // Batch updates com requestAnimationFrame para evitar reflow
+            requestAnimationFrame(() => {
+                dropdowns.forEach(outro => {
+                    if (outro !== bloco) outro.classList.remove("ativo");
+                });
 
-            bloco.classList.toggle("ativo");
+                bloco.classList.toggle("ativo");
+            });
         });
     });
 

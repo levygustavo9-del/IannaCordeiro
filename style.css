@@ -1344,8 +1344,8 @@ header.is-fixed {
 .procedure-card.horizontal {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    gap: 45px;
+    align-items: flex-start;
+    gap: 35px;
     max-width: 850px;
     background: var(--fundo);
     margin: 50px auto;
@@ -1354,7 +1354,9 @@ header.is-fixed {
     position: relative;
     border: 1px solid rgba(166, 116, 73, 0.1);
     box-shadow: 0 25px 60px rgba(74, 54, 34, 0.08);
+    min-height: auto;
 }
+
 
 /* Moldura Animada Sutil */
 .procedure-card.horizontal::before {
@@ -1432,11 +1434,14 @@ header.is-fixed {
 .procedure-description {
     font-family: var(--fonte-requisitados);
     /* Quicksand */
-    font-size: 1.05rem;
+    font-size: 1.15rem;
     color: var(--texto);
     line-height: 1.6;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     max-width: 450px;
+    max-height: 140px;
+    overflow-y: auto;
+    padding-right: 8px;
 }
 
 .btn-saiba-mais {
@@ -1681,7 +1686,7 @@ header.is-fixed {
     /* Libera o elemento do 'grude' do fundo */
     bottom: 0 !important;
     /* Reseta a posição padrão do Swiper */
-    margin-top: 20px !important;
+    margin-top: 10px !important;
     /* Agora sim, o margin vai funcionar e empurrar */
     width: 100% !important;
     display: block !important;
@@ -1766,9 +1771,12 @@ header.is-fixed {
 
     cursor: pointer;
     transition: transform .26s ease, box-shadow .35s ease, background .35s ease;
+
+    /* Otimizações de performance */
+    will-change: auto;
+    contain: layout style;
 }
 
-/* Hover mais clean e premium */
 .dropdown-bloco:hover {
     transform: translateY(-10px);
     box-shadow:
@@ -1787,7 +1795,6 @@ header.is-fixed {
 .dropdown-titulo {
     display: flex;
     justify-content: space-between;
-    /* empurra a seta para a direita */
     align-items: center;
     width: 100%;
 }
@@ -1798,6 +1805,7 @@ header.is-fixed {
     font-size: 2.2rem;
     opacity: 0.9;
     transition: transform .4s ease, opacity .3s ease;
+    will-change: transform;
 }
 
 .dropdown-bloco.ativo .seta {
@@ -1805,12 +1813,13 @@ header.is-fixed {
     opacity: 1;
 }
 
-/* Conteúdo */
+/* Conteúdo — Desktop com todas as animações */
 .dropdown-conteudo {
     max-height: 0;
     overflow: hidden;
     margin-top: 0;
     transition: max-height .48s ease;
+    will-change: max-height;
 }
 
 .dropdown-conteudo ul {
@@ -1828,7 +1837,7 @@ header.is-fixed {
     transition: opacity .42s ease, transform .42s ease;
 }
 
-/* Quando abrir */
+/* Quando abrir — Com animações completas */
 .dropdown-bloco.ativo .dropdown-conteudo {
     max-height: 600px;
     animation: slideFade .42s ease forwards;
@@ -1845,6 +1854,19 @@ header.is-fixed {
     left: -18px;
     color: var(--detalhes);
     font-size: 1.45rem;
+}
+
+/* Animação de deslizamento */
+@keyframes slideFade {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* =============================
@@ -2613,11 +2635,21 @@ header.is-fixed {
         /* Ocupa mais espaço na tela */
         gap: 30px;
         padding: 30px;
+        min-height: auto;
     }
 
     .procedure-title {
         font-size: 2.4rem;
         /* Redução leve para não quebrar linha */
+        line-height: 1.2;
+        margin-bottom: 15px;
+    }
+
+    .procedure-description {
+        font-size: 1.08rem;
+        line-height: 1.5;
+        margin-bottom: 15px;
+        max-height: 120px;
     }
 }
 
@@ -2673,15 +2705,13 @@ header.is-fixed {
         display: flex;
         flex-direction: row;
         /* Mantém horizontal como você pediu */
-        align-items: center;
+        align-items: flex-start;
         gap: 20px;
         /* Um pequeno espaço é vital para o vídeo não encostar no texto */
         padding: 25px;
         max-width: 850px;
         /* Mantém o tamanho do card */
         height: auto;
-        min-height: 380px;
-        /* Garante altura para o vídeo aparecer */
     }
 
     .procedure-showcase {
@@ -2715,14 +2745,11 @@ header.is-fixed {
     }
 
     .procedure-description {
-        font-size: 0.95rem;
+        font-size: 1.05rem;
         margin-bottom: 15px;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        /* Limita a 3 linhas para o card não crescer demais */
-        line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
+        line-height: 1.5;
+        max-height: 110px;
+        overflow-y: auto;
     }
 
     .btn-saiba-mais {
@@ -2799,9 +2826,7 @@ header.is-fixed {
         /* Reduzimos a largura para ele ficar mais centralizado e curto */
         margin: 0 auto;
         height: auto;
-        max-height: 560px;
-        /* Trava de segurança para não esticar demais */
-        overflow: hidden;
+        overflow: visible;
     }
 
     /* O Vídeo (Showcase) - Menor e mais proporcional */
@@ -2837,16 +2862,10 @@ header.is-fixed {
 
     .procedure-description {
         font-size: 0.9rem;
-        line-height: 1.4;
+        line-height: 1.5;
         margin-bottom: 15px;
-        /* Limita a 2 ou 3 linhas no máximo */
-        display: -webkit-box;
-        display: box;
-        -webkit-line-clamp: 2;
-        line-clamp: 2;
-        -webkit-box-orient: vertical;
-        box-orient: vertical;
-        overflow: hidden;
+        max-height: 90px;
+        overflow-y: auto;
     }
 
     .btn-saiba-mais {
@@ -2893,7 +2912,7 @@ header.is-fixed {
     }
 
     .button-swiper-pagination {
-        margin: 50px auto !important;
+        margin: 25px auto !important;
         transform: translateY(0%) scale(0.9);
     }
 }
@@ -2946,7 +2965,7 @@ header.is-fixed {
     }
 
     .button-swiper-pagination {
-        margin: 50px auto !important;
+        margin: 25px auto !important;
         transform: translateY(0%) scale(0.9);
     }
 }
@@ -3021,9 +3040,7 @@ header.is-fixed {
         /* Reduzimos a largura para ele ficar mais centralizado e curto */
         margin: 0 auto;
         height: auto;
-        max-height: 560px;
-        /* Trava de segurança para não esticar demais */
-        overflow: hidden;
+        overflow: visible;
     }
 
     /* O Vídeo (Showcase) - Menor e mais proporcional */
@@ -3059,16 +3076,10 @@ header.is-fixed {
 
     .procedure-description {
         font-size: 0.9rem;
-        line-height: 1.4;
+        line-height: 1.5;
         margin-bottom: 15px;
-        /* Limita a 2 ou 3 linhas no máximo */
-        display: -webkit-box;
-        display: box;
-        -webkit-line-clamp: 2;
-        line-clamp: 2;
-        -webkit-box-orient: vertical;
-        box-orient: vertical;
-        overflow: hidden;
+        max-height: 90px;
+        overflow-y: auto;
     }
 
     .btn-saiba-mais {
@@ -3168,9 +3179,7 @@ header.is-fixed {
         /* Reduzimos a largura para ele ficar mais centralizado e curto */
         margin: 0 auto;
         height: auto;
-        max-height: 560px;
-        /* Trava de segurança para não esticar demais */
-        overflow: hidden;
+        overflow: visible;
     }
 
     /* O Vídeo (Showcase) - Menor e mais proporcional */
@@ -3206,14 +3215,8 @@ header.is-fixed {
 
     .procedure-description {
         font-size: 0.9rem;
-        line-height: 1.4;
+        line-height: 1.6;
         margin-bottom: 15px;
-        /* Limita a 2 ou 3 linhas no máximo */
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
     }
 
     .btn-saiba-mais {
@@ -3443,7 +3446,7 @@ header.is-fixed {
 @media (max-width: 430px) {
 
     .hero-section {
-         height: 80svh !important;
+        height: 80svh !important;
         min-height: 550px;
 
         /* Força a imagem a ficar parada sem efeitos de paralaxe bugados */
@@ -3493,7 +3496,7 @@ header.is-fixed {
         margin: 15px auto;
     }
 
-     .hero-button {
+    .hero-button {
         width: 100%;
         max-width: 220px;
         align-self: center;
@@ -3558,7 +3561,7 @@ header.is-fixed {
         margin: 15px auto;
     }
 
-     .hero-button {
+    .hero-button {
         width: 100%;
         max-width: 220px;
         align-self: center;
@@ -3621,7 +3624,8 @@ header.is-fixed {
         /* Linha pequena e centralizada */
         margin: 5px auto;
     }
- .hero-button {
+
+    .hero-button {
         width: 100%;
         max-width: 220px;
         align-self: center;
@@ -4374,7 +4378,7 @@ header.is-fixed {
     }
 
     .button-swiper-pagination {
-        margin: 50px auto;
+        margin: 25px auto;
         transform: translateY(0%) scale(0.9);
     }
 }
@@ -4430,7 +4434,7 @@ header.is-fixed {
     }
 
     .button-swiper-pagination {
-        margin: 60px auto;
+        margin: 30px auto;
         transform: translateY(0%) scale(0.9);
     }
 }
@@ -4494,7 +4498,7 @@ header.is-fixed {
     }
 
     .button-swiper-pagination {
-        margin: 50px auto;
+        margin: 25px auto;
         transform: translateY(0%) scale(0.9);
     }
 }
@@ -4648,15 +4652,41 @@ header.is-fixed {
 
     .dropdown-bloco {
         padding: 20px;
+        /* Desativa will-change em mobile para poupar recursos */
+        will-change: auto;
+    }
+
+    .dropdown-bloco:hover {
+        transform: translateY(-4px);
     }
 
     .dropdown-titulo h3 {
         font-size: 1.6rem;
     }
 
+    /* Otimizações para mobile — Remove transforms dos items para evitar repaints */
+    .dropdown-conteudo {
+        transition: max-height .35s ease;
+    }
+
     .dropdown-conteudo li {
         font-size: 1rem;
         line-height: 1.6;
+
+        /* Remove transform em mobile para melhor performance */
+        opacity: 0;
+        transition: opacity .35s ease;
+        transform: none;
+    }
+
+    .dropdown-bloco.ativo .dropdown-conteudo {
+        max-height: 500px;
+        animation: slideFade .35s ease forwards;
+    }
+
+    .dropdown-bloco.ativo .dropdown-conteudo li {
+        opacity: 1;
+        transform: none;
     }
 
     .hero-slider {
@@ -4694,14 +4724,36 @@ header.is-fixed {
     .dropdown-bloco {
         padding: 18px;
         border-radius: 12px;
+        /* Animações mais rápidas em móvel pequeno */
+        transition: transform .2s ease, box-shadow .25s ease;
+    }
+
+    .dropdown-bloco:hover {
+        transform: translateY(-3px);
     }
 
     .dropdown-titulo h3 {
         font-size: 1.3rem;
     }
 
+    /* Otimizações para telas pequenas — Animações mais diretas */
+    .dropdown-conteudo {
+        transition: max-height .3s ease;
+    }
+
     .dropdown-conteudo li {
         font-size: 0.95rem;
+        opacity: 0;
+        transition: opacity .3s ease;
+        transform: none;
+    }
+
+    .dropdown-bloco.ativo .dropdown-conteudo {
+        max-height: 450px;
+    }
+
+    .dropdown-bloco.ativo .dropdown-conteudo li {
+        opacity: 1;
     }
 
     .hero-slider {
@@ -4734,14 +4786,35 @@ header.is-fixed {
 
     .dropdown-bloco {
         padding: 16px;
+        transition: transform .18s ease, box-shadow .2s ease;
+    }
+
+    .dropdown-bloco:hover {
+        transform: translateY(-2px);
     }
 
     .dropdown-titulo h3 {
         font-size: 1.15rem;
     }
 
+    /* Animações super otimizadas para telas pequenas */
+    .dropdown-conteudo {
+        transition: max-height .3s ease;
+    }
+
     .dropdown-conteudo li {
         font-size: 0.85rem;
+        opacity: 0;
+        transition: opacity .3s ease;
+        transform: none;
+    }
+
+    .dropdown-bloco.ativo .dropdown-conteudo {
+        max-height: 400px;
+    }
+
+    .dropdown-bloco.ativo .dropdown-conteudo li {
+        opacity: 1;
     }
 
     .hero-slider {
