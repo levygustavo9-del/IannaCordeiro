@@ -4664,24 +4664,25 @@ header.is-fixed {
         font-size: 1.6rem;
     }
 
-    /* Otimizações para mobile — Remove transforms dos items para evitar repaints */
+    /* Desativa TODAS as animações do dropdown APENAS no mobile */
     .dropdown-conteudo {
-        transition: max-height .35s ease;
+        transition: none; /* Remove transição */
+        max-height: 0;
+        overflow: hidden;
     }
 
     .dropdown-conteudo li {
         font-size: 1rem;
         line-height: 1.6;
-
-        /* Remove transform em mobile para melhor performance */
-        opacity: 0;
-        transition: opacity .35s ease;
+        opacity: 1; /* Mostra items direto sem fade */
+        transition: none; /* Remove transição */
         transform: none;
     }
 
+    /* Abre/fecha instantaneamente no mobile */
     .dropdown-bloco.ativo .dropdown-conteudo {
         max-height: 500px;
-        animation: slideFade .35s ease forwards;
+        animation: none; /* Remove animação slideFade */
     }
 
     .dropdown-bloco.ativo .dropdown-conteudo li {
@@ -4736,20 +4737,23 @@ header.is-fixed {
         font-size: 1.3rem;
     }
 
-    /* Otimizações para telas pequenas — Animações mais diretas */
+    /* Desativa TODAS as animações do dropdown em telas pequenas também */
     .dropdown-conteudo {
-        transition: max-height .3s ease;
+        transition: none; /* Remove transição */
+        max-height: 0;
+        overflow: hidden;
     }
 
     .dropdown-conteudo li {
         font-size: 0.95rem;
-        opacity: 0;
-        transition: opacity .3s ease;
+        opacity: 1; /* Mostra direto */
+        transition: none; /* Remove transição */
         transform: none;
     }
 
     .dropdown-bloco.ativo .dropdown-conteudo {
         max-height: 450px;
+        animation: none; /* Remove animação */
     }
 
     .dropdown-bloco.ativo .dropdown-conteudo li {
@@ -4797,20 +4801,23 @@ header.is-fixed {
         font-size: 1.15rem;
     }
 
-    /* Animações super otimizadas para telas pequenas */
+    /* Desativa TODAS as animações do dropdown em telas bem pequenas */
     .dropdown-conteudo {
-        transition: max-height .3s ease;
+        transition: none; /* Remove transição */
+        max-height: 0;
+        overflow: hidden;
     }
 
     .dropdown-conteudo li {
         font-size: 0.85rem;
-        opacity: 0;
-        transition: opacity .3s ease;
+        opacity: 1; /* Mostra direto */
+        transition: none; /* Remove transição */
         transform: none;
     }
 
     .dropdown-bloco.ativo .dropdown-conteudo {
         max-height: 400px;
+        animation: none; /* Remove animação */
     }
 
     .dropdown-bloco.ativo .dropdown-conteudo li {
