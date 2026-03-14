@@ -619,7 +619,7 @@ header.is-fixed {
     display: flex;
     align-items: center;
 
-    background-image: url("imgs/ianna-hero-background.png");
+    background-image: url("./imgs/ianna-hero-background.webp");
     background-size: cover;
     background-position: right center;
     background-repeat: no-repeat;
@@ -2067,7 +2067,7 @@ header.is-fixed {
 }
 
 .info-local p {
-    margin-top: 20px;
+    margin-top: 10px;
     text-align: center;
 
 }
@@ -4666,7 +4666,8 @@ header.is-fixed {
 
     /* Desativa TODAS as animações do dropdown APENAS no mobile */
     .dropdown-conteudo {
-        transition: none; /* Remove transição */
+        transition: none;
+        /* Remove transição */
         max-height: 0;
         overflow: hidden;
     }
@@ -4674,15 +4675,18 @@ header.is-fixed {
     .dropdown-conteudo li {
         font-size: 1rem;
         line-height: 1.6;
-        opacity: 1; /* Mostra items direto sem fade */
-        transition: none; /* Remove transição */
+        opacity: 1;
+        /* Mostra items direto sem fade */
+        transition: none;
+        /* Remove transição */
         transform: none;
     }
 
     /* Abre/fecha instantaneamente no mobile */
     .dropdown-bloco.ativo .dropdown-conteudo {
         max-height: 500px;
-        animation: none; /* Remove animação slideFade */
+        animation: none;
+        /* Remove animação slideFade */
     }
 
     .dropdown-bloco.ativo .dropdown-conteudo li {
@@ -4739,21 +4743,25 @@ header.is-fixed {
 
     /* Desativa TODAS as animações do dropdown em telas pequenas também */
     .dropdown-conteudo {
-        transition: none; /* Remove transição */
+        transition: none;
+        /* Remove transição */
         max-height: 0;
         overflow: hidden;
     }
 
     .dropdown-conteudo li {
         font-size: 0.95rem;
-        opacity: 1; /* Mostra direto */
-        transition: none; /* Remove transição */
+        opacity: 1;
+        /* Mostra direto */
+        transition: none;
+        /* Remove transição */
         transform: none;
     }
 
     .dropdown-bloco.ativo .dropdown-conteudo {
         max-height: 450px;
-        animation: none; /* Remove animação */
+        animation: none;
+        /* Remove animação */
     }
 
     .dropdown-bloco.ativo .dropdown-conteudo li {
@@ -4803,21 +4811,25 @@ header.is-fixed {
 
     /* Desativa TODAS as animações do dropdown em telas bem pequenas */
     .dropdown-conteudo {
-        transition: none; /* Remove transição */
+        transition: none;
+        /* Remove transição */
         max-height: 0;
         overflow: hidden;
     }
 
     .dropdown-conteudo li {
         font-size: 0.85rem;
-        opacity: 1; /* Mostra direto */
-        transition: none; /* Remove transição */
+        opacity: 1;
+        /* Mostra direto */
+        transition: none;
+        /* Remove transição */
         transform: none;
     }
 
     .dropdown-bloco.ativo .dropdown-conteudo {
         max-height: 400px;
-        animation: none; /* Remove animação */
+        animation: none;
+        /* Remove animação */
     }
 
     .dropdown-bloco.ativo .dropdown-conteudo li {
@@ -4932,7 +4944,7 @@ header.is-fixed {
     }
 
     .info-local {
-        padding: 0;
+        padding: 10px 0;
         height: auto;
         line-height: 2em;
     }
@@ -4989,7 +5001,7 @@ header.is-fixed {
     }
 
     .info-local {
-        padding: 0;
+        padding: 10px 0;
         height: auto;
         border-radius: 14px;
     }
@@ -5046,7 +5058,7 @@ header.is-fixed {
     }
 
     .info-local {
-        padding: 0px;
+        padding: 10px 0;
         line-height: 1.9em;
     }
 
