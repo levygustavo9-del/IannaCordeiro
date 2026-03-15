@@ -42,22 +42,8 @@ if (btn && menu) {
 // ==========================================================
 document.addEventListener('DOMContentLoaded', function () {
 
-    // --- FUNÇÃO GLOBAL DE PAUSA DE VÍDEOS (YOUTUBE API) ---
-    function pauseAllVideos() {
-        const iframes = document.querySelectorAll('.procedure-video iframe');
-        iframes.forEach(iframe => {
-            if (iframe && iframe.contentWindow) {
-                iframe.contentWindow.postMessage(JSON.stringify({
-                    event: 'command',
-                    func: 'pauseVideo',
-                    args: ''
-                }), '*');
-            }
-        });
-    }
-
     // ==========================================================
-    // PARTE 1: LÓGICA DO MODAL (DETALHES)
+    // PARTE 2: ATIVAÇÃO DOS SWIPERS E VÍDEOS (OTIMIZADO)
     // ==========================================================
     const detailButtons = document.querySelectorAll('.details-button');
     detailButtons.forEach(button => {
@@ -91,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // ==========================================================
-    // PARTE 2: ATIVAÇÃO DOS SWIPERS E VÍDEOS
+    // PARTE 2: ATIVAÇÃO DOS SWIPERS E VÍDEOS (OTIMIZADO)
     // ==========================================================
     const depoimentosSwiper = new Swiper('.depoimentos-slider', {
         slidesPerView: 1,
@@ -102,30 +88,42 @@ document.addEventListener('DOMContentLoaded', function () {
         navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
     });
 
-    const videoContainers = document.querySelectorAll('.procedure-video');
-    videoContainers.forEach(container => {
+    // Pausa vídeos quando forem da tela
+    const pauseAllVideos = () => {
+        document.querySelectorAll('.procedure-video iframe').forEach(iframe => {
+            if (iframe?.contentWindow) {
+                iframe.contentWindow.postMessage(JSON.stringify({
+                    event: 'command',
+                    func: 'pauseVideo',
+                    args: ''
+                }), '*');
+            }
+        });
+    };
+
+    // Carrega vídeo ao clicar (lazy load)
+    document.querySelectorAll('.procedure-video').forEach(container => {
         container.addEventListener('click', function () {
             if (this.querySelector('iframe')) return;
-
             const videoId = this.getAttribute('data-video');
-            this.innerHTML = `
-                <iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen></iframe>`;
+            this.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
         });
     });
 
-    const videoObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (!entry.isIntersecting) {
-                pauseAllVideos();
-            }
-        });
-    }, { threshold: 0.1 });
-
     const proceduresSection = document.querySelector('.procedures-section');
-    if (proceduresSection) videoObserver.observe(proceduresSection);
+    if (proceduresSection) {
+        // Observer para pausar vídeos quando sair da viewport
+        new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) pauseAllVideos();
+            });
+        }, { threshold: 0.1 }).observe(proceduresSection);
+
+        // Pausa quando documento fica hidden
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) pauseAllVideos();
+        });
+    }
 
     // Localize a parte do "Antes e Depois" no seu código e use esta lógica:
     document.querySelectorAll('.image-comparison-container').forEach(container => {
@@ -202,32 +200,25 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // --- SWIPER DECK ---
+    // --- SWIPER DECK (OTIMIZADO - Removido watchSlidesProgress) ---
     const treatmentsDeck = new Swiper('.treatments-deck-slider', {
         loop: true,
         grabCursor: true,
         centeredSlides: true,
         slidesPerView: 'auto',
-        watchSlidesProgress: true,
-        slideToClickedSlide: true, // 👈 IMPORTANTE
+        slideToClickedSlide: true,
         effect: 'creative',
-        spaceBetween: 0,           // Espaço entre os cards sem quebrar o layout
-
-        // Adicione isso para garantir que o toque no iPhone seja fluido
+        spaceBetween: 0,
         touchEventsTarget: 'container',
         resistanceRatio: 0,
-
         navigation: {
             nextEl: '.button-swiper-next',
             prevEl: '.button-swiper-prev',
         },
-
-
         pagination: {
             el: '.swiper-pagination',
             clickable: true,
         },
-
         creativeEffect: {
             perspective: true,
             limitProgress: 2,
@@ -249,6 +240,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let proceduresSwiper;
 
     if (proceduresSection) {
+        // Swiper otimizado - Removidos observer, observeParents, resizeObserver (melhor performance)
         proceduresSwiper = new Swiper('.procedures-slider', {
             slidesPerView: 'auto',
             centeredSlides: true,
@@ -257,10 +249,6 @@ document.addEventListener('DOMContentLoaded', function () {
             loop: false,
             centeredSlidesBounds: true,
             centerInsufficientSlides: true,
-            watchSlidesProgress: true,
-            observer: true,
-            observeParents: true,
-            resizeObserver: true,
             navigation: {
                 nextEl: '.button-swiper-next',
                 prevEl: '.button-swiper-prev'
@@ -290,11 +278,11 @@ document.addEventListener('DOMContentLoaded', function () {
             proceduresSection.classList.remove('swiper-dragging');
         });
 
-        document.addEventListener('visibilitychange', () => {
+        // Garante pausa ao trocar aba/janela
+        const handleVisibilityChange = () => {
             if (document.hidden) pauseAllVideos();
-        });
-
-        videoObserver.observe(proceduresSection);
+        };
+        document.addEventListener('visibilitychange', handleVisibilityChange);
 
         const procedureLinks = document.querySelectorAll('.procedures-dropdown a, .menu-mobile a[data-slide-index]');
 
@@ -336,38 +324,67 @@ document.addEventListener('DOMContentLoaded', function () {
         goToSlideFromHash();
     }
 
-    // --- SWIPER DA GALERIA DE ESTRUTURA ---
+    // --- SWIPER DA GALERIA DE ESTRUTURA (OTIMIZADO - Transição suave e lenta) ---
     const estruturaGallery = new Swiper('.gallery-display', {
         loop: true,
         autoplay: {
-            delay: 2000,
+            delay: 5000,
             disableOnInteraction: false
         },
-        speed: 1200,
-        effect: 'fade',
-        fadeEffect: { crossFade: true },
+        speed: 2500,
+        effect: 'slide',
         pagination: {
             el: '.swiper-pagination-estrutura',
             clickable: true
         }
     });
 
-    // --- HERO SLIDER (FADE SUAVE) ---
-    const heroSlides = document.querySelectorAll(".hero-slider .slide-item");
-    let heroIndex = 0;
+    // --- HERO SLIDER DO HERO-SECTION (CSS ANIMATION) ---
+    const heroSection = document.querySelector('.hero-section');
+    const heroSectionSlides = heroSection ? heroSection.querySelectorAll(".hero-slider .slide-item") : [];
+    if (heroSectionSlides.length > 0) {
+        const slideCount = heroSectionSlides.length;
+        const duration = slideCount * 4;
+        const styles = document.createElement('style');
 
-    function showHeroSlide(index) {
-        heroSlides.forEach((slide, i) => {
-            slide.classList.toggle("active", i === index);
+        let keyframes = '@keyframes heroFade { ';
+        heroSectionSlides.forEach((_, i) => {
+            const startPercent = (i / slideCount) * 100;
+            const midPercent = ((i + 0.5) / slideCount) * 100;
+            const endPercent = ((i + 1) / slideCount) * 100;
+
+           
         });
+        keyframes += '}';
+
+        styles.textContent = keyframes + ` .hero-section .hero-slider .slide-item { animation: heroFade ${duration}s infinite; }`;
+        document.head.appendChild(styles);
+
+        heroSectionSlides[0].classList.add('active');
     }
 
-    showHeroSlide(heroIndex);
+    // --- SLIDER DE ESTRUTURA (SLIDE SUAVE - SEM FADE) ---
+    const estruturaSection = document.querySelector('.estrutura-section');
+    const estruturaSlides = estruturaSection ? estruturaSection.querySelectorAll(".hero-slider .slide-item") : [];
+    if (estruturaSlides.length > 0) {
+        let currentSlide = 0;
+        const slideCount = estruturaSlides.length;
 
-    setInterval(() => {
-        heroIndex = (heroIndex + 1) % heroSlides.length;
-        showHeroSlide(heroIndex);
-    }, 4000);
+        const showSlide = (index) => {
+            estruturaSlides.forEach((slide, i) => {
+                slide.style.opacity = i === index ? '1' : '0';
+                slide.style.transition = 'opacity 2.5s ease-in-out';
+            });
+        };
+
+        showSlide(0);
+
+        // Muda de slide a cada 5 segundos
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % slideCount;
+            showSlide(currentSlide);
+        }, 5500);
+    }
 
     // --------------------------------------------------------------------------
     // PARTE 4: SLIDER ANTES E DEPOIS
@@ -401,8 +418,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         updateSlider(slider.value);
     }
-
-    document.querySelectorAll('.image-comparison-container').forEach(setupImageComparison);
 
     // --------------------------------------------------------------------------
     // PARTE 5: ACCORDION
